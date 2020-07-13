@@ -18,16 +18,14 @@ class CreateReservasTable extends Migration
             $table->date('fecha');
             $table->time('hora_inicio');
             $table->time('hora_fin');
-            $table->unsignedInteger('estado_id')->nullable();
-
             $table->unsignedBigInteger('cancha_id');
             $table->foreign('cancha_id')->references('id')->on('canchas')->onDelete('cascade');
-
+            $table->unsignedBigInteger('complejo_id');
+            $table->foreign('complejo_id')->references('id')->on('complejos')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            
-            
+            $table->unsignedSmallInteger('status')->default(0);
+            $table->float('total');  
             $table->timestamps();
         });
     }
