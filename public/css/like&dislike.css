@@ -1,0 +1,15 @@
+.like{
+    font-size: 20px;
+}
+.like:hover{
+    content: "Reference: ";
+}
+.puntero:hover{
+    color: #de0000;
+}
+.dislike{
+    font-size: 20px;
+}
+.nomegusta{
+    color: #de0000;
+}

@@ -1,0 +1,100 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Illuminate\Http\Request;
+use App\Cancha;
+use App\User;
+use App\Reserva;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Auth;
+use Carbon\Carbon;
+
+class AdminController extends Controller
+{
+    
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(User $user)
+    {
+          /* $this->authorize($user->hasPermissionTo('Primer Acceso')); */  
+    $usuarioauth = Auth()->user()->id;
+
+
+    $reservas = DB::table('reservas')
+        ->join('canchas','canchas.id','=','reservas.cancha_id')
+        ->join('users','reservas.user_id','=','users.id')
+        ->select(
+            'users.name','reservas.id','reservas.fecha','reservas.hora_inicio',
+            'reservas.hora_fin','canchas.nombre','canchas.descripcion','canchas.precio',
+            'canchas.complejo_id','reservas.user_id','reservas.created_at'
+            )
+        ->whereDay('reservas.created_at', Carbon::now()->format('d'))
+        ->where('canchas.user_id', '=',$usuarioauth)->orderby('created_at','DESC')
+        ->get();
+
+     $totalReservas = DB::table('reservas')
+        ->join('canchas','canchas.id','=','reservas.cancha_id')
+        ->select('canchas.precio')
+        ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio'); 
+
+    $totalReservasMes = DB::table('reservas')
+        ->join('canchas','canchas.id','=','reservas.cancha_id')
+        ->select('canchas.precio')
+        ->whereMonth('reservas.created_at', Carbon::now()->format('m'))
+        ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio');
+
+    $totalReservasMesPasado = DB::table('reservas')
+        ->join('canchas','canchas.id','=','reservas.cancha_id')
+        ->select('canchas.precio')
+        ->whereMonth('reservas.created_at', Carbon::now()->format('m') -1)
+        ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio');
+
+    Carbon::setWeekStartsAt(Carbon::MONDAY);
+    Carbon::setWeekEndsAt(Carbon::SUNDAY);
+
+    $totalReservasSemana = DB::table('reservas')
+        ->join('canchas','canchas.id','=','reservas.cancha_id')
+        ->select('canchas.precio')
+        ->whereBetween('reservas.created_at', [ Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+        ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio');
+
+    $totalReservasDia = DB::table('reservas')
+        ->join('canchas','canchas.id','=','reservas.cancha_id')
+        ->select('canchas.precio')
+        ->whereDay('reservas.created_at', Carbon::now()->format('d'))
+        ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio');
+
+        /* $reservas = Auth::user()->id ===  ; */
+    
+        /* $reservas = Reserva::where($cancha,auth()->id())->get();  */
+
+        return view('admin.dashboard',compact(  'reservas',
+                                                'totalReservas',
+                                                'totalReservasMes',
+                                                'totalReservasMesPasado',
+                                                'totalReservasSemana',
+                                                'totalReservasDia')
+                                            );
+    }
+
+
+    public function grafico()
+    {
+
+    $usuarioauth = Auth()->user()->id;
+
+    $totalReservas = DB::table('reservas')
+        ->join('canchas','canchas.id','=','reservas.cancha_id')
+        ->select('canchas.precio')
+        ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio');
+
+
+        return view('admin.ganancias.grafico',compact('totalReservas'));
+    }
+}
