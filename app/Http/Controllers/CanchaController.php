@@ -12,8 +12,12 @@ class CanchaController extends Controller
 {
     public function show(Cancha $cancha)
     {
+        
+
         if($cancha->isPublished() || auth()->check())
         {
+        
+
             $id = $cancha->id;
             $visitas = Cancha::find($id);
             
