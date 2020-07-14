@@ -46,7 +46,7 @@
           @endif
         </span>      
 
-        <a class="text-center" style="color: tomato">${{number_format($cancha->precio)}}</a>
+        <a class="text-center" style="color: tomato">${{number_format($cancha->precio,0, ',', '.')}}</a>
         
         <footer class="container-flex space-between">
           <div class="read-more">
