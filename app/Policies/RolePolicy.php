@@ -63,6 +63,7 @@ class RolePolicy
      */
     public function update(User $user, Role $role)
     {
+        
         return $user->hasRole('Admin') || $user->hasPermissionTo('Update Roles');
     }
 
