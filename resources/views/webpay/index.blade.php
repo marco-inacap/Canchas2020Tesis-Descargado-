@@ -1,11 +1,10 @@
 @extends('layout')
 
 @section('content')
-
 <section class="pages container">
     <div class="page page-contact">
         <h1 class="text">Reserva</h1>
-        <p>Detalles de la reserva</p>
+        <p>Detalles de la reserva para la cancha {{$canchas->nombre}}</p>
         <div class="divider-2" style="margin:25px 0;"></div>
         <div class="form-contact">
             <section class="invoice">
@@ -44,7 +43,7 @@
                   <!-- /.col -->
                   <div class="col-sm-4 invoice-col">
                     <br>
-                    <b>Nº de orden:</b> {{$buyOrder}}<br>
+                    <b>Nº de orden:</b> {{$db_transaction->buy_order}}<br>
                   </div>
                   <!-- /.col -->
                 </div>
@@ -70,26 +69,16 @@
                         <td>{{Carbon\Carbon::parse($ultimareserva->hora_fin)->isoFormat('HH:mm')}}</td>
                         <td>{{Carbon\Carbon::parse($ultimareserva->fecha)->isoFormat('D - MMMM - YYYY')}}</td>   --}}
                       <tbody>
-                    @foreach ($reservas as $reserva)
                       <tr>
                           <td>{{ $reserva->id}}</td>
                           <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MM - YYYY')}}</td>              
                           <td>{{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm a')}}</td>
                           <td>{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm a')}}</td>
-                          <td>{{ $reserva->nombre}}</td>
+                          <td>{{ $reserva->cancha->nombre}}</td>
                           <td>{{ $reserva->cancha->complejo->nombre}}</td>
                           <td>{{auth()->user()->name }}</td>
-                          <td>${{ $reserva->precio}}</td>
-                          <td>
-                              
-                            {{--  <a href="{{route('admin.horarios.edit', $horario->id)}}" class="btn-xs btn-info"><i class="fa fa-pencil"></i></a> --}}
-                              {{-- <form method="POST" action="{{route('admin.canchas.destroy', $cancha)}}" style="display: inline">
-                              {{csrf_field()}} {{  method_field('DELETE')}} 
-                              <button  class="btn-xs btn-danger" onclick="return confirm('¿Estas seguro de eliminar esta cancha?')"><i class="fa fa-times"></i></button>
-                              </form> --}}
-                          </td> 
+                          <td>${{ number_format($reserva->total, 0, ',', '.') }}</td>            
                       </tr> 
-                    @endforeach
                       </tbody>
                     </table>
                   </div>
@@ -116,11 +105,11 @@
                       <table class="table">
                         <tr>
                           <th style="width:50%">Subtotal:</th>
-                          <td>$ {{ $reserva->precio}}</td>
+                          <td>${{ number_format($reserva->total, 0, ',', '.') }}</td>
                         </tr>      
                         <tr>
                           <th>Total:</th>
-                          <td>$ {{ $reserva->precio + 2000}}</td>
+                          <td>${{ number_format($reserva->total, 0, ',', '.') }}</td>
                         </tr>
                       </table>
                     </div>
@@ -138,10 +127,10 @@
                     </button>
                   </div>
                   <div class="col-md-6">
-                    <form method="POST" action="{{$response->url}}">
+                    <form action="{{$response->url}}" method="post">
                       @csrf
                       <input type="hidden" name="token_ws" value="{{$response->token}}">
-                    <button target="_blank" class="btn btn-default"><i class="fa fa-print"></i> PAGAR</button>
+                      <button target="_blank" class="btn btn-default"><i class="fa fa-print"></i> PAGAR</button>
                     </form>
                   </div>
                 </div>
