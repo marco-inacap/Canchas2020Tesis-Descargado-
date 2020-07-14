@@ -138,9 +138,9 @@
                     </button>
                   </div>
                   <div class="col-md-6">
-                    <form method="POST" action="{{$formAction}}">
+                    <form method="POST" action="{{$response->url}}">
                       @csrf
-                      <input type="hidden" name="token_ws" value="{{$tokenWs}}">
+                      <input type="hidden" name="token_ws" value="{{$response->token}}">
                     <button target="_blank" class="btn btn-default"><i class="fa fa-print"></i> PAGAR</button>
                     </form>
                   </div>
