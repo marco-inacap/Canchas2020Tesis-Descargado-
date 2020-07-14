@@ -42,7 +42,7 @@
 					<span class="text-warning" style="font-size: 20px">{{$cancha->estado->nombre}}</span>
 					@endif
 				</span>
-				<h1 class="text-center" style="color: tomato">${{number_format($cancha->precio)}}</h1>
+				<h1 class="text-center" style="color: tomato">${{number_format($cancha->precio,0, ',', '.')}}</h1>
 				<footer class="container-flex space-between">
 					<div class="read-more">
 						<a href="{{	route('canchas.show',$cancha)}}" class="text-uppercase c-green">Ver mas</a>
