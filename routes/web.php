@@ -96,7 +96,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/complejos/inicio/{cancha}/reserva/index', 'ReservaCanchaController@init_webpay')->name('pago.index');  
         Route::post('/webpayplus/return/', 'ReservaCanchaController@return_webpay')->name('webpay.return');
-        Route::post('/webpayplus/final/', 'ReservaCanchaController@final')->name('webpay.final');
+        Route::post('/webpayplus/final/', 'ReservaCanchaController@final_webpay')->name('webpay.final');
 });
 
 
