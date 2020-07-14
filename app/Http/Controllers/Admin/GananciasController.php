@@ -34,7 +34,7 @@ class GananciasController extends Controller
             ->select('canchas.precio')
             ->where('canchas.complejo_id', '=', $id)->sum('canchas.precio');
     
-        return view('admin.ganancias.index',compact('complejos','reservas','totalReservas'));
+        return view('admin.ganancias.index',compact('complejos','totalReservas'));
     }
 
     public function ganancias_canchas(Complejo $complejo)
@@ -68,7 +68,9 @@ class GananciasController extends Controller
         $usuarioauth = Auth()->user()->id;
 
         $canchas = Cancha::where('user_id',auth()->id())->get(); 
-
+        
+        
+        
 
 
         /* $totalReservas = DB::table('reservas')
@@ -76,7 +78,7 @@ class GananciasController extends Controller
             ->select('canchas.precio','reservas.created_at')
             ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio')->orderby('created_at','ASC')->get(); */
 
-      
+    
 
         return response(json_encode($canchas),200)->header('content-type','text/plain');
     }
