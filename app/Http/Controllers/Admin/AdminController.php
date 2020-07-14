@@ -40,35 +40,35 @@ class AdminController extends Controller
 
      $totalReservas = DB::table('reservas')
         ->join('canchas','canchas.id','=','reservas.cancha_id')
-        ->select('canchas.precio')
-        ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio'); 
+        ->select('reservas.total')
+        ->where('canchas.user_id', '=',$usuarioauth)->sum('reservas.total'); 
 
     $totalReservasMes = DB::table('reservas')
         ->join('canchas','canchas.id','=','reservas.cancha_id')
-        ->select('canchas.precio')
+        ->select('reservas.total')
         ->whereMonth('reservas.created_at', Carbon::now()->format('m'))
-        ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio');
+        ->where('canchas.user_id', '=',$usuarioauth)->sum('reservas.total');
 
     $totalReservasMesPasado = DB::table('reservas')
         ->join('canchas','canchas.id','=','reservas.cancha_id')
-        ->select('canchas.precio')
+        ->select('reservas.total')
         ->whereMonth('reservas.created_at', Carbon::now()->format('m') -1)
-        ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio');
+        ->where('canchas.user_id', '=',$usuarioauth)->sum('reservas.total');
 
     Carbon::setWeekStartsAt(Carbon::MONDAY);
     Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
     $totalReservasSemana = DB::table('reservas')
         ->join('canchas','canchas.id','=','reservas.cancha_id')
-        ->select('canchas.precio')
+        ->select('reservas.total')
         ->whereBetween('reservas.created_at', [ Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-        ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio');
+        ->where('canchas.user_id', '=',$usuarioauth)->sum('reservas.total');
 
     $totalReservasDia = DB::table('reservas')
         ->join('canchas','canchas.id','=','reservas.cancha_id')
-        ->select('canchas.precio')
+        ->select('reservas.total')
         ->whereDay('reservas.created_at', Carbon::now()->format('d'))
-        ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio');
+        ->where('canchas.user_id', '=',$usuarioauth)->sum('reservas.total');
 
         /* $reservas = Auth::user()->id ===  ; */
     
@@ -86,7 +86,6 @@ class AdminController extends Controller
 
     public function grafico()
     {
-
     $usuarioauth = Auth()->user()->id;
 
     $totalReservas = DB::table('reservas')
