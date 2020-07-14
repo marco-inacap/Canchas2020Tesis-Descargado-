@@ -17,16 +17,17 @@ class Photo extends Model
 
             $photo = str_replace('storage/' , '' , $photo->url );
             Storage::disk('public')->delete($photo);
-              
+            
             /* Storage::disk('public')->delete($photo->url);   */ 
 
-             /* $photoPath = str_replace('storage',  $photo->url); 
+            /* $photoPath = str_replace('storage',  $photo->url); 
 
         Storage::delete($photoPath); */
 
         });
+
+        
         
     }
- 
     
 }
