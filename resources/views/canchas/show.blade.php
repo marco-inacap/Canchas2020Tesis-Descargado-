@@ -56,11 +56,11 @@
           </div>
           
           <div class="buttons-social-media-share">
-            <ul class="share-buttons">
+             <ul class="share-buttons">
               <li><a href="https://www.facebook.com/sharer.php?u={{ request()->fullUrl()}}&t={{$cancha->nombre}}" title="Compartir en Facebook" target="_blank"><img alt="Share on Facebook" src="/img/flat_web_icon_set/Facebook.png"></a></li>
               <li><a href="https://twitter.com/intent/tweet?url={{ request()->fullUrl()}}&text={{$cancha->nombre}}&i={{$cancha->photo->url}}&via=SuCancha&hashtags=canchas" target="_blank" title="Tweet"><img alt="Tweet" src="/img/flat_web_icon_set/Twitter.png"></a></li>  
               <li><a href="https://api.whatsapp.com/send?text={{$cancha->nombre}}%20{{request()->fullUrl()}}" target="_blank" title="Tweet"><img alt="Tweet" src="/img/flat_web_icon_set/whatsapp.png"></a></li>          
-            </ul>
+            </ul> 
           </div>
           <div class="footer">
             @if (! $cancha->liked)
