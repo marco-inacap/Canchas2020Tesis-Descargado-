@@ -36,7 +36,7 @@
         <div class="box box-primary">
             <div class="box-header with-border"></div>
             <h3 class="box-title">Canchas</h3>
-            <div class="box-body">    
+            {{-- <div class="box-body">    
                 @forelse ($user->canchas as $cancha)
                 <a href="{{route('canchas.show',$cancha)}}" target="_blank">
                     <strong>{{$cancha->nombre}}</strong>
@@ -51,7 +51,7 @@
                      @empty
                      <small class="text-muted">No tienes canchas aún :( !</small>
                 @endforelse
-            </div> 
+            </div>  --}}
         </div>
     </div>
     <div class="col-md-3">
