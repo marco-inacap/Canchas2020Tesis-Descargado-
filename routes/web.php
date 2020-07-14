@@ -94,12 +94,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('canchas/{cancha}/dislike', 'CanchaController@dislike')->name('canchas.dislike');
         Route::get('canchas/{cancha}/undislike', 'CanchaController@undislike')->name('canchas.undislike');
 
-        Route::get('/complejos/inicio/{cancha}/reserva/index', 'PagoReservaController@index')->name('pago.index');
-       
-        Route::post('reserva/index/{reserva}/pago', 'PagoReservaController@pago')->name('webpay.pagar');
-        
-        Route::post('return', 'PagoReservaController@return')->name('webpay.return');
-        Route::post('final', 'PagoReservaController@final')->name('webpay.final');
+        Route::get('/complejos/inicio/{cancha}/reserva/index', 'ReservaCanchaController@init_webpay')->name('pago.index');  
+        Route::post('/webpayplus/return/', 'ReservaCanchaController@return_webpay')->name('webpay.return');
+        Route::post('/webpayplus/final/', 'ReservaCanchaController@final')->name('webpay.final');
 });
 
 
