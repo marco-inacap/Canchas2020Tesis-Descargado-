@@ -9,10 +9,31 @@ use App\Estado;
 use App\User;
 use App\Reserva;
 use App\Horario;
+use App\Transaction;
+use Transbank\Webpay\Configuration;
+use Transbank\Webpay\Webpay;
+use Transbank\Webpay\WebPayNormal;
 use Auth;
 
 class ReservaCanchaController extends Controller
 {
+
+    private static function getTransaction(): WebPayNormal
+    {
+        $urlRepository = "https://raw.githubusercontent.com/TransbankDevelopers/transbank-webpay-credenciales/master/";
+        $dirFiles = "integracion/Webpay%20Plus%20-%20CLP/597020000540";
+
+        $contentPublicCert = file_get_contents($urlRepository . $dirFiles . ".crt");
+        $contentPrivateKey = file_get_contents($urlRepository . $dirFiles . ".key");
+
+        $configuration = new Configuration();
+        $configuration->setCommerceCode(597020000540);
+        $configuration->setEnvironment("INTEGRACION");
+        $configuration->setPrivateKey($contentPrivateKey);
+        $configuration->setPublicCert($contentPublicCert);
+        $webpay = new Webpay($configuration);
+        return $webpay->getNormalTransaction();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -134,6 +155,7 @@ class ReservaCanchaController extends Controller
 
     public function store(Request $request, $cancha)
     {
+        $canchas = Cancha::findOrFail($cancha); 
         
         $usuario = Auth::user();
 
@@ -146,9 +168,10 @@ class ReservaCanchaController extends Controller
             $reserva->fecha = $input["txtFecha"];
             $reserva->hora_inicio = $input["txtHoraInicio"];
             $reserva->hora_fin = $input["txtHoraFin"];
-            $reserva->estado_id = 1;
             $reserva->cancha_id = $cancha;
+            $reserva->complejo_id = $canchas->complejo->id;
             $reserva->user_id = $usuario->id;
+            $reserva->total = $canchas->precio;
 
             $reserva->save();
 
@@ -160,46 +183,61 @@ class ReservaCanchaController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function init_webpay(Request $request, $id)
     {
-        //
+        $canchas = Cancha::findOrFail($id); 
+        $usuarioauth = Auth()->user()->id;
+        $reserva = Reserva::where('user_id',auth()->id())->take(1)->first();
+
+
+        if ($reserva->status != Reserva::STATUS_PENDING_PAYMENT)
+        {
+            return redirect()->route('pages.home');
+        }
+
+        $db_transaction = new Transaction;
+        $db_transaction->reserva()->associate($reserva);
+        $db_transaction->save();
+
+        $transaction = self::getTransaction();
+        $returnUrl =  route('webpay.return');
+        $finalUrl = route('webpay.final');
+
+        $response = $transaction->initTransaction(
+                $db_transaction->reserva->total,
+                $db_transaction->buy_order,
+                $db_transaction->reserva->id,
+                $returnUrl,
+                $finalUrl    
+        );
+        if (is_array($response))
+        {
+            $db_transaction->error = html_entity_decode($response['detail']);
+            $db_transaction->save();
+            $reserva->status = Reserva::STATUS_WP_NORMAL_INIT_ERROR;
+            $reserva->save();
+            return redirect()->route('pages.home');
+        }   
+
+        $db_transaction->token = $response->token;
+        $db_transaction->save();
+        $reserva->status = Reserva::STATUS_WP_NORMAL_INIT_SUCCESS;
+        $reserva->save();
+        
+        return view('webpay.index',compact('response'));         
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function return_webpay(Request $request)
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function final(Request $request)
     {
-        //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $reserva = Reserva::find($id);
