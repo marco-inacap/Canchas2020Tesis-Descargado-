@@ -15,7 +15,6 @@ class VerifyCsrfToken extends Middleware
 
     protected $except = [
     
-        
         '/webpayplus/return/',
         '/webpayplus/final/'
 
