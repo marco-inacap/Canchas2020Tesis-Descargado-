@@ -17,16 +17,16 @@ class PhotoController extends Controller
             'photo' => 'required|image|max:2048' //2048 //jpg png etc
         ]);
         
-        /* $cancha->photos()->create([
+         /* $cancha->photos()->create([
             'url'   => request()->file('photo')->store('canchas','public'),
-        ]); */
+        ]);  */
 
         /* $photo = request()->file('photo')->store('canchas','public'); */
 
         Photo::create([
             'url' => 'storage/'.request()->file('photo')->store('canchas','public'),
             'cancha_id' => $cancha->id,
-        ]);
+        ]); 
 
     }
 
@@ -35,7 +35,7 @@ class PhotoController extends Controller
         $photo->delete();
 
         
-          /* $photoPath = str_replace('storage',  $photo->url); 
+        /* $photoPath = str_replace('storage',  $photo->url); 
 
         Storage::delete($photoPath);  */
 
