@@ -8,7 +8,7 @@
    </h1>
    <ol class="breadcrumb">
      <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-     <li class="active">{{$complejo->nombre}}</li> 
+     
    </ol>
 
 @endsection
@@ -43,9 +43,6 @@
             </li>
             <li class="list-group-item">
                 <b>Ganancias Total </b> <a class="pull-right"> <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> $ {{$cancha->precio * count($cancha->reservas) }}</span></a> 
-            </li>
-            {{$variable->total_visitas}}
-            </ul>
             <a href="{{route('admin.ganancias.lista', $cancha)}}" class="btn btn-primary btn-block"><b>Ver más</b></a>
             </div>
             
