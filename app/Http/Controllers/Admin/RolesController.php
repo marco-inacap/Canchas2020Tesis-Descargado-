@@ -32,7 +32,7 @@ class RolesController extends Controller
     public function create()
     {
         
-        /* $this->authorize('create', $role = new Role); */ 
+         $this->authorize('create', $role = new Role); 
 
         return view ('admin.roles.create',[
 

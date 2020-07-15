@@ -19,7 +19,7 @@
       </ul>
     </li>
 
-@can('View Cancha', $cancha) 
+@can('View Cancha') 
 <li class="treeview {{request()->is('admin/canchas*') ? 'active' : ''}}"> 
 
       <a href="#"><i class="fa fa-futbol-o"></i> <span>Canchas</span>
@@ -31,7 +31,7 @@
     
         <li {{request()->is('admin/canchas') ? 'class=active' : ''}}><a href="{{route('admin.cancha.index')}}"><i class="fa fa-eye"></i>Ver Mis Canchas</a></li>
 
-        @can('Create Cancha', $cancha)
+        @can('Create Cancha')
         <li >
           @if (request()->is('admin/canchas/*'))
           <a href="{{route('admin.cancha.index', '#create')}}"><i class="fa fa-pencil"></i>Crear Cancha</a>
@@ -64,7 +64,7 @@
 
 
     
-    @can('View Users', $user)
+    @can('View Users')
     <li class="treeview {{request()->is('admin/users*') ? 'active' : ''}}"> 
       <a href="#"><i class="fa fa-users"></i> <span>Usuarios</span>
         <span class="pull-right-container">
@@ -79,7 +79,7 @@
       </ul>
     </li>
     @endcan
-    @can('View Roles', $role)
+    @can('View Roles')
     <li class="treeview {{request()->is('admin/roles*') ? 'active' : ''}}"> 
       <a href="#"><i class="fa fa-lock"></i> <span>Roles</span>
         <span class="pull-right-container">

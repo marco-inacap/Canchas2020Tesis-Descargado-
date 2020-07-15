@@ -18,7 +18,7 @@
 <div class="box box-primary">
     <div class="box-header">
       <h3 class="box-title">Lista de Usuarios</h3>
-      @can('Create Users', $user)  
+      @can('Create Users')  
       <a href="{{route('admin.users.create')}}" class="button btn btn-primary pull-right"><i class="fa fa-plus"></i> Crear Usuario</a>
       @endcan
     </div>
@@ -45,13 +45,13 @@
                 <td>{{$user->complejo->pluck('nombre')->implode(' - ')}}</td>
                 
                 <td>
-                  @can('View Users', $user)
+                  @can('View Users')
                     <a href="{{route('admin.users.show', $user)}}" class="btn-xs btn-lg"><i class="fa fa-eye"></i></a> 
                   @endcan  
-                  @can('Update Users', $user)  
+                  @can('Update Users')  
                     <a href="{{route('admin.users.edit', $user)}}" class="btn-xs btn-info"><i class="fa fa-pencil"></i></a>
                   @endcan   
-                  @can('Delete Users', $user)  
+                  @can('Delete Users')  
                     <form method="POST" action="{{route('admin.users.destroy', $user)}}" style="display: inline">
                       {{csrf_field()}} {{  method_field('DELETE')}} 
                     <button  class="btn-xs btn-danger" onclick="return confirm('¿Estas seguro de eliminar este Usuario?')"><i class="fa fa-times"></i></button>
