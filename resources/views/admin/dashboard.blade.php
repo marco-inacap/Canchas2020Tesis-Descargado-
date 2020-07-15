@@ -67,12 +67,15 @@
 @endsection
 
 @push('styles')
-<link rel="stylesheet" href="/adminlte/plugins/datatables/dataTables.bootstrap.css">
+{{-- <link rel="stylesheet" href="/adminlte/plugins/datatables/dataTables.bootstrap.css"> --}}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 @endpush
 
 @push('scripts')
-<script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+{{-- <script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script> --}}
 <script>
   $(function () {
 
@@ -82,11 +85,11 @@
       "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
     },
       "paging": true,
-      "lengthChange": false,
-      "searching": false,
+      "lengthChange": true,
+      "searching": true,
       "ordering": true,
       "info": true,
-      "autoWidth": false
+      "autoWidth": false,
     });
   });
 </script>
