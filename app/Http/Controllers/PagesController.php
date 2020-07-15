@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Cancha;
 use Illuminate\Support\Facades\DB;
 use App\Reserva;
+use App\Transaction;
+use App\Respuesta;
 use Auth;
 
 class PagesController extends Controller
@@ -32,8 +34,22 @@ class PagesController extends Controller
 
         $reservas = Reserva::where('user_id',auth()->id())->get();
 
-
         return view('pages.reservas',compact('reservas'));
+    }
 
+    public function detalle(Reserva $reserva){
+
+    $transaction = Transaction::where('reserva_id',$reserva->id)->get();  
+    
+    
+    foreach ($transaction as $valor) {
+        $responses = Respuesta::where('transaction_id',$valor->id)->get(); 
+            
+        
+    }
+   
+
+    
+    return view('pages.reserva-user', compact('reserva','responses'));    
     }
 }
