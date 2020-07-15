@@ -12,19 +12,27 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Fecha</th>
+                            <th scope="col">Hora</th>
                             <th scope="col">Cancha</th>
                             <th scope="col">Complejo</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Total</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($reservas as $reserva)
                         <tr>
-                            <th scope="row">{{$reserva->id}}</th>
                             <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MMMM - YYYY')}}</td>
+                            <td>{{  Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm ') }} - {{  Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm a') }}</td>
                             <td>{{$reserva->cancha->nombre}}</td>
                             <td>{{$reserva->cancha->complejo->nombre}}</td>
+                            <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
+                            <td>${{number_format($reserva->total,0, ',', '.')}}</td>
+                            <td>
+                                <a href="{{route('detalle.reserva', $reserva)}}">ver</a>
+                            </td> 
                         </tr>
                         @endforeach
                     </tbody>
