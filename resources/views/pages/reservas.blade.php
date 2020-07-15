@@ -32,6 +32,7 @@
                             <td>${{number_format($reserva->total,0, ',', '.')}}</td>
                             <td>
                                 <a href="{{route('detalle.reserva', $reserva)}}">ver</a>
+                                <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}">Pdf</a>
                             </td> 
                         </tr>
                         @endforeach
