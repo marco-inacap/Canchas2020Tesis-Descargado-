@@ -1,5 +1,7 @@
 @extends('layout')
 
+@section('meta-title')Reserva | Detalle @endsection
+
 @section('content')
 <section class="pages container">
     <div class="page page-contact">
@@ -8,7 +10,6 @@
         <div class="divider-2" style="margin:25px 0;"></div>
         <div class="form-contact">
             <section class="invoice">
-                <!-- title row -->
                 <div class="row">
                     <div class="col-md-8">
                         <h2 class="page-header ">
@@ -20,9 +21,7 @@
                             <small class="pull-right">Fecha hoy: {{ date('d-m-yy') }}</small>
                         </h2>
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- info row -->
                 <div class="row invoice-info">
                     <div class="col-sm-4 invoice-col">
                         Nosotros
@@ -34,17 +33,13 @@
                             Email: admin@tuscanchas.com
                         </address>
                     </div>
-                    <!-- /.col -->
                     <div class="col-sm-4 invoice-col">
                         Tus Datos
                         <address>
-
                             <strong>{{$reserva->user->name}}</strong><br>
                             {{$reserva->user->email}}<br>
-
                         </address>
                     </div>
-                    <!-- /.col -->
                     <div class="col-sm-4 invoice-col">
                         <br>
                         @foreach ($responses as $response)
@@ -53,13 +48,8 @@
                         <b>Hora transacción: </b>{{Carbon\Carbon::parse($response->transaction_date)->isoFormat('HH:mm:ss')}}<br>
                         <b>Estado de Transacción: </b>{{\App\reserva::STATUS_DESC[$reserva->status]}}<br>
                         @endforeach
-
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
-
-                <!-- Table row -->
                 <div class="row">
                     <div class="col-xs-12 table-responsive">
                         <table class="table table-striped">
@@ -74,9 +64,6 @@
                                     <th>Total</th>
                                 </tr>
                             </thead>
-                            {{-- <td>{{Carbon\Carbon::parse($ultimareserva->hora_inicio)->isoFormat('HH:mm')}}</td>
-                            <td>{{Carbon\Carbon::parse($ultimareserva->hora_fin)->isoFormat('HH:mm')}}</td>
-                            <td>{{Carbon\Carbon::parse($ultimareserva->fecha)->isoFormat('D - MMMM - YYYY')}}</td> --}}
                             <tbody>
                                 <tr>
                                     <td>{{ $reserva->id}}</td>
@@ -90,12 +77,9 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
-
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-md-6">
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
@@ -110,19 +94,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="row no-print">
-                    <div class="col-md-6">
-                        <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i>
-                            Imprimir</a>
-                        <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
-                            <i class="fa fa-download"></i> Guardar en PDF
-                        </button>
-                    </div>
-                </div>
             </section>
-
         </div>
-
     </div>
 </section>
 
