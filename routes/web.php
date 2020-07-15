@@ -85,6 +85,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('reservas/{reserva}','ReservaCanchaController@destroy');
 
         Route::get('misreservas', 'PagesController@reservas')->name('pages.misreservas');
+        Route::get('detalle/{reserva}', 'PagesController@detalle')->name('detalle.reserva');
+
+        Route::get('detalle/{reserva}/download', 'DownloadPdfController@download')->name('detalle.reserva.download');
 
         Route::resource('canchas', 'CanchaController');
 
