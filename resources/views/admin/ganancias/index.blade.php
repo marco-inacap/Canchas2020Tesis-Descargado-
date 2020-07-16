@@ -34,9 +34,7 @@
               @else
               <li><a href="#">Nº Reservas <span class="pull-right badge bg-aqua">0</span></a></li>
               @endif
-              @if (isset($complejo->canchas[0]->ganancias))
-              <li><a href="#">Ganancias Total<span class="pull-right badge bg-green"> $ {{number_format($complejo->canchas[0]->precio,0)}}</span></a></li>
-              @endif
+                <li><a href="#">Ganancias Total<span class="pull-right badge bg-green">{{$complejo->reservas->sum('total') }}$</span></a></li>  
             </ul>
           </div>
           <a href="{{route('admin.ganancias.canchas', $complejo)}}" class="btn bg-lightblue btn-flat margin"><b>Ver más</b></a>
