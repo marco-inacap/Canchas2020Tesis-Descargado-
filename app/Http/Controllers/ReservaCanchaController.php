@@ -39,84 +39,53 @@ class ReservaCanchaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Cancha $cancha,User $user)
+    public function index(Cancha $cancha, User $user)
     {
-        
-        return view('canchas.calendario',compact('cancha','user'));
+
+        return view('canchas.calendario', compact('cancha', 'user'));
     }
 
-    public function horarioCierre($cancha){
-        
-        $horarios = Horario::where('cancha_id',$cancha)->get(); 
-        
+    public function horarioCierre($cancha)
+    {
+
+        $horarios = Horario::where('cancha_id', $cancha)->get();
+
 
         $horariosCerrado = [];
 
-        foreach ($horarios as $horario ) {
-            
+        foreach ($horarios as $horario) {
+
             $horariosCerrado[] = [
-                "id"=>$horario->id,
-                "start"=>$horario->fecha." ".$horario->hora_cierre,
-                "end"=>$horario->fecha." ".$horario->hora_apertura,
-                "title"=>"Horario cerrado.",
-                "textColor"=>"#ffffff",
-                "backgroundColor"=> 'rgba(240,52,52,0.3)', 
-                "borderColor"=> "red"
+                "id" => $horario->id,
+                "start" => $horario->fecha . " " . $horario->hora_cierre,
+                "end" => $horario->fecha . " " . $horario->hora_apertura,
+                "title" => "Horario cerrado.",
+                "textColor" => "#ffffff",
+                "backgroundColor" => 'rgba(240,52,52,0.3)',
+                "borderColor" => "red"
             ];
         }
         return response()->json($horariosCerrado);
     }
 
-    public function listar($cancha){
-        
-        $reserva = Reserva::where('cancha_id',$cancha)->get();
+    public function listar($cancha)
+    {
+
+        $reserva = Reserva::where('cancha_id', $cancha)->get();
         $nuevaReserva = [];
 
-        
-         foreach ($reserva as $value) {
-
-            if ($value->estado_id == 1) {
-                $nuevaReserva[] = [
-                    "id"=>$value->id,
-                    "classNames"=>$value->cancha->complejo->nombre,
-                    "start"=>$value->fecha." ".$value->hora_inicio,
-                    "end"=>$value->fecha." ".$value->hora_fin,
-                    "title"=>$value->user->name,
-                    "backgroundColor"=> 'rgb(245, 215, 110,0.4)',
-                    "borderColor" =>'rgb(70, 204, 113,0.6)',
-                    "textColor"=> 'rgb(1, 50, 67)'    
-                ];
-                    
-            }if ($value->estado_id == 2) {
-                $nuevaReserva[] = [
-                    "id"=>$value->id,
-                    "classNames"=>$value->cancha->complejo->nombre,
-                    "start"=>$value->fecha." ".$value->hora_inicio,
-                    "end"=>$value->fecha." ".$value->hora_fin,
-                    "title"=>$value->user->name,
-                       
-                    "backgroundColor"=> 'rgb(46, 204, 113,0.5)',
-                    "borderColor" =>'rgb(70, 204, 113,0.6)',
-                    "textColor"=> 'rgb(1, 50, 67)'
-                    
-                ];
-                
-            } else {
-                $nuevaReserva[] = [
-                    "id"=>$value->id,
-                    "classNames"=>$value->cancha->complejo->nombre,
-                    "start"=>$value->fecha." ".$value->hora_inicio,
-                    "end"=>$value->fecha." ".$value->hora_fin,
-                    "title"=> "Rechazada",
-                    "backgroundColor"=> 'rgb(217, 30, 24,0.4)',
-                    "borderColor" =>'rgb(70, 204, 113,0.6)',
-                    "textColor"=> 'rgb(1, 50, 67)'  
-                    
-                ];
-            }
-             
-            
-        } 
+        foreach ($reserva as $value) {
+            $nuevaReserva[] = [
+                "id" => $value->id,
+                "classNames" => $value->cancha->complejo->nombre,
+                "start" => $value->fecha . " " . $value->hora_inicio,
+                "end" => $value->fecha . " " . $value->hora_fin,
+                "title" => $value->user->name,
+                "backgroundColor" => 'rgb(245, 215, 110,0.4)',
+                "borderColor" => 'rgb(70, 204, 113,0.6)',
+                "textColor" => 'rgb(1, 50, 67)'
+            ];
+        }
         return response()->json($nuevaReserva);
     }
 
@@ -139,12 +108,12 @@ class ReservaCanchaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function validarFecha($fecha,$horaInicial,$horaFinal)
+    public function validarFecha($fecha, $horaInicial, $horaFinal)
     {
         $reserva = Reserva::select("*")
-            ->where('fecha',$fecha)
-            ->where('hora_inicio',[$horaInicial,$horaFinal])
-            ->orWhere('hora_fin',[$horaInicial,$horaFinal])
+            ->where('fecha', $fecha)
+            ->where('hora_inicio', [$horaInicial, $horaFinal])
+            ->orWhere('hora_fin', [$horaInicial, $horaFinal])
             ->first();
         /* whereDate
         WhereBetween
@@ -155,14 +124,14 @@ class ReservaCanchaController extends Controller
 
     public function store(Request $request, $cancha)
     {
-        $canchas = Cancha::findOrFail($cancha); 
-        
+        $canchas = Cancha::findOrFail($cancha);
+
         $usuario = Auth::user();
 
         $input = $request->all();
 
-        if($this->validarFecha($input["txtFecha"],$input["txtHoraInicio"],$input["txtHoraFin"])){
-        
+        if ($this->validarFecha($input["txtFecha"], $input["txtHoraInicio"], $input["txtHoraFin"])) {
+
             $reserva = new Reserva;
 
             $reserva->fecha = $input["txtFecha"];
@@ -175,19 +144,17 @@ class ReservaCanchaController extends Controller
 
             $reserva->save();
 
-            return response ()->json(["ok"=>true]);
-
-        }else{
-            return response ()->json(["ok"=>false]);
-
+            return response()->json(["ok" => true]);
+        } else {
+            return response()->json(["ok" => false]);
         }
     }
 
-    public function init_webpay(Request $request, $id) 
+    public function init_webpay(Request $request, $id)
     {
-        $canchas = Cancha::findOrFail($id); 
+        $canchas = Cancha::findOrFail($id);
         $usuarioauth = Auth()->user()->id;
-        $reserva = Reserva::where('user_id',auth()->id())->take(1)->first();
+        $reserva = Reserva::where('user_id', auth()->id())->take(1)->first();
 
 
         /* if ($reserva->status != Reserva::STATUS_PENDING_PAYMENT)
@@ -204,11 +171,11 @@ class ReservaCanchaController extends Controller
         $finalUrl = route('webpay.final');
 
         $response = $transaction->initTransaction(
-                $db_transaction->reserva->total,
-                $db_transaction->buy_order,
-                $db_transaction->reserva->id,
-                $returnUrl,
-                $finalUrl    
+            $db_transaction->reserva->total,
+            $db_transaction->buy_order,
+            $db_transaction->reserva->id,
+            $returnUrl,
+            $finalUrl
         );
         /* if (is_array($response))
         {
@@ -217,17 +184,16 @@ class ReservaCanchaController extends Controller
             $reserva->status = Reserva::STATUS_WP_NORMAL_INIT_ERROR;
             $reserva->save();
             return redirect()->route('pages.home');
-        } */   
+        } */
 
         $db_transaction->token = $response->token;
         $db_transaction->save();
         $reserva->status = Reserva::STATUS_WP_NORMAL_INIT_SUCCESS;
         $reserva->save();
 
-       
-        
-        return view('webpay.index',compact('response','reserva','db_transaction','canchas'));         
 
+
+        return view('webpay.index', compact('response', 'reserva', 'db_transaction', 'canchas'));
     }
 
     public function return_webpay(Request $request)
@@ -256,8 +222,8 @@ class ReservaCanchaController extends Controller
 
         $db_response->buy_order = $response->buyOrder;
         $db_response->session_id = $response->sessionId;
-        $db_response->accounting_date = Carbon::parse($response->accountingDate)->format('Y-m-d','America/Santiago');
-        $db_response->transaction_date = Carbon::parse($response->transactionDate)->format('Y-m-d H:i:s','America/Santiago');
+        $db_response->accounting_date = Carbon::parse($response->accountingDate)->format('Y-m-d', 'America/Santiago');
+        $db_response->transaction_date = Carbon::parse($response->transactionDate)->format('Y-m-d H:i:s', 'America/Santiago');
         $db_response->vci = $response->VCI;
         $db_response->card_number = $response->cardDetail->cardNumber;
         $db_response->amount = $response->detailOutput->amount;
@@ -284,9 +250,8 @@ class ReservaCanchaController extends Controller
         $db_transaction->reserva->save();
 
         /* return redirect($response->url,$response->token); */
-        
-        return view('webpay.return', compact('response', 'token'));
 
+        return view('webpay.return', compact('response', 'token'));
     }
 
     public function final_webpay(Request $request)
@@ -296,13 +261,9 @@ class ReservaCanchaController extends Controller
         $buy_order = $request->input('TBK_ORDEN_COMPRA', null);
 
         $db_transaction = null;
-        if ($token)
-        {
+        if ($token) {
             $db_transaction = Transaction::where('token', $token)->first();
-        }
-
-        elseif ($buy_order && $session_id)
-        {
+        } elseif ($buy_order && $session_id) {
             $buy_order_exploded = explode('_', $buy_order);
             $created_timestamp = array_pop($buy_order_exploded);
             $db_transaction = Transaction::where([
@@ -316,8 +277,7 @@ class ReservaCanchaController extends Controller
         return redirect()->route('pages.home');
         }  */
 
-        switch ($db_transaction->reserva->status)
-        {
+        switch ($db_transaction->reserva->status) {
             case Reserva::STATUS_WP_NORMAL_FINISH_SUCCESS:
                 $response = $db_transaction->response;
                 return view('webpay.final', compact('response'));
@@ -344,27 +304,23 @@ class ReservaCanchaController extends Controller
                 default:
                 return redirect()->route('pages.home');   */
         }
-
     }
 
     public function destroy($id)
     {
         $reserva = Reserva::find($id);
-        
-        if($reserva == null)
+
+        if ($reserva == null)
             return Response()->json([
                 'message'   =>  'ERROR AL ELIMINAR EVENTO'
             ]);
-            
+
 
         $reserva->delete();
-        
+
 
         return Response()->json([
             'message'   =>  'EVENTO ELIMINADO EXITOSAMENTE.'
         ]);
-
-
-        
     }
 }
