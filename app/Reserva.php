@@ -80,4 +80,5 @@ class Reserva extends Model
         return $query->where($cancha,'===',auth()->id());
         }
     }
+
 }
