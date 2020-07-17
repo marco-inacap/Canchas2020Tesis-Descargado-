@@ -156,6 +156,8 @@ Route::group([
                 Route::get('ganancias/{complejo}','GananciasController@ganancias_canchas')->name('admin.ganancias.canchas');
                 Route::get('canchas/ganancias/{cancha}','GananciasController@lista_reservas')->name('admin.ganancias.lista');
 
+                Route::post('canchas/ganancias/{cancha}','GananciasController@filtrar_fechas')->name('admin.ganancias.lista.filtrar');
+
                 //ajax
                 Route::post('/ganancias/all','GananciasController@all');
 
