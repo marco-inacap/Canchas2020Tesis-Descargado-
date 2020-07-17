@@ -16,12 +16,6 @@
 
 <div class="box-body">
     <table id="cancha-table" class="table table-bordered table-striped active">
-        <div class="form-group">
-            <label>Fecha Inicial</label>
-            <input id="txtFecha" name="txtFecha" type="date"  class="form-control-sm" value="" >  
-            <label>Fecha Final</label>   
-            <input id="txtFecha" name="txtFecha" type="date"  class="form-control-sm" value="" >   
-        </div>
         <thead>
             <tr>
             <th>Id</th>
