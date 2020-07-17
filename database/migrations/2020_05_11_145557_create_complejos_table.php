@@ -17,7 +17,10 @@ class CreateComplejosTable extends Migration
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->string('url');
+            $table->string('url_imagen')->nullable();
             $table->string('ubicacion');
+            $table->string('latitude', 15)->nullable();
+            $table->string('longitude', 15)->nullable();
             $table->string('telefono');
             $table->timestamps();
         });
