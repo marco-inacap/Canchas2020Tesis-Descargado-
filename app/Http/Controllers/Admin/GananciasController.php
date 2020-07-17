@@ -47,14 +47,42 @@ class GananciasController extends Controller
     {
         $reservas = Reserva::where('cancha_id', $cancha->id)->get();
 
+
+        
+
         $totalReservas = DB::table('reservas')
             ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
-            ->select('canchas.precio')
-            ->where('reservas.cancha_id', '=', $cancha->id)->sum('canchas.precio');
-
-
+            ->select('reservas.total')
+            ->where('reservas.cancha_id', '=', $cancha->id)
+            ->sum('reservas.total');
 
         return view('admin.ganancias.listareservas', compact('reservas', 'cancha', 'totalReservas'));
+    }
+
+
+    public function filtrar_fechas(Request $request, Cancha $cancha)
+    {
+        $reserva = Reserva::where('cancha_id', $cancha->id)->get();
+
+        $fecha_inicio = $request->fecha_inicio;
+        $fecha_final = $request->fecha_final;
+
+        $reservas = Reserva::whereBetween('fecha', [$fecha_inicio, $fecha_final])
+                            ->where('cancha_id','=',$cancha->id)
+                            ->get(); 
+
+
+                            $totalReservas = DB::table('reservas')
+                            ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')        
+                            ->whereBetween('fecha', [$fecha_inicio, $fecha_final])
+                            ->select('reservas.total')
+                            ->where('cancha_id', '=', $cancha->id)
+                            ->sum('total');  
+                            
+                           
+
+                            
+        return view('admin.ganancias.listareservas', compact('reservas', 'cancha', 'totalReservas'));                     
     }
 
     public function all(Request $request)
