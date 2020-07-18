@@ -27,7 +27,9 @@ class StoreComplejoRequest extends FormRequest
         return [
             'nombre'  => ['required',Rule::unique('complejos')->ignore($this->route('complejo')->id)],
             'ubicacion'  => 'required',
-            'telefono'  => 'required'
+            'telefono'  => 'required',
+            'latitude'  => 'nullable',
+            'longitude'  => 'nullable'
         ];
     }
     public function messages()
