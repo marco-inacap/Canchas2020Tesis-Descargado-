@@ -91,6 +91,7 @@
 
     <script>
 
+        
         var mapCenter = [{{ $complejo->latitude }}, {{ $complejo->longitude }}];
         var mapid = L.map('mapid').setView(mapCenter, 15);
 
@@ -113,6 +114,8 @@
         .openPopup();
         return false;
     };
+
+    
 
     mapid.on('click', function(e) {
         let latitude = e.latlng.lat.toString().substring(0, 15);
