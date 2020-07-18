@@ -82,7 +82,7 @@
 <style>
     #mapid {
         height: 300px;
-        box-shadow: 5px 5px 5px #888;
+        box-shadow: 1px 1px 5px #888;
     }
 </style>
 @endpush
@@ -105,6 +105,7 @@
             L.control.scale().addTo(map);
 
             function updateMarker(lat, lng) {
+                
                 marker_actual
                 .setLatLng([lat, lng])
                 .bindPopup("Tu seleccionaste:  " + marker_actual.getLatLng().toString())
