@@ -188,7 +188,7 @@
                 let usuario = (info.event.title);
                 let hora_inicial = moment(info.event.start).format("HH:mm");
                 let hora_final = moment(info.event.end).format("HH:mm");
-                let fecha = moment(info.event.fecha).format("YYYY-MM-DD");
+                let fecha = moment(info.event.start).format("YYYY-MM-DD");
                 
                 
                 $('#infoModal #delete').attr('data-id', info.event.id);
