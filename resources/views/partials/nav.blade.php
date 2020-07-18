@@ -5,6 +5,7 @@
         <li><a href="{{ route('pages.home') }}" class="text-uppercase {{ request()->routeIs('pages.home') ? 'active' : ''}}">Inicio</a></li>
         <li><a href="{{ route('pages.contacto') }}" class="text-uppercase {{ request()->routeIs('pages.contacto') ? 'active' : ''}}">Contacto</a></li>
         <li><a href="{{ route('pages.misreservas') }}" class="text-uppercase {{ request()->routeIs('pages.misreservas') ? 'active' : ''}}">Mis Reservas</a></li>
+        <li><a href="{{ route('complejos_map.index') }}" class="text-uppercase {{ request()->routeIs('complejos_map.index') ? 'active' : ''}}">Complejos</a></li>
         <ul class="nav navbar-nav navbar-right">
             <!-- Authentication Links -->
             @guest
