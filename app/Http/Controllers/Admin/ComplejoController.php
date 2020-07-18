@@ -35,9 +35,18 @@ class ComplejoController extends Controller
     {
         $data = $request->validate([
             'nombre' => 'required|string|max:30|unique:complejos',
+            'imagen' => 'required',
             'ubicacion' => 'required|string|max:255',
             'telefono' => 'required|min:8|max:10|unique:complejos',
+            'latitude'=>'nullable',
+            'longitude'=>'nullable',
         ]);
+
+        if($request->file('imagen')){
+            $path = Storage::disk('public')->put('complejos',$request->file('imagen'));
+
+            $data->fill(['imagen'=> asset($path)])->save();
+        }
 
         $complejo = Complejo::create($data);
 
@@ -55,7 +64,7 @@ class ComplejoController extends Controller
         
         $complejo->update($request->validated());
 
-        return redirect()->route('admin.complejo.index', $complejo)->with('flash','El Complejo ha sido actualizado');
+        return redirect()->route('admin.complejo.edit', $complejo)->with('flash','El Complejo ha sido actualizado');
 
     }
     public function destroy(Complejo $complejo)
