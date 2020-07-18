@@ -5,7 +5,7 @@
 
 @section('content')
 
-<article class="post container">
+<article class="pages container">
   
 
 
