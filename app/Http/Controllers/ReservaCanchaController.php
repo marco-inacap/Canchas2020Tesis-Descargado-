@@ -77,11 +77,10 @@ class ReservaCanchaController extends Controller
         foreach ($reserva as $value) {
             $nuevaReserva[] = [
                 "id" => $value->id,
-                "classNames" => $value->cancha->complejo->nombre,
+                "classNames" => $value->cancha->complejo->nombre, 
                 "start" => $value->fecha . " " . $value->hora_inicio,
                 "end" => $value->fecha . " " . $value->hora_fin,
-                "title" => $value->user->name,
-                "backgroundColor" => 'rgb(245, 215, 110,0.4)',
+                "backgroundColor" => 'rgb(46, 204, 113,0.4)',
                 "borderColor" => 'rgb(70, 204, 113,0.6)',
                 "textColor" => 'rgb(1, 50, 67)'
             ];
