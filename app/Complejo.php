@@ -8,7 +8,7 @@ class Complejo extends Model
 {
     protected $fillable = [
 
-        'nombre', 'ubicacion', 'telefono'
+        'nombre','url_imagen', 'ubicacion','latitude','longitude', 'telefono'
     ];
     
     public function getRouteKeyName()
@@ -40,6 +40,14 @@ class Complejo extends Model
         $this->attributes['nombre'] = $nombre;
         $this->attributes['url'] = str_slug($nombre);
     }
+
+    public function getCoordinateAttribute()
+    {
+        if ($this->latitude && $this->longitude) {
+            return $this->latitude.', '.$this->longitude;
+        }
+    }
+
 
     
     
