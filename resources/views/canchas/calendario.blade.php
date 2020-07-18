@@ -135,6 +135,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         
+        
         calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'dayGrid', 'interaction', 'timeGrid', 'list' ],
             defaultView: 'timeGridWeek',
@@ -142,10 +143,18 @@
             header:{
                 left:'prev,next today',
                 center:'title',
-                right:'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                right:'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
             },
             navLinks: true,
             selectable: true,
+            
+            buttonText: {
+                today: 'Hoy',
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día',
+                list: 'Lista'
+            },
             
             /* selectMirror: true, */
 
