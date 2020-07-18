@@ -10,6 +10,10 @@ class Complejo extends Model
 
         'nombre','url_imagen', 'ubicacion','latitude','longitude', 'telefono'
     ];
+
+    public $appends = [
+        'coordinate', 'map_popup_content',
+    ];
     
     public function getRouteKeyName()
     {
@@ -41,11 +45,33 @@ class Complejo extends Model
         $this->attributes['url'] = str_slug($nombre);
     }
 
+    public function getNameLinkAttribute()
+    {
+        $title = __('app.show_detail_title', [
+            'nombre' => $this->nombre, 'type' => __('outlet.outlet'),
+        ]);
+         $link = '<a href="'.route('complejos.show', $this).'"'; 
+        $link .= ' title="'.$title.'">';
+        $link .= $this->nombre;
+        $link .= '</a>';
+
+        return $link;
+    }
+
     public function getCoordinateAttribute()
     {
         if ($this->latitude && $this->longitude) {
             return $this->latitude.', '.$this->longitude;
         }
+    }
+
+    public function getMapPopupContentAttribute()
+    {
+        $mapPopupContent = '';
+        $mapPopupContent .= '<div class="my-2">'.$this->name_link.'</div>';
+        $mapPopupContent .= '<div class="my-2"><strong>'.__($this->telefono).'</strong><br>'.'</div>';
+
+        return $mapPopupContent;
     }
 
 
