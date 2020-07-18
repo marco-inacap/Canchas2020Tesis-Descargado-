@@ -64,6 +64,8 @@ Route::get('/', 'PagesController@home')->name('pages.home');
 
 Route::get('contacto', 'PagesController@contacto')->name('pages.contacto');
 
+Route::get('/complejos_check', 'ComplejoMapaController@index')->name('complejos_map.index');
+
 
 Route::get('/inicio/{cancha}', 'CanchaController@show')->name('canchas.show');
 Route::get('/complejos/{complejo}', 'ComplejoController@show')->name('complejos.show');
