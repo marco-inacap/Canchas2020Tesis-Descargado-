@@ -22,7 +22,7 @@
         <div class="box box-primary">
             
             <div class="box-header with-border"></div>
-                <img class="profile-user-img img-responsive img-circle" src="/img/logo.png" alt="{{$cancha->nombre}}">
+                <img class="profile-user-img img-responsive img-circle" style="width:120px; height:120px;"  src="{{ url($cancha->photos->first()->url) }}"alt="{{$cancha->nombre}}" onerror="this.src='/img/logo.png';">
             <div class="box-body">  
             <h3 class="profile-username text-center">{{$cancha->nombre}}</h3>
                 
