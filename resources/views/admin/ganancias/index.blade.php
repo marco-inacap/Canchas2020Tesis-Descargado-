@@ -21,7 +21,7 @@
         <div class="box box-widget widget-user-2">
             <div class="widget-user-header bg-yellow">
                 <div class="widget-user-image">
-                    <img class="img-circle" src="/img/logo.png" alt="User Avatar">
+                  <img class="profile-user-img img-responsive img-circle" style="width:80px; height:80px;"  src="{{ url($complejo->url_imagen) }}" onerror="this.src='/img/logo.png';">
                 </div>
                 <h3 class="widget-user-username">{{$complejo->nombre}}</h3>
                 <h5 class="widget-user-desc">Contacto: {{$complejo->telefono}}</h5>
