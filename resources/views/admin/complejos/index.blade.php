@@ -22,7 +22,7 @@
             <form method="POST" action="{{route('admin.complejo.destroy',$complejo)}}">
                 {{  method_field('DELETE')}} {{csrf_field()}}
                 <button class="btn btn-danger btn-xs" style="position: absolute"> <i class="fa fa-remove"></i></button>
-                <img class="profile-user-img img-responsive img-circle" src="/img/logo.png" alt="{{$complejo->nombre}}">
+                <img class="profile-user-img img-responsive img-circle" style="width:90px; height:90px;"  src="{{ url($complejo->url_imagen) }}" onerror="this.src='/img/logo.png';">
             </form>
             <div class="box-body">  
             <h3 class="profile-username text-center">{{$complejo->nombre}}</h3>
