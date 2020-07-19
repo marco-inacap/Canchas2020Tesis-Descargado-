@@ -9,7 +9,7 @@
                 <h3 class="box-title">Editar {{$complejo->nombre}}</h3>
             </div>
             <div class="box-body">
-                <form method="POST" action="{{route('admin.complejo.update',$complejo)}}">
+                <form method="POST" action="{{route('admin.complejo.update',$complejo)}}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     {{ method_field('PUT')}}
                     <div class="form-group {{$errors->has('nombre') ? 'has-error':''}}">
@@ -17,6 +17,11 @@
                         <input type="text" name="nombre" class="form-control"
                             value="{{old('nombre',$complejo->nombre)}}">
                         {!!$errors->first('nombre','<span class="help-block">:message</span>')!!}
+                    </div>
+                    <div class="form-group {{$errors->has('imagen') ? 'has-error':''}}">
+                        <label for="imagen">Seleecione una imágen:</label>
+                        <input type="file" name="imagen" class="form-control" value="{{old('imagen',$complejo->url_imagen)}}">
+                        {!!$errors->first('imagen','<span class="help-block">:message</span>')!!}
                     </div>
                     <div class="form-group {{$errors->has('ubicacion') ? 'has-error':''}}">
                         <label for="ubicacion">Ubicación:</label>
@@ -37,7 +42,7 @@
     <div class="col-md-6">
         <div class="box box-warning">
             <div class="box-body">
-                <p>Los puedes obtener de Google Maps</p>
+                <p>Mueve tu ubicación para mejor presición en el mapa.</p>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group {{$errors->has('latitude') ? 'has-error':''}}">
