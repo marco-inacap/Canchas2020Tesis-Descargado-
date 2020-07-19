@@ -9,7 +9,7 @@
                 <h3 class="box-title">Crear complejo</h3>
             </div>
             <div class="box-body">
-                <form method="POST" action="{{route('admin.complejo.store')}}">
+                <form method="POST" action="{{route('admin.complejo.store')}}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group {{$errors->has('nombre') ? 'has-error':''}}">
@@ -18,7 +18,7 @@
                         {!!$errors->first('nombre','<span class="help-block">:message</span>')!!}
                     </div>
                     <div class="form-group {{$errors->has('imagen') ? 'has-error':''}}">
-                        <label for="nombre">Seleecione una imágen:</label>
+                        <label for="imagen">Seleecione una imágen:</label>
                         <input type="file" name="imagen" class="form-control" value="{{old('imagen')}}">
                         {!!$errors->first('imagen','<span class="help-block">:message</span>')!!}
                     </div>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-group {{$errors->has('telefono') ? 'has-error':''}}">
                         <label for="telefono">Nº de contacto:</label>
-                        <input type="text" name="telefono" class="form-control" value="{{old('telefono')}}">
+                        <input type="text" name="telefono" class="form-control" value="{{old('telefono')}}" placeholder="+569 63732409">
                         {!!$errors->first('telefono','<span class="help-block">:message</span>')!!}
                     </div>
                     <button class="btn btn-primary btn-block">Crear complejo</button>
@@ -39,7 +39,7 @@
     <div class="col-md-6">
         <div class="box box-warning">
             <div class="box-body">
-                <p>Los puedes obtener de Google Maps</p>
+                <p>Mueve tu ubicación para mejor presición en el mapa.</p>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group {{$errors->has('latitude') ? 'has-error':''}}">
