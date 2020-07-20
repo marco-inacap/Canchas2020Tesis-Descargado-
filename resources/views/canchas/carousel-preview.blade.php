@@ -2,7 +2,7 @@
     @foreach ($cancha->photos->take(4) as $photo)
     <figure class="grid-item grid-item--height2">
         @if ($loop->iteration === 4)
-            <div class="overlay">{{$cancha->photos->count()}} Fotos</div>
+            <a href="{{	route('canchas.show',$cancha)}}" class="overlay" style="color: white">{{$cancha->photos->count()}} Imágenes</a>
         @endif
         <img src="{{url($photo->url)}}" class="img-responsive" alt="">
     </figure>
