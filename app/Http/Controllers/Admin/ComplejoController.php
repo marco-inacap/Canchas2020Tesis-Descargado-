@@ -61,13 +61,13 @@ class ComplejoController extends Controller
     public function update(StoreComplejoRequest $request, Complejo $complejo)
     {
 
-        if (request()->hasFile('imagen')) {
+        
 
-            $complejo->update([
-                $request->validated(),
-                'url_imagen' => 'storage/' . request()->file('imagen')->store('complejos', 'public'),
-            ]);
-        }
+            $complejo->update(
+                $request->validated()
+                
+            );
+        
 
         return redirect()->route('admin.complejo.edit', $complejo)->with('flash', 'El Complejo ha sido actualizado');
     }
