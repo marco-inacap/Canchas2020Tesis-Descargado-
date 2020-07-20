@@ -45,7 +45,7 @@
                 <div class="form-group row text-center sesion ">
                     <div class="col-md-12">
                         <a href="#" class="btn-face"><i class="fa fa-facebook"></i>Facebook</a>
-                        <a  href="{{ url('/auth/redirect/google') }}"class="btn-google">Google</a>
+                        <a  href="{{ url('/auth/redirect/google') }}"class="btn-google" target="_blank" onclick="window.open(this.href, this.target, 'width=300,height=400'); return false;">Google</a>
                         {{-- <a href="{{ route('social.auth', 'facebook') }}"> <i class="fab fa-facebook facebook"></i></a>
                         <a href="{{ url('/auth/redirect/google') }}"> <i class="fab fa-google google"></i></a> --}}
                     </div>
