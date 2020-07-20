@@ -36,13 +36,13 @@
             
             <ul class="list-group list-group-unbordered">
             <li class="list-group-item">              
-                <b>Nº de Reservas</b> <a class="pull-right">{{count($cancha->reservas)}}</a>
+                <b>Nº de Reservas</b> <a class="pull-right text-blue">{{count($cancha->reservas)}}</a>
             </li>
             <li class="list-group-item">
-                <b>Precio Cancha</b> <a class="pull-right"> <span class="description-percentage text-green">$ {{$cancha->precio}}</span></a> 
+                <b>Precio Cancha</b> <a class="pull-right"> <span class="description-percentage text-green">$ {{number_format($cancha->precio, 0, ',', '.' )}}</span></a> 
             </li>
             <li class="list-group-item">
-                <b>Ganancias Total </b> <a class="pull-right"> <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> $ {{$cancha->precio * count($cancha->reservas) }}</span></a> 
+                <b>Ganancias Total </b> <a class="pull-right"> <span class="description-percentage text-red"><i class="fa fa-caret-up"></i> $ {{number_format($cancha->reservas->sum('total'), 0, ',', '.' ) }}</span></a> 
             <a href="{{route('admin.ganancias.lista', $cancha)}}" class="btn btn-primary btn-block"><b>Ver más</b></a>
             </div>
             
