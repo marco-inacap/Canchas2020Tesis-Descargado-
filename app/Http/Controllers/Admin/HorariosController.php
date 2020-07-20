@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Cancha;
+use App\Complejo;
 use App\Horario;
 use Illuminate\Support\Facades\DB;
 use Auth;
@@ -40,10 +41,19 @@ class HorariosController extends Controller
      */
     public function create()
     {
+        $user = Auth()->user();
+
+        if ($user->hasRole('Admin')) {
+            $complejos = Complejo::all();
+        } else {
+
+            $complejos = $user->complejo()->get();
+        }
+
          $canchas = Cancha::where('user_id',auth()->id())->get(); 
         
 
-        return view ('admin.horarios.create',compact('canchas'));
+        return view ('admin.horarios.create',compact('canchas','complejos'));
     }
 
     /**
