@@ -13,15 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
- Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*  Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-}); 
+});  */
 
 Route::group(['as' => 'api.', 'namespace' => 'Api'], function () {
     /*
      * Outlets Endpoints
      */
     Route::get('complejos', 'ComplejoController@index')->name('complejos.index');
+
+    Route::get('/complejo/{id}/canchas','HorarioController@byComplejo')->name('horarios.complejo');
 });
 
 
