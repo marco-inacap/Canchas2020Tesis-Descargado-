@@ -50,7 +50,7 @@
           {{  Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm a') }}</td>
         <td>{{ $reserva->user->name}}</td>
         <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
-        <td>$ {{ $reserva->total}}</td>
+        <td>$ {{ number_format($reserva->total, 0, ',', '.' )}}</td>
         <td>
           <a>ver</a>
           <a>exportar</a>
@@ -64,7 +64,7 @@
 
         <th colspan="5" style="font-weight: bold; font-size: 20px">Monto total</th>
 
-        <td colspan="0" style="font-weight: bold; font-size: 18px">$ {{$totalReservas}} </td>
+        <td colspan="0" style="font-weight: bold; font-size: 18px; color: green">$ {{number_format($totalReservas, 0, ',', '.' )}} </td>
 
       </tr>
 
