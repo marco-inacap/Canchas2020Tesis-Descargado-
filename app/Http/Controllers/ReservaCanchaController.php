@@ -57,8 +57,8 @@ class ReservaCanchaController extends Controller
 
             $horariosCerrado[] = [
                 "id" => $horario->id,
-                "start" => $horario->fecha . " " . $horario->hora_cierre,
                 "end" => $horario->fecha . " " . $horario->hora_apertura,
+                "start" => $horario->fecha . " " . $horario->hora_cierre,
                 "title" => "Horario cerrado.",
                 "textColor" => "#ffffff",
                 "backgroundColor" => 'rgba(240,52,52,0.3)',
@@ -74,16 +74,21 @@ class ReservaCanchaController extends Controller
         $reserva = Reserva::where('cancha_id', $cancha)->get();
         $nuevaReserva = [];
 
+
+
         foreach ($reserva as $value) {
-            $nuevaReserva[] = [
-                "id" => $value->id,
-                "classNames" => $value->cancha->complejo->nombre, 
-                "start" => $value->fecha . " " . $value->hora_inicio,
-                "end" => $value->fecha . " " . $value->hora_fin,
-                "backgroundColor" => 'rgb(46, 204, 113,0.4)',
-                "borderColor" => 'rgb(70, 204, 113,0.6)',
-                "textColor" => 'rgb(1, 50, 67)'
-            ];
+            if ($value->status == Reserva::STATUS_WP_NORMAL_FINISH_SUCCESS) {
+                $nuevaReserva[] = [
+                    "id" => $value->id,
+                    "title"=>$value->user->name,
+                    "classNames" => $value->cancha->complejo->nombre,
+                    "start" => $value->fecha . " " . $value->hora_inicio,
+                    "end" => $value->fecha . " " . $value->hora_fin,
+                    "backgroundColor" => 'rgb(46, 204, 113,0.4)',
+                    "borderColor" => 'rgb(70, 204, 113,0.6)',
+                    "textColor" => 'rgb(1, 50, 67)'
+                ];
+            }
         }
         return response()->json($nuevaReserva);
     }
