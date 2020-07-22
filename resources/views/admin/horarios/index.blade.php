@@ -3,79 +3,53 @@
 @section('header')
 
 <h1>
-   Canchas
-    <small>Horarios</small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li class="active">Canchas</li>
-  </ol>
-    
+  Horarios
+  <small>Listado de mis Complejos</small>
+</h1>
+<ol class="breadcrumb">
+  <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+  <li class="active">Complejos</li>
+</ol>
+
 @endsection
 
 @section('content')
+@foreach ($complejos as $complejo)
+<div class="col-md-3">
+  <div class="box box-primary">
 
-<div class="box box-primary">
-    <div class="box-header">
-      <h3 class="box-title">Horarios de mis canchas</h3>
-      <div class="button btn btn-primary pull-right"><a class="fa fa-plus"></a> Agregar Horario</div>
-    </div>
-    <!-- /.box-header -->
+    <div class="box-header with-border"></div>
+    <img class="profile-user-img img-responsive img-circle" style="width:90px; height:90px;"
+      src="{{ url($complejo->url_imagen) }}" onerror="this.src='/img/logo.png';">
+
     <div class="box-body">
-      <table id="cancha-table" class="table table-bordered table-striped">
-        <thead>
-        <tr>
-          <th>Id</th>
-          <th>Cancha</th>
-          <th>Fecha</th>
-          <th>Cierre Inicio</th>
-          <th>Cierre Final</th>
-          <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-            @foreach ($horarios as $horario)
-            <tr>
-                <td>{{ $horario->id}}</td>
-                <td>{{ $horario->nombre}}</td>              
-                <td>{{Carbon\Carbon::parse($horario->fecha)->isoFormat('D - MMMM - YYYY')}}</td>
-                <td>{{ $horario->hora_cierre}}</td>
-                <td>{{ $horario->hora_apertura}}</td>
-                <td>
-                    
-                    <a href="{{route('admin.horarios.edit', $horario->id)}}" class="btn-xs btn-info"><i class="fa fa-pencil"></i></a>
-                    {{-- <form method="POST" action="{{route('admin.canchas.destroy', $cancha)}}" style="display: inline">
-                    {{csrf_field()}} {{  method_field('DELETE')}} 
-                    <button  class="btn-xs btn-danger" onclick="return confirm('¿Estas seguro de eliminar esta cancha?')"><i class="fa fa-times"></i></button>
-                    </form> --}}
-                </td> 
-            </tr>
-                
-            @endforeach
-        </tbody>
-      </table>
+      <h3 class="profile-username text-center">{{$complejo->nombre}}</h3>
+
+      {{-- <p class="text-muted text-center">{{$user->getRoleNames()->implode(' - ')}}</p> --}}
+
+      <ul class="list-group list-group-unbordered">
+        <li class="list-group-item">
+          <b>Ubicación</b> <a class="pull-right">{{$complejo->ubicacion}}</a>
+        </li>
+        <li class="list-group-item">
+          <b>Nº Contacto</b> <a class="pull-right">{{$complejo->telefono}}</a>
+        </li>
+        <li class="list-group-item">
+          <b>Nº de canchas </b> <a class="pull-right">{{count($complejo->canchas)}}</a>
+
+        </li>
+        {{-- @if ($user->roles->count())
+                <li class="list-group-item">
+                    <b>Roles</b> <a class="pull-right">{{$user->getRoleNames()->implode(' - ')}}</a>
+        </li>
+        @endif --}}
+      </ul>
+      <a href="{{route('complejo.horario', $complejo)}}" class="btn btn-primary btn-block"><b>Ver Horarios</b></a>
     </div>
-    <!-- /.box-body -->
+
   </div>
+</div>
+@endforeach
+
+
 @endsection
-
-@push('styles')
-<link rel="stylesheet" href="/adminlte/plugins/datatables/dataTables.bootstrap.css">
-@endpush
-@push('scripts')
-<script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script>
-  $(function () {
-
-    $('#cancha-table').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
-    });
-  });
-</script>
-@endpush
