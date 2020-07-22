@@ -18,7 +18,7 @@
 <div class="box box-primary">
     <div class="box-header">
       <h3 class="box-title">Lista de Canchas</h3>
-      @can('Create Cancha')
+      @can('Create Cancha',$cancha)
       <div class="button btn btn-primary pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Crear Cancha</div>
       @endcan
     </div>
@@ -45,10 +45,10 @@
                 <td class="badge badge-primary">{{optional($cancha->estado)->nombre }}</td>
                 <td>
                     <a href="{{route('canchas.show', $cancha)}}" class="btn-xs btn-lg" target="_blank"><i class="fa fa-eye"></i></a>
-                    @can('Update Cancha')
+                    @can('Update Cancha',$cancha)
                     <a href="{{route('admin.cancha.edit', $cancha)}}" class="btn-xs btn-info"><i class="fa fa-pencil"></i></a>
                     @endcan
-                    @can('Delete Cancha')
+                    @can('Delete Cancha',$cancha)
                     <form method="POST" action="{{route('admin.canchas.destroy', $cancha)}}" style="display: inline">
                       {{csrf_field()}} {{  method_field('DELETE')}} 
                     <button  class="btn-xs btn-danger" onclick="return confirm('¿Estas seguro de eliminar esta cancha?')"><i class="fa fa-times"></i></button>
