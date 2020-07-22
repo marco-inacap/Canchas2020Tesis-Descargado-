@@ -18,6 +18,7 @@ class CanchaController extends Controller
     public function index()
     {
         $this->authorize('view', new Cancha);
+        
          $canchas = Cancha::where('user_id',auth()->id())->get(); 
         /* $canchas = auth()->user()->canchas; */
         
@@ -29,8 +30,8 @@ class CanchaController extends Controller
     public function create()
     {
         
-
         $this->authorize('create', new Cancha);
+        
         $complejos = Complejo::all();
         $estados = Estado::all();
 
