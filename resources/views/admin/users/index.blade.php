@@ -51,7 +51,7 @@
                   @can('Update Users')  
                     <a href="{{route('admin.users.edit', $user)}}" class="btn-xs btn-info"><i class="fa fa-pencil"></i></a>
                   @endcan   
-                  @can('Delete Users')  
+                  @can('Delete Users',$user)  
                     <form method="POST" action="{{route('admin.users.destroy', $user)}}" style="display: inline">
                       {{csrf_field()}} {{  method_field('DELETE')}} 
                     <button  class="btn-xs btn-danger" onclick="return confirm('¿Estas seguro de eliminar este Usuario?')"><i class="fa fa-times"></i></button>
