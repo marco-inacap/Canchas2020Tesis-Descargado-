@@ -13,13 +13,11 @@ class RolePolicy
 
     public function before($user)
     {
-        if($user->hasRole('Admin'))
-        {
+        if ($user->hasRole('Admin')) {
             return true;
-
         }
-    } 
-    
+    }
+
     /**
      * Determine whether the user can view any roles.
      *
@@ -49,7 +47,7 @@ class RolePolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Role $role)
     {
         return $user->hasRole('Admin') || $user->hasPermissionTo('Create Roles');
     }
@@ -63,7 +61,7 @@ class RolePolicy
      */
     public function update(User $user, Role $role)
     {
-        
+
         return $user->hasRole('Admin') || $user->hasPermissionTo('Update Roles');
     }
 
@@ -76,9 +74,8 @@ class RolePolicy
      */
     public function delete(User $user, Role $role)
     {
-        if($role->id === 1)
-        {
-             $this->deny('No se puede eliminar este Rol');   
+        if ($role->id === 1) {
+            $this->deny('No se puede eliminar este Rol');
         }
         return $user->hasRole('Admin') || $user->hasPermissionTo('Delete Roles');
     }
