@@ -12,6 +12,8 @@ class ComplejoController extends Controller
 {
     public function index()
     {
+        $this->authorize('view', new Complejo);
+
         $user = Auth()->user();
 
         if ($user->hasRole('Admin')) {
@@ -26,11 +28,14 @@ class ComplejoController extends Controller
     }
     public function create()
     {
+        $this->authorize('create', $complejo = new Complejo);
 
-        return view('admin.complejos.create');
+        return view('admin.complejos.create',compact('complejo'));
     }
     public function store(Request $request)
     {
+        $this->authorize('create', new Complejo);
+
         $data = $request->validate([
             'nombre' => 'required|string|max:30|unique:complejos',
             'imagen' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
@@ -55,24 +60,26 @@ class ComplejoController extends Controller
     }
     public function edit(Complejo $complejo)
     {
+        $this->authorize('update', $complejo);
 
         return view('admin.complejos.edit', compact('complejo'));
     }
     public function update(StoreComplejoRequest $request, Complejo $complejo)
     {
+        $this->authorize('update', $complejo); 
 
-        
+        $complejo->update(
+            $request->validated()
 
-            $complejo->update(
-                $request->validated()
-                
-            );
-        
+        );
+
 
         return redirect()->route('admin.complejo.edit', $complejo)->with('flash', 'El Complejo ha sido actualizado');
     }
     public function destroy(Complejo $complejo)
     {
+        $this->authorize('delete', $complejo); 
+
         $complejo->delete();
 
         return redirect()->route('admin.complejo.index')->with('flash', 'El Complejo ha sido eliminado');
