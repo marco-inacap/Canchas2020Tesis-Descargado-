@@ -22,9 +22,9 @@
     @csrf
     <div class="form-group">
       <label>Fecha Inicial</label>
-      <input id="txtFecha" name="fecha_inicio" type="date" class="form-control-sm" value="">
+      <input id="txtFecha" name="fecha_inicio" type="date" class="form-control-sm" value="{{old('fecha_inicio')}}">
       <label>Fecha Final</label>
-      <input id="txtFecha" name="fecha_final" type="date" class="form-control-sm" value="">
+      <input id="txtFecha" name="fecha_final" type="date" class="form-control-sm" value="{{old('fecha_final')}}">
       <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
     </div>
   </form>
