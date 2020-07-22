@@ -9,7 +9,7 @@
         <div class="divider-2" style="margin:25px 0;"></div>
         <div class="form-contact">
             <form action="#">
-                @if ($reservas->count() === 1)
+                tengo que hacer un if, para mostrar solo las reservas con estado:Pago con Webpay Normal finalizado y Pago con Webpay Normal iniciado'
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -21,7 +21,7 @@
                             <th scope="col">Total</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody>                       
                         @foreach ($reservas as $reserva)
                         <tr>
                             <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MMMM - YYYY')}}</td>
@@ -32,6 +32,9 @@
                             <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
                             <td>${{number_format($reserva->total,0, ',', '.')}}</td>
                             <td>
+                                @if ($reserva->status != 13)
+                                <a href="{{route('detalle.reserva', $reserva)}}">Pagar</a>
+                                @endif
                                 <a href="{{route('detalle.reserva', $reserva)}}">ver</a>
                                 <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}">Pdf</a>
                             </td>
@@ -39,7 +42,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                @elseif($reservas->count() < 1 )
+                @if($reservas->count() < 1 )
                 <p>Aún no tienes reservas, que esperas!</p>
                 @endif
 
