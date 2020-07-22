@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;  
-use Spatie\Permission\Models\Permission; 
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RolesController extends Controller
 {
@@ -16,9 +16,9 @@ class RolesController extends Controller
      */
     public function index()
     {
-         /* $this->authorize('view', new Role);   */
+        $this->authorize('view', new Role);  
 
-        return view ('admin.roles.index',[
+        return view('admin.roles.index', [
 
             'roles' => Role::all(),
         ]);
@@ -31,18 +31,15 @@ class RolesController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', new Role);  
         
-         $this->authorize('create', $role = new Role); 
 
-        return view ('admin.roles.create',[
+        return view('admin.roles.create', [
 
-            'role'        => $role,  
-            'permissions' => Permission::pluck('name','id'),  
-            
-        ]); 
-        
-       
-      
+            'role'        => $role,
+            'permissions' => Permission::pluck('name', 'id'),
+
+        ]);
     }
 
     /**
@@ -53,29 +50,29 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-         /* $this->authorize('create', new Role);  */
+         $this->authorize('create', new Role);  
 
-       $data = $request->validate([
-          
-        'name'         => 'required | unique:roles',
-        'display_name' => 'required',
-        /* 'guard_name'   => 'required', */
-       ],
-       [
-        'name.required' => 'El Nombre de Identificador es obligatorio.',
-        'display_name.required' => 'El campo Nombre es obligatorio.'
-    ]
-    );
+        $data = $request->validate(
+            [
 
-       $role = Role::create($data);
+                'name'         => 'required | unique:roles',
+                'display_name' => 'required',
+                /* 'guard_name'   => 'required', */
+            ],
+            [
+                'name.required' => 'El Nombre de Identificador es obligatorio.',
+                'display_name.required' => 'El campo Nombre es obligatorio.'
+            ]
+        );
 
-       if($request->has('permissions')){
+        $role = Role::create($data);
 
-        $role->givePermissionTo($request->permissions);
-       }
+        if ($request->has('permissions')) {
 
-       return redirect()->route('admin.roles.index')->withFlash('El Rol fue creado exitosamente');
-       
+            $role->givePermissionTo($request->permissions);
+        }
+
+        return redirect()->route('admin.roles.index')->withFlash('El Rol fue creado exitosamente');
     }
 
     /**
@@ -87,12 +84,12 @@ class RolesController extends Controller
     public function edit(Role $role)
     {
 
-         /* $this->authorize('update',$role);  */  
+        $this->authorize('update', $role);  
 
-        return view ('admin.roles.edit',[
+        return view('admin.roles.edit', [
 
-            'role'        => $role,  
-            'permissions' => Permission::pluck('name','id'), 
+            'role'        => $role,
+            'permissions' => Permission::pluck('name', 'id'),
         ]);
     }
 
@@ -106,29 +103,30 @@ class RolesController extends Controller
     public function update(Request $request, Role $role)
     {
 
-          /* $this->authorize('update',$role);  */
-       /* return $request; */
-       $data = $request->validate([
-          
-        /* 'name' => 'required | unique:roles,name,' . $role->id, */
-        'display_name' => 'required',
-        /* 'guard_name' => 'required', */
-       ],
-    [
-        'display_name.required' => 'El campo Nombre es obligatorio.'
-    ]);
+        $this->authorize('update',$role);  
+        /* return $request; */
+        $data = $request->validate(
+            [
 
-            $role->update($data);
+                /* 'name' => 'required | unique:roles,name,' . $role->id, */
+                'display_name' => 'required',
+                /* 'guard_name' => 'required', */
+            ],
+            [
+                'display_name.required' => 'El campo Nombre es obligatorio.'
+            ]
+        );
 
-            $role->permissions()->detach();
+        $role->update($data);
 
-           if($request->has('permissions')){
+        $role->permissions()->detach();
+
+        if ($request->has('permissions')) {
 
             $role->givePermissionTo($request->permissions);
-           }
-    
-           return redirect()->route('admin.roles.edit',$role)->withFlash('El Rol fue actualizado exitosamente'); 
-        
+        }
+
+        return redirect()->route('admin.roles.edit', $role)->withFlash('El Rol fue actualizado exitosamente');
     }
 
     /**
@@ -140,10 +138,10 @@ class RolesController extends Controller
     public function destroy(Role $role)
     {
 
-           $this->authorize('delete',$role);  
+        $this->authorize('delete', $role);  
 
         $role->delete();
 
-        return redirect()->route('admin.roles.index')->with('flash','El Rol ha sido eliminado');
+        return redirect()->route('admin.roles.index')->with('flash', 'El Rol ha sido eliminado');
     }
 }
