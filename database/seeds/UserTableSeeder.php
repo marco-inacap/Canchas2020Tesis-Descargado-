@@ -29,6 +29,16 @@ class UserTableSeeder extends Seeder
         $deleteCanchaPermission = Permission::create(['name'=>'Delete Cancha','display_name' => 'Eliminar Cancha']);
         $arrendarCanchaPermission = Permission::create(['name'=>'Arrendar Cancha','display_name' => 'Arrendar una Cancha']);
 
+        $viewComplejoPermission   = Permission::create(['name'=>'View Complejo','display_name' => 'Ver Complejo']);
+        $createComplejoPermission = Permission::create(['name'=>'Create Complejo','display_name' => 'Crear Complejo']);
+        $updateComplejoPermission = Permission::create(['name'=>'Update Complejo','display_name' => 'Editar Complejo']);
+        $deleteComplejoPermission = Permission::create(['name'=>'Delete Complejo','display_name' => 'Eliminar Complejo']);
+
+        $viewHorarioPermission   = Permission::create(['name'=>'View Horario','display_name' => 'Ver Horario']);
+        $createHorarioPermission = Permission::create(['name'=>'Create Horario','display_name' => 'Crear Horario']);
+        $updateHorarioPermission = Permission::create(['name'=>'Update Horario','display_name' => 'Editar Horario']);
+        $deleteHorarioPermission = Permission::create(['name'=>'Delete Horario','display_name' => 'Eliminar Horario']);
+        
         $viewUsersPermission   = Permission::create(['name'=>'View Users','display_name' => 'Ver Usuarios']);
         $createUsersPermission = Permission::create(['name'=>'Create Users','display_name' => 'Crear Usuarios']);
         $updateUsersPermission = Permission::create(['name'=>'Update Users','display_name' => 'Editar Usuarios']);
@@ -57,6 +67,16 @@ class UserTableSeeder extends Seeder
         $admin->givePermissionTo($createCanchaPermission);
         $admin->givePermissionTo($updateCanchaPermission);
         $admin->givePermissionTo($deleteCanchaPermission);
+
+        $admin->givePermissionTo($viewComplejoPermission);
+        $admin->givePermissionTo($createComplejoPermission);
+        $admin->givePermissionTo($updateComplejoPermission);
+        $admin->givePermissionTo($deleteComplejoPermission);
+
+        $admin->givePermissionTo($viewHorarioPermission);
+        $admin->givePermissionTo($createHorarioPermission);
+        $admin->givePermissionTo($updateHorarioPermission);
+        $admin->givePermissionTo($deleteHorarioPermission);
 
         $admin->givePermissionTo($viewUsersPermission);
         $admin->givePermissionTo($createUsersPermission);
