@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 class Reserva extends Model
 {
     public const STATUS_PENDING_PAYMENT = 0;
-    // Webpay Plus Normal status
     public const STATUS_WP_NORMAL_INIT_SUCCESS = 11;
     public const STATUS_WP_NORMAL_INIT_ERROR = 12;
     public const STATUS_WP_NORMAL_FINISH_SUCCESS = 13;
