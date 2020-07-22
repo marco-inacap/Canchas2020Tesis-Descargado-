@@ -8,95 +8,104 @@
 
 <style>
     body {
-   
-    padding: 0;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-  }
+
+        padding: 0;
+        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    }
 </style>
 
 <body>
-<article class="post container">
-    <div class="modal-footer">
-       
-    </div>
-    <div id='calendar'></div>
-</article>
+    <article class="post container">
+        <div class="modal-footer">
+        </div>
+        <div id='calendar'></div>
+
+    </article>
 </body>
 
-<div class="modal fade bd-example-modal-sm" id="infoModal"  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-sm" id="infoModal" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-        <ul class="list-group">
-            <li class="list-group-item font-weight-bold active">
-                <input type="text" id="ModalComplejo" name="ModalComplejo" class="form-control"  disabled>
-            </li>
-                
-                <li class="list-group-item font-weight-bold">Usuario: 
-                    <input type="text" id="ModalUsuario" name="ModalUsuario" class="form-control"  disabled>
+        <div class="modal-content">
+            <ul class="list-group">
+                <li class="list-group-item font-weight-bold active">
+                    <input type="text" id="ModalComplejo" name="ModalComplejo" class="form-control" disabled>
                 </li>
-                <li class="list-group-item font-weight-bold">Hora Inicio: 
-                    <input type="time" id="ModalFechaInicio" name="ModalFechaInicio" class="form-control"  disabled>
+
+                <li class="list-group-item font-weight-bold">Usuario:
+                    <input type="text" id="ModalUsuario" name="ModalUsuario" class="form-control" disabled>
                 </li>
-                <li class="list-group-item font-weight-bold">Hora Fin: 
-                    <input type="time" id="ModalFechaFin" name="ModalFechaFin" class="form-control"  disabled>
+                <li class="list-group-item font-weight-bold">Hora Inicio:
+                    <input type="time" id="ModalFechaInicio" name="ModalFechaInicio" class="form-control" disabled>
+                </li>
+                <li class="list-group-item font-weight-bold">Hora Fin:
+                    <input type="time" id="ModalFechaFin" name="ModalFechaFin" class="form-control" disabled>
                 </li>
                 <li class="list-group-item font-weight-bold">Fecha:
-                    <input  type="date" id="ModalFecha" name="ModalFecha" class="form-control"  disabled>
-                </li> 
-               {{--  <li class="list-group-item font-weight-bold">Complejo: 
+                    <input type="date" id="ModalFecha" name="ModalFecha" class="form-control" disabled>
+                </li>
+                {{--  <li class="list-group-item font-weight-bold">Complejo: 
                     <input type="text" id="ModalComplejo" name="ModalComplejo" class="form-control"  disabled>
                 </li>    --}}
-        </ul>
-        <div class="modal-footer">
-            <a id="delete" data-href="{{ url('reservas') }}" data-id=""data-token="{{ csrf_token() }}" class="btn btn-danger float-lg-left">Eliminar</a>
+            </ul>
+            @if (Auth::user()->hasRole('Admin'))
+            <div class="modal-footer">
+                <a id="delete" data-href="{{ url('reservas') }}" data-id="" data-token="{{ csrf_token() }}"
+                    class="btn btn-danger float-lg-left">Eliminar</a>
+            </div>
+            @endif
         </div>
-    </div>
     </div>
 </div>
 
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Reservar {{$cancha->nombre}} de {{optional($cancha->complejo)->nombre}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form id="formulario_agenda" action="{{route('reservar.guardar',$cancha)}}">
-                @csrf
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reservar {{$cancha->nombre}} de
+                    {{optional($cancha->complejo)->nombre}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formulario_agenda" action="{{route('reservar.guardar',$cancha)}}">
+                    @csrf
                     <div class="form-group">
                         <label>Fecha.</label>
-                        <input id="txtFecha" name="txtFecha" type="date"  class="form-control" value="" >      
+                        <input id="txtFecha" name="txtFecha" type="date" class="form-control" value="">
                     </div>
 
                     <div class="form-group">
-                        <label>Hora de reserva.</label> 
-                        <input id="txtHoraInicio" name="txtHoraInicio" type="time"  class="form-control" value="" disabled>                           
+                        <label>Hora de reserva.</label>
+                        <input id="txtHoraInicio" name="txtHoraInicio" type="time" class="form-control" value=""
+                            disabled>
                     </div>
 
                     <div class="form-group">
-                        <label>Tiempo para arrendar. (Minutos)</label> 
-                    <input id="txtTiempo"  name="txtTiempo" type="number"  class="form-control" value="60" disabled > 
+                        <label>Tiempo para arrendar. (Minutos)</label>
+                        <input id="txtTiempo" name="txtTiempo" type="number" class="form-control" value="60" disabled>
                     </div>
-            
+
                     <div class="form-group">
                         <label>A nombre de: </label>
-                        <input type="text"  class="form-control" value="{{auth()->user()->name}}" disabled>      
+                        <input type="text" class="form-control" value="{{auth()->user()->name}}" disabled>
                     </div>
-            </form>        
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+                <button onclick="reservar()" type="button"
+                    style="background-color:rgb(0,188,159,0.4); border-color:rgb(0,200,159,0.4); " class="btn "
+                    id="btnReservar">Reservar</button>
+            </div>
         </div>
-        
-        <div class="modal-footer">
-          {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-          <button onclick="reservar()" type="button" class="btn btn-primary" id="btnReservar">Reservar</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 @endsection
 
 
@@ -111,11 +120,11 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 @endpush
 
-@push('scripts') 
+@push('scripts')
 {{-- <script src="/fullcalendar/jQuery/jquery-3.5.1.js"></script>   --}}
 {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>  --}}
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
@@ -128,8 +137,9 @@
 <script src='/fullcalendar/timegrid/main.js'></script>
 
 
+
+
 <script>
-    
     var BASEURL = "{{ url('/') }}";
     var calendar = null; 
     document.addEventListener('DOMContentLoaded', function() {
@@ -326,4 +336,3 @@
         }
 </script>
 @endpush
-
