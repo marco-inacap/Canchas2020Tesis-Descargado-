@@ -47,11 +47,6 @@
 					<div class="read-more">
 						<a href="{{	route('canchas.show',$cancha)}}" class="text-uppercase c-green">Ver mas</a>
 					</div>
-					<div class="read-more">
-						@if ($cancha->estado_id !== 3)
-						<button type="submit" class="btn btn-outline-primary box-body text-capitalize">Arrendar</button>
-						@endif
-					</div>
 					<div class="tags container-flex">
 						<span class="tag c-gray-1 text-capitalize">#</span>
 						<span class="tag c-gray-1 text-capitalize">#</span>
