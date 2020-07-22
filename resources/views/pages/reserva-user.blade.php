@@ -44,8 +44,10 @@
                         <br>
                         @foreach ($responses as $response)
                         <b>Nº de orden:</b> {{$response->buy_order}}<br>
-                        <b>Fecha transacción: </b>{{Carbon\Carbon::parse($response->transaction_date)->isoFormat('D-MM-YY')}}<br>
-                        <b>Hora transacción: </b>{{Carbon\Carbon::parse($response->transaction_date)->isoFormat('HH:mm:ss')}}<br>
+                        <b>Fecha transacción:
+                        </b>{{Carbon\Carbon::parse($response->transaction_date)->isoFormat('D-MM-YY')}}<br>
+                        <b>Hora transacción:
+                        </b>{{Carbon\Carbon::parse($response->transaction_date)->isoFormat('HH:mm:ss')}}<br>
                         <b>Estado de Transacción: </b>{{\App\reserva::STATUS_DESC[$reserva->status]}}<br>
                         @endforeach
                     </div>
@@ -68,7 +70,8 @@
                                 <tr>
                                     <td>{{ $reserva->id}}</td>
                                     <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MM - YY')}}</td>
-                                    <td>{{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}</td>
+                                    <td>{{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}
+                                    </td>
                                     <td>{{ $reserva->cancha->nombre}}</td>
                                     <td>{{ $reserva->cancha->complejo->nombre}}</td>
                                     <td>{{auth()->user()->name }}</td>
@@ -94,6 +97,15 @@
                         </div>
                     </div>
                 </div>
+                {{-- @if ($reserva->status != 13)
+                <div class="row">
+                    <form action="{{$response->url}}" method="post">
+                        @csrf
+                        <input type="hidden" name="token_ws" value="{{$response->token}}">
+                        <button target="_blank" class="btn btn-default"><i class="fa fa-print"></i> PAGAR</button>
+                    </form>
+                </div>
+                @endif --}}
             </section>
         </div>
     </div>
