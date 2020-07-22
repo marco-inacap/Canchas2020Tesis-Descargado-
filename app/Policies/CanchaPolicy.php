@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\User;
 use App\Cancha;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Spatie\Permission\Models\Role;
 
 class CanchaPolicy
 {
@@ -38,7 +39,7 @@ class CanchaPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Cancha $cancha)
     {
         /* dd('ejecutado'); */
         return $user->hasPermissionTo('Create Cancha');
