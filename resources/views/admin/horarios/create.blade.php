@@ -36,7 +36,7 @@
                 </option>
                 @endforeach
               </select>
-              {!!$errors->first('cancha_id','<span class="help-block">:message</span>')!!}
+              {!!$errors->first('complejo_id','<span class="help-block">:message</span>')!!}
             </div>
           </div>
           <div class="box-body">
@@ -49,24 +49,27 @@
             </div>
           </div>
           <div class="box-body">
-            <div class="form-group {{$errors->has('nombre') ? 'has-error':''}}">
+            <div class="form-group {{$errors->has('fecha') ? 'has-error':''}}">
               <label>Fecha</label>
               <input name="fecha" type="date" class="form-control" value="{{old('fecha', $horario->fecha)}}">
             </div>
+            {!!$errors->first('fecha','<span class="help-block">:message</span>')!!}
           </div>
           <div class="box-body">
-            <div class="form-group {{$errors->has('nombre') ? 'has-error':''}}">
-              <label>Hora cierre</label>
+            <div class="form-group {{$errors->has('hora_cierre') ? 'has-error':''}}">
+              <label>Hora de Comienzo (Cierre)</label>
               <input name="hora_cierre" type="time" class="form-control"
                 value="{{old('hora_cierre', $horario->hora_cierre)}}">
             </div>
+            {!!$errors->first('hora_cierre','<span class="help-block">:message</span>')!!}
           </div>
           <div class="box-body">
-            <div class="form-group {{$errors->has('nombre') ? 'has-error':''}}">
-              <label>Hora Apertura</label>
+            <div class="form-group {{$errors->has('hora_apertura') ? 'has-error':''}}">
+              <label>Hora de Termino (Cierre)</label>
               <input name="hora_apertura" type="time" class="form-control"
                 value="{{old('hora_apertura', $horario->hora_apertura)}}">
             </div>
+            {!!$errors->first('hora_apertura','<span class="help-block">:message</span>')!!}
           </div>
         </div>
         <div class="modal-footer">
