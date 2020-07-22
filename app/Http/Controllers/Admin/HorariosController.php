@@ -18,29 +18,10 @@ class HorariosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {  
-       
-        $usuarioauth = Auth()->user()->id;
-
-        $horarios = DB::table('horarios')
-        ->join('canchas','canchas.id','=','horarios.cancha_id')
-        ->select('canchas.nombre',
-                'horarios.id',
-                'horarios.fecha',
-                'horarios.hora_cierre',
-                'horarios.hora_apertura')
-        ->where('canchas.user_id', '=',$usuarioauth)->get();  
-
-        return view('admin.horarios.index',compact('horarios'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
+
+        $this->authorize('view', new Horario);
+
         $user = Auth()->user();
 
         if ($user->hasRole('Admin')) {
@@ -50,10 +31,50 @@ class HorariosController extends Controller
             $complejos = $user->complejo()->get();
         }
 
-         $canchas = Cancha::where('user_id',auth()->id())->get(); 
-        
+        return view('admin.horarios.index', compact('complejos'));
+    }
 
-        return view ('admin.horarios.create',compact('canchas','complejos'));
+    public function lista_canchas(Complejo $complejo)
+    {    
+            $canchas = $complejo->canchas()->get();
+
+        return view('admin.horarios.listacanchashorario', compact('canchas'));
+    }
+
+
+
+    public function lista_horarios(Cancha $cancha)
+    {
+
+        $horarios = Horario::where('cancha_id', $cancha->id)->get();
+
+
+        return view('admin.horarios.listahorario', compact('horarios','cancha'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+
+        $this->authorize('create', new Horario);
+
+        $user = Auth()->user();
+
+        if ($user->hasRole('Admin')) {
+            $complejos = Complejo::all();
+        } else {
+
+            $complejos = $user->complejo()->get();
+        }
+
+        $canchas = Cancha::where('user_id', auth()->id())->get();
+
+
+        return view('admin.horarios.create', compact('canchas', 'complejos'));
     }
 
     /**
@@ -64,13 +85,19 @@ class HorariosController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', new Horario);
+
         $this->validate($request, [
-            'fecha' => 'required|min:3',
+            'complejo_id' => 'required',
+            'cancha_id' => 'required',
+            'fecha' => 'required',
+            'hora_cierre' => 'required',
+            'hora_apertura' => 'required',
         ]);
 
-        $horario = Horario::create( $request->all() );
-        
-        return redirect()->route('admin.horarios.index')->with('flash','El horario se ha agregado');
+        $horario = Horario::create($request->all());
+
+        return redirect()->route('admin.horarios.index')->with('flash', 'El horario se ha agregado');
     }
 
     /**
@@ -92,10 +119,12 @@ class HorariosController extends Controller
      */
     public function edit(Horario $horario)
     {
-        $canchas = Cancha::where('user_id',auth()->id())->get(); 
+        $this->authorize('update', $horario);
 
-        
-        return view('admin.horarios.edit',compact('canchas'));
+        $canchas = Cancha::where('user_id', auth()->id())->get();
+
+
+        return view('admin.horarios.edit', compact('canchas'));
     }
 
     /**
@@ -118,6 +147,7 @@ class HorariosController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', new Horario);
         //
     }
 }
