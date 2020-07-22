@@ -73,6 +73,11 @@ class UserPolicy
      */
     public function delete(User $authUser, User $user)
     {
+        if($user->id === 1)
+        {
+            $this->deny('No se puede eliminar este Usuario');  
+        }
+
         return $authUser->id === $user->id || $user->hasPermissionTo('Delete Users'); 
     }
 
