@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Complejo;
 use App\Http\Requests\StoreComplejoRequest;
 use Illuminate\Support\Facades\Storage;
+use Image;
 
 class ComplejoController extends Controller
 {
@@ -68,11 +69,24 @@ class ComplejoController extends Controller
     {
         $this->authorize('update', $complejo); 
 
-        $complejo->update(
-            $request->validated()
 
-        );
+        if ($request->hasFile('imagen')) {
+            
+            $img = $request->file('imagen');
 
+            $oldFileName = $complejo->url_imagen;
+            Storage::delete($oldFileName); 
+
+            $oldFileName = str_replace('storage/' , '' , $oldFileName);
+            Storage::disk('public')->delete($oldFileName);
+            
+            $complejo->update([$request->validated(),
+            'url_imagen' => 'storage/'.$img->store('complejos','public')
+        ]);
+
+        }
+        $complejo->update($request->validated());
+        
 
         return redirect()->route('admin.complejo.edit', $complejo)->with('flash', 'El Complejo ha sido actualizado');
     }
