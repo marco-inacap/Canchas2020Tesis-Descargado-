@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Reserva;
 use App\Transaction;
 use App\Respuesta;
+use Carbon\Carbon;
 use Auth;
 use Transbank\Webpay\Configuration;
 use Transbank\Webpay\Webpay;
@@ -39,7 +40,27 @@ class PagesController extends Controller
 
     public function home()
     {
+        $fechaActual = Carbon::now()->format('y-m-d H:i:s');
+
         $canchas = Cancha::latest('created_at')->paginate(5);
+
+        //aquí quede!
+
+        foreach ($canchas as $cancha) {
+        
+            if ($fechaActual >= $cancha->reservas->hora_inicio && $fechaActual <= $cancha->reservas->hora_fin ) {
+
+                $cancha->estado = 1;
+                $cancha->save();
+            }
+        }
+        
+
+
+        
+        
+
+        
 
         return view('pages.home', compact('canchas'));
     }
