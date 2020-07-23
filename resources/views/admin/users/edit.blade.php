@@ -32,6 +32,7 @@
                         <input type="password" name="password_confirmation" class="form-control" placeholder="******">
                         {!!$errors->first('password','<span class="help-block">:message</span>')!!}
                     </div>
+                    @if ($user->hasRole('Dueño'))
                     <div class="form-group {{$errors->has('complejo_id') ? 'has-error':''}}">
                         <label>Sus Complejos</label>
                         <select multiple="multiple" name="complejos[]" class="form-control select2">   
@@ -44,6 +45,7 @@
                         </select>
                         {!!$errors->first('complejo_id','<span class="help-block">:message</span>')!!}
                     </div>
+                    @endif
                     <button class="btn btn-primary btn-block">Actualizar</button>
                 </form>
             </div>
