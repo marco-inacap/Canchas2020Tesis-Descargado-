@@ -19,7 +19,7 @@ class Cancha extends Model implements LikeableContract
 
     public function reservas()
     {
-        return $this->hasMany(Reserva::class);
+        return $this->hasOne(Reserva::class);
     }
     public function horario()
     {
