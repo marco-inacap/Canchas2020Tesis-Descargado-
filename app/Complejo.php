@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Complejo extends Model
 {
@@ -15,6 +16,27 @@ class Complejo extends Model
         'coordinate', 'map_popup_content',
     ];
     
+
+    protected static function boot ()
+    {
+        parent::boot();
+
+        static::deleting(function($complejo){
+
+            $complejo = str_replace('storage/' , '' , $complejo->url_imagen );
+            Storage::disk('public')->delete($complejo);
+            
+            /* Storage::disk('public')->delete($photo->url);   */ 
+
+            /* $photoPath = str_replace('storage',  $photo->url); 
+
+        Storage::delete($photoPath); */
+
+        });
+
+        
+        
+    }
     public function getRouteKeyName()
     {
         return 'url';
@@ -73,7 +95,6 @@ class Complejo extends Model
 
         return $mapPopupContent;
     }
-
 
     
     
