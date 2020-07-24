@@ -46,14 +46,14 @@ class PagesController extends Controller
 
         //aquí quede!
 
-        foreach ($canchas as $cancha) {
+        /* foreach ($canchas as $cancha) {
         
             if ($fechaActual >= $cancha->reservas->hora_inicio && $fechaActual <= $cancha->reservas->hora_fin ) {
 
                 $cancha->estado = 1;
                 $cancha->save();
             }
-        }
+        } */
         
 
 
