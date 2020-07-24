@@ -30,7 +30,7 @@
             <ul class="nav nav-stacked">
               <li><a >Nº Canchas <span class="pull-right badge bg-blue">{{count($complejo->canchas)}}</span></a></li>
               @if (isset($complejo->canchas[0]->reservas))
-              <li><a href="#">Nº Reservas <span class="pull-right badge bg-aqua">{{count($complejo->canchas[0]->reservas)}}</span></a></li>
+              <li><a href="#">Nº Reservas <span class="pull-right badge bg-aqua">{{count($complejo->reservas)}}</span></a></li>
               @else
               <li><a href="#">Nº Reservas <span class="pull-right badge bg-aqua">0</span></a></li>
               @endif
