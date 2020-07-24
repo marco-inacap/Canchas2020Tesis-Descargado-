@@ -47,9 +47,9 @@
 
             <tr>
         
-            <th colspan="5" style="font-weight: bold; font-size: 20px">Total</th>
+                <th colspan="5" style="font-weight: bold; font-size: 20px">Monto total</th>
         
-            <td colspan="0" style="font-weight: bold; font-size: 18px">$ {{number_format($totalReservasDia,0, ',', '.')}} </td>
+            <td colspan="0" style="font-weight: bold; font-size: 18px; color: green">$ {{number_format($totalReservasDia,0, ',', '.')}} </td>
         
             </tr>
         
