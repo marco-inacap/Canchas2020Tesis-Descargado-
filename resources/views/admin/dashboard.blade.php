@@ -35,7 +35,7 @@
                 <td>{{$reserva->hora_inicio}} - {{$reserva->hora_fin}}</td>
                 <td>{{$reserva->name}}</td>
                 <td>{{$reserva->nombre}}</td>
-                <td>$ {{number_format($reserva->precio,0, ',', '.')}}</td>
+                <td>$ {{number_format($reserva->total,0, ',', '.')}}</td>
                 <td>
                     <a>ver</a>
                     <a>#</a>
