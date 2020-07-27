@@ -24,7 +24,6 @@ class AdminController extends Controller
         /* $this->authorize($user->hasPermissionTo('Primer Acceso')); */
         $usuarioauth = Auth()->user()->id;
 
-
         $reservas = DB::table('reservas')
             ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
             ->join('users', 'reservas.user_id', '=', 'users.id')
@@ -81,11 +80,9 @@ class AdminController extends Controller
             ->select('reservas.total')
             ->whereDay('reservas.created_at', Carbon::now()->format('d'))
             ->where('canchas.user_id', '=', $usuarioauth)->sum('reservas.total');
+            /* $reservas = Auth::user()->id ===  ; */
 
-        /* $reservas = Auth::user()->id ===  ; */
-
-        /* $reservas = Reserva::where($cancha,auth()->id())->get();  */
-
+            /* $reservas = Reserva::where($cancha,auth()->id())->get();  */
         return view('admin.dashboard', compact(
             'reservas',
             'totalReservas',
