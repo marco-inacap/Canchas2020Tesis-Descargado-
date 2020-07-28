@@ -1,10 +1,8 @@
 <div class="box">
     <div class="box-header with-border">
       <h3 class="box-title">Reporte gráfico en TOTAL.</h3>
-
       <div class="box-tools pull-right">
-        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-        </button>
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
       </div>
     </div>
     <!-- /.box-header -->
@@ -13,7 +11,7 @@
         <div class="col-md-12">
           <div class="chart">
             <!-- Sales Chart Canvas -->
-           {{--  <canvas id="salesChart" style="height: 180px;"></canvas> --}}
+          {{--  <canvas id="salesChart" style="height: 180px;"></canvas> --}}
             <canvas id="myChart" width="1000" height="400"></canvas>
           </div>
           <!-- /.chart-responsive -->
@@ -30,8 +28,7 @@
             <div class="description-block">
               <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
               <h5 class="description-header">$ {{ number_format($totalReservasDia, 0, ',', '.') }}</h5>
-              
-              <span class="description-text">TOTAL DÍA </span>
+              <span class="description-text">TOTAL DÍA</span>
             </div>
             <!-- /.description-block -->
           </div>
@@ -67,7 +64,6 @@
           </div>
           <!-- /.description-block -->
         </div>
-       
         <!-- /.col -->
         
         <!-- /.col -->
