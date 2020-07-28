@@ -45,7 +45,6 @@
                 @if($reservas->count() < 1 )
                 <p>Aún no tienes reservas, que esperas!</p>
                 @endif
-
             </form>
         </div>
     </div>
