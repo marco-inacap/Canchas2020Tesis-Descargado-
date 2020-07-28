@@ -33,16 +33,16 @@
 				<figure class="logo"><img src="/img/logo.png" alt=""></figure>
 				<nav>
 					<ul class="container-flex space-center list-unstyled">
-						<li><a href="index.html" class="text-uppercase c-white">home</a></li>
-						<li><a href="about.html" class="text-uppercase c-white">about</a></li>
-						<li><a href="archive.html" class="text-uppercase c-white">archive</a></li>
-						<li><a href="contact.html" class="text-uppercase c-white">contact</a></li>
+						<li><a href="{{route('pages.home')}}" class="text-uppercase c-white">Inicio</a></li>
+						<li><a href="{{route('pages.misreservas')}}" class="text-uppercase c-white">Mis Reservas</a></li>
+						<li><a href="{{route('complejos_map.index')}}" class="text-uppercase c-white">Complejos</a></li>
+						<li><a href="{{route('pages.contacto')}}" class="text-uppercase c-white">Contacto</a></li>
 					</ul>
 				</nav>
 				<div class="divider-2"></div>
-				<p>Nunc placerat dolor at lectus hendrerit dignissim. Ut tortor sem, consectetur nec hendrerit ut, ullamcorper ac odio. Donec viverra ligula at quam tincidunt imperdiet. Nulla mattis tincidunt auctor.</p>
+				<p>Hola po olvidona</p>
 				<div class="divider-2" style="width: 80%;"></div>
-				<p>© 2017 - Zendero. All Rights Reserved. Designed & Developed by <span class="c-white">Agencia De La Web</span></p>
+				<p>© 2020 - Marco González. Todos los derechos reservados by <span class="c-white">Marco González</span></p>
 				<ul class="social-media-footer list-unstyled">
 					<li><a href="#" class="fb"></a></li>
 					<li><a href="#" class="tw"></a></li>
