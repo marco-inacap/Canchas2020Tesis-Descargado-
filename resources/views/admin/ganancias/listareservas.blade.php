@@ -8,13 +8,61 @@
 </h1>
 <ol class="breadcrumb">
   <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> Inicio</a></li>
+  <li class="active">Ganancias</li>
+  <li class="active">{{$complejo->nombre}}</li>
   <li class="active">{{$cancha->nombre}}</li>
 </ol>
 
 @endsection
 
 @section('content')
-
+<div class="box">
+  <div class="box-header with-border">
+    <h3 class="box-title">Reporte en CLP, <b>{{$cancha->nombre}}</b></h3>
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+    </div>
+  </div>
+  <div class="box-footer">
+    <div class="row">
+      <div class="col-sm-2 col-xs-3">
+        <div class="description-block border-righ">
+          <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
+          <h5 class="description-header">$ {{ number_format($totalReservasDia, 0, ',', '.') }}</h5>
+          <span class="description-text">TOTAL DÍA</span>
+        </div>
+      </div>
+      <div class="col-sm-2 col-xs-3">
+        <div class="description-block border-right">
+          <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
+          <h5 class="description-header">$ {{number_format($totalReservasSemana,0, ',', '.')}}</h5>
+          <span class="description-text">TOTAL SEMANA</span>
+        </div>
+      </div>
+      <div class="col-sm-2 col-xs-3">
+        <div class="description-block border-right">
+          <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
+          <h5 class="description-header">$ {{number_format($totalReservasMes,0, ',', '.')}}</h5>
+          <span class="description-text">TOTAL MES</span>
+        </div>
+      </div>
+      <div class="col-sm-3 col-xs-3">
+        <div class="description-block border-right">
+          <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
+          <h5 class="description-header">$ {{number_format($totalReservasMesPasado,0, ',', '.')}}</h5>
+          <span class="description-text">TOTAL MES PASADO</span>
+        </div>
+      </div>
+      <div class="col-sm-3 col-xs-6">
+        <div class="description-block border-right">
+          <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
+          <h5 class="description-header">$ {{number_format($totalReservas,0, ',', '.')}}</h5>
+          <span class="description-text">TOTAL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="box-body">
   <label>Filtrar por fechas de creación.</label>
@@ -59,19 +107,13 @@
       @endforeach
     </tbody>
     <tfoot class="">
-
       <tr>
-
         <th colspan="5" style="font-weight: bold; font-size: 20px">Monto total</th>
-
         <td colspan="0" style="font-weight: bold; font-size: 18px; color: green">$ {{number_format($totalReservas, 0, ',', '.' )}} </td>
-
       </tr>
-
     </tfoot>
   </table>
 </div>
-
 
 @endsection
 
