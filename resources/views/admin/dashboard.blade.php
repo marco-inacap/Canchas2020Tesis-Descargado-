@@ -4,7 +4,7 @@
 @section('header')
 
 
-<h2>Bienvenido {{auth()->user()->name}}!</h2>
+<h2>Bienvenido <b>{{auth()->user()->name}}</b></h2>
 
 <small>Reservas de hoy {{Carbon\Carbon::now()->format('d - M - Y')}}</small>
     
