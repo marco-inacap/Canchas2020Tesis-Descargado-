@@ -285,7 +285,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        
     </div>
     <!-- Default to the left -->
-    <strong>Administración </strong> 
+    <strong>Administración <b class="right-side">Agradecido con el de arriba❤</b></strong> 
   </footer>
 
   <!-- Control Sidebar -->
