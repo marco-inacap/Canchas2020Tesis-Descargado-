@@ -136,7 +136,12 @@ class GananciasController extends Controller
 
     public function detalle_complejo(Complejo $complejo)
     {
-        $reservas = Reserva::where('complejo_id',$complejo->id)->get();
+        if ($complejo->canchas->count() > 0) {
+            
+            $reservas = Reserva::where('complejo_id',$complejo->id)->get();
+        }else{
+            return redirect()->route('admin.ganancias.index')->with('alert', 'El complejo aún no tiene canchas');
+        }
 
         $totalReservas = DB::table('reservas')
             ->join('complejos', 'complejos.id', '=', 'reservas.complejo_id')
@@ -175,6 +180,17 @@ class GananciasController extends Controller
         $reservasHoy = Reserva::where('complejo_id',$complejo->id)->orderby('created_at', 'DESC')
             ->whereDay('reservas.created_at', Carbon::now()->format('d'))->get();
 
+        $numReservasHoy = Reserva::where('complejo_id',$complejo->id)
+            ->whereDay('reservas.created_at', Carbon::now()->format('d'))->count();
+        
+        $numReservasSemana = Reserva::where('complejo_id',$complejo->id)
+            ->whereBetween('reservas.created_at', [$start, $end])->count();
+            
+        $numReservasMes = Reserva::where('complejo_id',$complejo->id)
+            ->whereMonth('reservas.created_at', Carbon::now()->format('m'))->count();  
+            
+        $numReservasTotal = Reserva::where('complejo_id',$complejo->id)->count(); 
+      
     return view('admin.ganancias.complejo-detalle',compact('complejo',
                                                             'reservas',
                                                             'totalReservas',
@@ -182,7 +198,11 @@ class GananciasController extends Controller
                                                             'totalReservasSemana',
                                                             'totalReservasMes',
                                                             'totalReservasMesPasado',
-                                                            'reservasHoy'
+                                                            'reservasHoy',
+                                                            'numReservasHoy',
+                                                            'numReservasSemana',
+                                                            'numReservasMes',
+                                                            'numReservasTotal'
                                                         ));  
     }
 }
