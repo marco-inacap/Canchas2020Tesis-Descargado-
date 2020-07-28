@@ -38,11 +38,10 @@
             </ul>
           </div>
           <a href="{{route('admin.ganancias.canchas', $complejo)}}" class="btn bg-lightblue btn-flat margin"><b>Ver más</b></a>
+          <a href="{{route('admin.ganancias.complejo', $complejo)}}" class="btn bg-maroon btn-flat"><b>+ DETALLES</b></a>
         </div>     
       </div>
       @endforeach
-
       
-
 @endsection
 
