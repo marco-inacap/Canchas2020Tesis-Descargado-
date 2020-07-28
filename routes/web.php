@@ -162,8 +162,8 @@ Route::group(
                 Route::get('ganancias', 'GananciasController@index')->name('admin.ganancias.index');
                 Route::get('ganancias/{complejo}', 'GananciasController@ganancias_canchas')->name('admin.ganancias.canchas');
                 Route::get('canchas/ganancias/{cancha}', 'GananciasController@lista_reservas')->name('admin.ganancias.lista');
-
                 Route::post('canchas/ganancias/{cancha}', 'GananciasController@filtrar_fechas')->name('admin.ganancias.lista.filtrar');
+                Route::get('ganancias/{complejo}/total','GananciasController@detalle_complejo')->name('admin.ganancias.complejo');
 
                 //ajax
                 Route::post('/ganancias/all', 'GananciasController@all');
