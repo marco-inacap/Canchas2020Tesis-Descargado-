@@ -14,6 +14,11 @@
         <li><a href="{{ route('pages.contacto') }}"
                 class="text-uppercase {{ request()->routeIs('pages.contacto') ? 'active' : ''}}">Contacto</a></li>
 
+        @role('Admin|Dueño')
+        <li><a href="{{ route('dashboard') }}"
+                class="text-uppercase {{ request()->routeIs('dashboard') ? 'active' : ''}}"
+                style="color: red;">ADMIN</a></li>
+        @endrole
         <ul class="nav navbar-nav navbar-right">
             <!-- Authentication Links -->
             @guest
