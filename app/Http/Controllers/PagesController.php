@@ -73,7 +73,7 @@ class PagesController extends Controller
     public function reservas()
     {
 
-        $reservas = Reserva::where('user_id', auth()->id())->get();
+        $reservas = Reserva::where('user_id', auth()->id())->orderby('created_at', 'DESC')->get();
 
 
 
