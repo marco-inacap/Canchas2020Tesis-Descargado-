@@ -74,13 +74,11 @@ class ReservaCanchaController extends Controller
         $reserva = Reserva::where('cancha_id', $cancha)->get();
         $nuevaReserva = [];
 
-
-
         foreach ($reserva as $value) {
             if ($value->status == Reserva::STATUS_WP_NORMAL_FINISH_SUCCESS) {
                 $nuevaReserva[] = [
                     "id" => $value->id,
-                    "title"=>$value->user->name,
+                    "title" => $value->user->name,
                     "classNames" => $value->cancha->complejo->nombre,
                     "start" => $value->fecha . " " . $value->hora_inicio,
                     "end" => $value->fecha . " " . $value->hora_fin,
@@ -112,18 +110,51 @@ class ReservaCanchaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function validarFecha($fecha, $horaInicial, $horaFinal)
+    public function validarFecha($fecha, $horaInicial, $horaFinal, $cancha)
     {
-        $reserva = Reserva::select("*")
-            ->where('fecha', $fecha)
+        /* $reserva = Reserva::where('fecha', $fecha)
+            ->where('cancha_id',$cancha)
             ->where('hora_inicio', [$horaInicial, $horaFinal])
             ->orWhere('hora_fin', [$horaInicial, $horaFinal])
-            ->first();
+            ->first(); */
         /* whereDate
-        WhereBetween
-        orWhereBetween */
+                WhereBetween
+                orWhereBetween */
 
-        return $reserva == null ? true : false;
+        $reserva = false;
+
+        $reserva_inicial = Reserva::where('fecha', $fecha)
+            ->where('cancha_id', $cancha)
+            ->where('status', 13)
+            ->where('hora_inicio', '<=', $horaInicial)
+            ->where('hora_fin', '>=', $horaFinal)
+            ->count();
+        if ($reserva_inicial > 0) {
+            $reserva = true;
+        }
+
+        $reserva_final = Reserva::where('fecha', $fecha)
+            ->where('cancha_id', $cancha)
+            ->where('status', 13)
+            ->where('hora_inicio', '<=', $horaInicial)
+            ->where('hora_fin', '>=', $horaFinal)
+            ->count();
+        if ($reserva_final > 0) {
+            $reserva = true;
+        }
+        $reserva_inicial_final = Reserva::where('fecha', $fecha)
+            ->where('cancha_id', $cancha)
+            ->where('status', 13)
+            ->where('hora_inicio', '>=', $horaInicial)
+            ->where('hora_fin', '<=', $horaFinal)
+            ->count();
+        if ($reserva_inicial_final > 0) {
+            $reserva = true;
+        }
+
+        return $reserva;
+
+        /* return $reserva == null ? true : false; */
     }
 
     public function store(Request $request, $cancha)
@@ -134,7 +165,26 @@ class ReservaCanchaController extends Controller
 
         $input = $request->all();
 
-        if ($this->validarFecha($input["txtFecha"], $input["txtHoraInicio"], $input["txtHoraFin"])) {
+        $reservado = $this->validarFecha($input["txtFecha"], $input["txtHoraInicio"], $input["txtHoraFin"], $cancha);
+        if ($reservado) {
+            return response()->json(["ok" => false]);
+        } else {
+            $reserva = new Reserva;
+
+            $reserva->fecha = $input["txtFecha"];
+            $reserva->hora_inicio = $input["txtHoraInicio"];
+            $reserva->hora_fin = $input["txtHoraFin"];
+            $reserva->cancha_id = $cancha;
+            $reserva->complejo_id = $canchas->complejo->id;
+            $reserva->user_id = $usuario->id;
+            $reserva->total = $canchas->precio;
+
+            $reserva->save();
+            return response()->json(["ok" => true]);
+        }
+
+
+        /* if ($this->validarFecha($input["txtFecha"], $input["txtHoraInicio"], $input["txtHoraFin"],$cancha)) {
 
             $reserva = new Reserva;
 
@@ -151,20 +201,20 @@ class ReservaCanchaController extends Controller
             return response()->json(["ok" => true]);
         } else {
             return response()->json(["ok" => false]);
-        }
+        } */
     }
 
     public function init_webpay(Request $request, $id)
     {
         $canchas = Cancha::findOrFail($id);
         $usuarioauth = Auth()->user()->id;
-        $reserva = Reserva::where('user_id', auth()->id())->take(1)->first();
+        /* $reserva = Reserva::where('user_id', auth()->id())->take(1)->first(); */
+        $reserva = Reserva::where('user_id', auth()->id())->orderby('created_at', 'DESC')->take(1)->first();
 
 
-        /* if ($reserva->status != Reserva::STATUS_PENDING_PAYMENT)
-        {
-            return redirect()->route('pages.home');
-        } */
+        if ($reserva->status != Reserva::STATUS_PENDING_PAYMENT) {
+            return view('webpay.error');
+        }
 
         $db_transaction = new Transaction;
         $db_transaction->reserva()->associate($reserva);
@@ -181,14 +231,13 @@ class ReservaCanchaController extends Controller
             $returnUrl,
             $finalUrl
         );
-        /* if (is_array($response))
-        {
+        if (is_array($response)) {
             $db_transaction->error = html_entity_decode($response['detail']);
             $db_transaction->save();
             $reserva->status = Reserva::STATUS_WP_NORMAL_INIT_ERROR;
-            $reserva->save();
-            return redirect()->route('pages.home');
-        } */
+            $reserva->delete();
+            return view('webpay.error');
+        }
 
         $db_transaction->token = $response->token;
         $db_transaction->save();
@@ -204,10 +253,9 @@ class ReservaCanchaController extends Controller
     {
         $token = $request->input('token_ws');
         $db_transaction = Transaction::where('token', $token)->first();
-        /* if (!$db_transaction || $db_transaction->reserva->status != Reserva::STATUS_WP_NORMAL_INIT_SUCCESS)
-        {
-            return redirect()->route('pages.home');
-        } */
+        if (!$db_transaction || $db_transaction->reserva->status != Reserva::STATUS_WP_NORMAL_INIT_SUCCESS) {
+            return view('webpay.error');
+        }
 
         $transaction = self::getTransaction();
         $response = $transaction->getTransactionResult($token);
@@ -215,14 +263,13 @@ class ReservaCanchaController extends Controller
         $db_response = new Respuesta();
         $db_response->transaction()->associate($db_transaction);
 
-        /* if (is_array($response))
-        {
+        if (is_array($response)) {
             $db_response->error = html_entity_decode($response['detail']);
             $db_response->save();
             $db_transaction->reserva->status = Reserva::STATUS_WP_NORMAL_FINISH_ERROR;
             $db_transaction->reserva->save();
-            return redirect()->route('pages.home');
-        } */
+            return view('webpay.error');
+        }
 
         $db_response->buy_order = $response->buyOrder;
         $db_response->session_id = $response->sessionId;
@@ -234,21 +281,18 @@ class ReservaCanchaController extends Controller
         $db_response->authorization_code = $response->detailOutput->authorizationCode;
         $db_response->payment_type_code = $response->detailOutput->paymentTypeCode;
         $db_response->response_code = $response->detailOutput->responseCode;
-
-        /* if (isset($response->detailOutput->responseDescription))
-        {
-        $db_response->response_description = $response->detailOutput->responseDescription;
-        } */
-
+        if (isset($response->detailOutput->responseDescription)) {
+            $db_response->response_description = $response->detailOutput->responseDescription;
+        }
         $db_response->shares_number = $response->detailOutput->sharesNumber;
         $db_response->save();
 
-        /*  if (!$db_response->is_valid)
-        {
+        /* aqui */
+        if ($db_response->response_code != 0) {
             $db_transaction->reserva->status = Reserva::STATUS_WP_NORMAL_FINISH_INVALID;
             $db_transaction->reserva->save();
-            return redirect()->route('pages.home');
-        }  */
+            return view('webpay.error');
+        }
 
         $db_transaction->reserva->status = Reserva::STATUS_WP_NORMAL_FINISH_SUCCESS;
         $db_transaction->reserva->save();
@@ -276,10 +320,9 @@ class ReservaCanchaController extends Controller
             ])->first();
         }
 
-        /* if (!$db_transaction)
-        {
-        return redirect()->route('pages.home');
-        }  */
+        if (!$db_transaction) {
+            return view('webpay.error');
+        }
 
         switch ($db_transaction->reserva->status) {
             case Reserva::STATUS_WP_NORMAL_FINISH_SUCCESS:
@@ -292,8 +335,7 @@ class ReservaCanchaController extends Controller
                 $db_response->session_id = $session_id;
                 $db_response->save();
 
-                /* switch (count($request->all()))
-                {
+                switch (count($request->all())) {
                     case 2:
                         $db_transaction->reserva->status = Reserva::STATUS_WP_NORMAL_FINISH_TIMEOUT;
                         break;
@@ -302,11 +344,11 @@ class ReservaCanchaController extends Controller
                         break;
                     case 4:
                         $db_transaction->reserva->status = Reserva::STATUS_WP_NORMAL_FINISH_FORM_FAULT;
-                        break;    
+                        break;
                 }
                 $db_transaction->reserva->save();
-                default:
-                return redirect()->route('pages.home');   */
+            default:
+                return view('webpay.error');
         }
     }
 
