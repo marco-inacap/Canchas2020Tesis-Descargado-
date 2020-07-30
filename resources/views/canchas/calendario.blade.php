@@ -10,16 +10,28 @@
     body {
 
         padding: 0;
-        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+        font-family: Arial Narrow;
     }
 </style>
 
 <body>
-    <article class="post container">
-        <div class="modal-footer">
+    <article class="pages container">
+        <div class="page page-contact">
+            <h1 class="text-black" style="font-size:15px;">Selecciona</h1>
+            <h3 class="text-black text-right" style="font-size:15px;">Las fechas en color <b
+                    style="color: red; font-weight: bold;">ROJO</b> son el tiempo en el que esta cerrada la cancha.</h1>
+                <div class="footer content">
+                    <img class="profile-user-img img-responsive img-circle" style="width:28px; height:35px;"
+                        src="/img/select.png">
+                    <h2 class="text-black text-center" style="font-size:20px;">Selecciona una fecha en el calendario,
+                        para reservar <b style="font-size:25px">{{$cancha->nombre}}</b>.</h1>
+                </div>
+                <br>
+                <div class="divider-2" style="margin:25px; text-align: center;"></div>
+                <div class="col-md-12">
+                    <div id='calendar'></div>
+                </div>
         </div>
-        <div id='calendar'></div>
-
     </article>
 </body>
 
@@ -157,6 +169,7 @@
             },
             navLinks: true,
             selectable: true,
+            height: 550,
             
             buttonText: {
                 today: 'Hoy',
@@ -173,16 +186,26 @@
             //dateClick
             select:function(info){    
                 
-                let fecha = moment(info.start).format("YYYY-MM-DD");
+                let fecha = moment(info.start).format("YYYY-MM-DD H:mm");
+
+                let fecha_modal = moment(fecha).format("YYYY-MM-DD");
+
+                let hoy = moment(new Date()).format("YYYY-MM-DD H:mm");
                 let hora_inicial = moment(info.start).format("HH:mm");
 
-                $('#txtFecha').val(fecha); 
-                $('#txtHoraInicio').val(hora_inicial); 
-                
-                $('#exampleModal').modal();  
+                if ( hoy <= fecha) {
+                    $('#txtFecha').val(fecha_modal); 
+                    $('#txtHoraInicio').val(hora_inicial); 
+                    
+                    $('#exampleModal').modal(); 
+                }else{
+                    Swal.fire({
+                        icon:'warning',
+                        text:'No puedes reservar en una fecha pasada.'})
+                }  
                 /* calendar.addEvent({title:"Evento x",date:info.dateStr});    */          
             },
-
+            
             //array de eventos, para tarear varias url del controlador. FUENTES JSON
             
             eventSources: [
@@ -195,6 +218,8 @@
                 
                 }
             ],
+
+            
             
 /*              events: '/reservas/listar', 
             events: '/horarios/{{$cancha->id}}/horarioCierre',
@@ -226,8 +251,6 @@
         calendar.setOption('locale','Es');
         calendar.render();
     });
-
-
 
     $('#delete').on('click', function(){
             
@@ -265,6 +288,10 @@
         $('#infoModal').modal('hide');
 
     }
+    
+    
+
+    
 
     function reservar(){
             
