@@ -53,12 +53,14 @@ class GananciasController extends Controller
             ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
             ->select('reservas.total')
             ->where('reservas.cancha_id', '=', $cancha->id)
+            ->where('status','=', 13)
             ->sum('reservas.total');
         
         $totalReservasDia = DB::table('reservas')
             ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
             ->select('reservas.total')
             ->whereDay('reservas.created_at', Carbon::now()->format('d'))
+            ->where('status','=', 13)
             ->where('reservas.cancha_id', '=', $cancha->id)->sum('reservas.total');
 
         $ar = CarbonImmutable::now()->locale('ar');
@@ -69,18 +71,21 @@ class GananciasController extends Controller
             ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
             ->select('reservas.total')
             ->whereBetween('reservas.created_at', [$start, $end])
+            ->where('status','=', 13)
             ->where('reservas.cancha_id', '=', $cancha->id)->sum('reservas.total');
 
         $totalReservasMes = DB::table('reservas')
             ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
             ->select('reservas.total')
             ->whereMonth('reservas.created_at', Carbon::now()->format('m'))
+            ->where('status','=', 13)
             ->where('reservas.cancha_id', '=', $cancha->id)->sum('reservas.total');
             
         $totalReservasMesPasado = DB::table('reservas')
             ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
             ->select('reservas.total')
             ->whereMonth('reservas.created_at', Carbon::now()->format('m')-1)
+            ->where('status','=', 13)
             ->where('reservas.cancha_id', '=', $cancha->id)->sum('reservas.total');
 
         return view('admin.ganancias.listareservas', compact('reservas', 
@@ -107,12 +112,14 @@ class GananciasController extends Controller
 
         $reservas = Reserva::whereBetween('fecha', [$fecha_inicio, $fecha_final])
                             ->where('cancha_id','=',$cancha->id)
+                            ->where('status', 13)
                             ->get(); 
 
 
     $totalReservas = DB::table('reservas')
                         ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')        
                         ->whereBetween('fecha', [$fecha_inicio, $fecha_final])
+                        ->where('status','=', 13)
                         ->select('reservas.total')
                         ->where('cancha_id', '=', $cancha->id)
                         ->sum('total');  
@@ -126,6 +133,11 @@ class GananciasController extends Controller
 
         $canchas = Cancha::where('user_id', auth()->id())->get();
 
+       /* foreach ($canchas as $cancha  ) {
+           
+        $reservas = $cancha->reservas()->get();
+        dd($reservas);
+       } */
         /* $totalReservas = DB::table('reservas')
             ->join('canchas','canchas.id','=','reservas.cancha_id')
             ->select('canchas.precio','reservas.created_at')
@@ -138,7 +150,8 @@ class GananciasController extends Controller
     {
         if ($complejo->canchas->count() > 0) {
             
-            $reservas = Reserva::where('complejo_id',$complejo->id)->get();
+            $reservas = Reserva::where('complejo_id',$complejo->id)->orderby('created_at', 'DESC')->get();
+            
         }else{
             return redirect()->route('admin.ganancias.index')->with('alert', 'El complejo aún no tiene canchas');
         }
@@ -147,12 +160,14 @@ class GananciasController extends Controller
             ->join('complejos', 'complejos.id', '=', 'reservas.complejo_id')
             ->select('reservas.total')
             ->where('reservas.complejo_id', '=', $complejo->id)
+            ->where('status','=', 13)
             ->sum('reservas.total');
         
         $totalReservasDia = DB::table('reservas')
             ->join('complejos', 'complejos.id', '=', 'reservas.complejo_id')
             ->select('reservas.total')
             ->whereDay('reservas.created_at', Carbon::now()->format('d'))
+            ->where('status','=', 13)
             ->where('reservas.complejo_id', '=', $complejo->id)->sum('reservas.total');
 
         $ar = CarbonImmutable::now()->locale('ar');
@@ -163,34 +178,50 @@ class GananciasController extends Controller
             ->join('complejos', 'complejos.id', '=', 'reservas.complejo_id')
             ->select('reservas.total')
             ->whereBetween('reservas.created_at', [$start, $end])
+            ->where('status','=', 13)
             ->where('reservas.complejo_id', '=', $complejo->id)->sum('reservas.total');
 
         $totalReservasMes = DB::table('reservas')
             ->join('complejos', 'complejos.id', '=', 'reservas.complejo_id')
             ->select('reservas.total')
             ->whereMonth('reservas.created_at', Carbon::now()->format('m'))
+            ->where('status','=', 13)
             ->where('reservas.complejo_id', '=', $complejo->id)->sum('reservas.total');
             
         $totalReservasMesPasado = DB::table('reservas')
             ->join('complejos', 'complejos.id', '=', 'reservas.complejo_id')
             ->select('reservas.total')
             ->whereMonth('reservas.created_at', Carbon::now()->format('m')-1)
+            ->where('status','=', 13)
             ->where('reservas.complejo_id', '=', $complejo->id)->sum('reservas.total');
         
-        $reservasHoy = Reserva::where('complejo_id',$complejo->id)->orderby('created_at', 'DESC')
-            ->whereDay('reservas.created_at', Carbon::now()->format('d'))->get();
+        $reservasHoy = Reserva::where('complejo_id',$complejo->id)
+            ->where('status', 13)
+            ->whereDay('reservas.created_at', Carbon::now()->format('d'))->orderby('created_at', 'DESC')->get();
 
         $numReservasHoy = Reserva::where('complejo_id',$complejo->id)
+            ->where('status', 13)
             ->whereDay('reservas.created_at', Carbon::now()->format('d'))->count();
         
         $numReservasSemana = Reserva::where('complejo_id',$complejo->id)
+            ->where('status', 13)
             ->whereBetween('reservas.created_at', [$start, $end])->count();
             
         $numReservasMes = Reserva::where('complejo_id',$complejo->id)
+            ->where('status', 13)
             ->whereMonth('reservas.created_at', Carbon::now()->format('m'))->count();  
             
-        $numReservasTotal = Reserva::where('complejo_id',$complejo->id)->count(); 
-      
+        $numReservasTotal = Reserva::where('complejo_id',$complejo->id)->where('status', 13)
+        ->count(); 
+
+        $fechas_check = Reserva::where('complejo_id',$complejo->id)
+        ->where('status',13)
+        ->get();
+
+        /* foreach ($fechas_check as $check) {
+        $fecha_select = $check;
+        } */
+        
     return view('admin.ganancias.complejo-detalle',compact('complejo',
                                                             'reservas',
                                                             'totalReservas',
@@ -202,7 +233,8 @@ class GananciasController extends Controller
                                                             'numReservasHoy',
                                                             'numReservasSemana',
                                                             'numReservasMes',
-                                                            'numReservasTotal'
+                                                            'numReservasTotal',
+                                                            'fecha_select'
                                                         ));  
     }
 }
