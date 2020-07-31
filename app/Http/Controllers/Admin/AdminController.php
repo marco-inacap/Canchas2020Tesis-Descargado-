@@ -38,11 +38,14 @@ class AdminController extends Controller
                 'canchas.precio',
                 'canchas.complejo_id',
                 'reservas.user_id',
+                'reservas.total',
                 'reservas.created_at'
             )
             ->whereDay('reservas.created_at', Carbon::now()->format('d'))
-            ->where('canchas.user_id', '=', $usuarioauth)->orderby('created_at', 'DESC')
+            ->where('status','=', 13)
+            ->where('canchas.user_id', '=', $usuarioauth)
             ->get();
+
 
         $totalReservas = DB::table('reservas')
             ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
