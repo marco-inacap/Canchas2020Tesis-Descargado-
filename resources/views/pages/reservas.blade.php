@@ -32,11 +32,8 @@
                             <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
                             <td>${{number_format($reserva->total,0, ',', '.')}}</td>
                             <td>
-                                @if ($reserva->status != 13)
-                                <a href="{{route('detalle.reserva', $reserva)}}">Pagar</a>
-                                @endif
                                 <a href="{{route('detalle.reserva', $reserva)}}">ver</a>
-                                <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}">Pdf</a>
+                                <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}">PDF</a>
                             </td>
                         </tr>
                         @endforeach
@@ -53,4 +50,7 @@
 @endsection
 @push('styles')
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+@endpush
+@push('scripts')
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 @endpush
