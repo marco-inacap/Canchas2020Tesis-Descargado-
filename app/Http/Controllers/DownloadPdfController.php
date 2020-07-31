@@ -27,6 +27,6 @@ class DownloadPdfController extends Controller
         'responses' => $responses
             ]);
 
-        return $pdf->stream("TusCanchas$reserva->fecha.pdf");
+        return $pdf->stream("Comprobante de pago $reserva->fecha.pdf");
     }
 }
