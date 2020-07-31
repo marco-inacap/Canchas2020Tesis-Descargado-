@@ -97,15 +97,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- @if ($reserva->status != 13)
-                <div class="row">
-                    <form action="{{$response->url}}" method="post">
-                        @csrf
-                        <input type="hidden" name="token_ws" value="{{$response->token}}">
-                        <button target="_blank" class="btn btn-default"><i class="fa fa-print"></i> PAGAR</button>
-                    </form>
-                </div>
-                @endif --}}
             </section>
         </div>
     </div>
