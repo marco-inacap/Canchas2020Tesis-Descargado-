@@ -35,7 +35,7 @@
                 <td>{{$reserva->hora_inicio}} - {{$reserva->hora_fin}}</td>
                 <td>{{$reserva->name}}</td>
                 <td>{{$reserva->nombre}}</td>
-                <td>$ {{number_format($reserva->total,0, ',', '.')}}</td>
+                <td>${{number_format($reserva->total,0, ',', '.')}}</td>
                 <td>
                     <a>ver</a>
                     <a>#</a>
@@ -112,8 +112,7 @@
                     
                 var nreservas =  cantidad_reservas.push(arreglo[x].reservas);
                     canchas.push(arreglo[x].nombre);
-                    precio.push(arreglo[x].precio * nreservas );
-                    
+                    precio.push(arreglo[x].precio * nreservas);    
                 }
                 generarGrafica();
 
