@@ -40,10 +40,10 @@
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="form-group {{$errors->has('complejo_id') ? 'has-error':''}}">
-                        <label>Complejo (Si no existe agregalo)</label>
+                        <label>Complejo</label>
                         <select multiple="multiple" name="complejos[]" class="form-control select2">   
                             <option value="">
-                            Seleeciona el nombre de tu complejo </option>                    
+                            Seleeciona los complejos</option>                    
                             @foreach ($complejos as $complejo)
                             <option value="{{$complejo->id}}"
                                 {{old('complejo_id',$user->complejo_id) == $complejo->id ? 'selected' : ''}}
