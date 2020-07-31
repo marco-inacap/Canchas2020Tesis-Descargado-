@@ -75,7 +75,7 @@ class ReservaCanchaController extends Controller
         $nuevaReserva = [];
 
         foreach ($reserva as $value) {
-            if ($value->status == Reserva::STATUS_WP_NORMAL_FINISH_SUCCESS) {
+            if ($value->status == 13) {
                 $nuevaReserva[] = [
                     "id" => $value->id,
                     "title" => $value->user->name,
@@ -235,7 +235,8 @@ class ReservaCanchaController extends Controller
             $db_transaction->error = html_entity_decode($response['detail']);
             $db_transaction->save();
             $reserva->status = Reserva::STATUS_WP_NORMAL_INIT_ERROR;
-            $reserva->delete();
+            $reserva->total = 0;
+            $reserva->save();
             return view('webpay.error');
         }
 
@@ -267,6 +268,7 @@ class ReservaCanchaController extends Controller
             $db_response->error = html_entity_decode($response['detail']);
             $db_response->save();
             $db_transaction->reserva->status = Reserva::STATUS_WP_NORMAL_FINISH_ERROR;
+            $db_transaction->reserva->total = 0;
             $db_transaction->reserva->save();
             return view('webpay.error');
         }
@@ -290,6 +292,7 @@ class ReservaCanchaController extends Controller
         /* aqui */
         if ($db_response->response_code != 0) {
             $db_transaction->reserva->status = Reserva::STATUS_WP_NORMAL_FINISH_INVALID;
+            $db_transaction->reserva->total = 0; 
             $db_transaction->reserva->save();
             return view('webpay.error');
         }
@@ -338,14 +341,18 @@ class ReservaCanchaController extends Controller
                 switch (count($request->all())) {
                     case 2:
                         $db_transaction->reserva->status = Reserva::STATUS_WP_NORMAL_FINISH_TIMEOUT;
+                        $db_transaction->reserva->total = 0;
                         break;
                     case 3:
                         $db_transaction->reserva->status = Reserva::STATUS_WP_NORMAL_FINISH_ABORT;
+                        $db_transaction->reserva->total = 0;
                         break;
                     case 4:
                         $db_transaction->reserva->status = Reserva::STATUS_WP_NORMAL_FINISH_FORM_FAULT;
+                        $db_transaction->reserva->total = 0;
                         break;
                 }
+                
                 $db_transaction->reserva->save();
             default:
                 return view('webpay.error');
