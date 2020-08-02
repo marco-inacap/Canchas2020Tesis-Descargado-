@@ -24,7 +24,12 @@
                     </div>
                     <div class="form-group {{$errors->has('ubicacion') ? 'has-error':''}}">
                         <label for="ubicacion">Ubicación:</label>
+                        <div class="input-group">
                         <input type="text" name="ubicacion" class="form-control" value="{{old('ubicacion')}}">
+                        <span class="input-group-btn">
+                            <a type="submit" id="buscar" class="btn btn-flat"><i class="fa fa-search"></i></a>
+                        </span>
+                        </div>
                         {!!$errors->first('ubicacion','<span class="help-block">:message</span>')!!}
                     </div>
                     <div class="form-group {{$errors->has('telefono') ? 'has-error':''}}">
@@ -91,7 +96,7 @@
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
-
+    <script src="/adminlte/js/Control.OSMGeocoder.js"></script>
 <script>
         var map = L.map('mapid').setView([15.413083, -66.2136067], 3);
         var marker_actual; 
@@ -103,6 +108,19 @@
             }).addTo(map); 
 
             L.control.scale().addTo(map);
+
+        /*    $('#buscar').on('click', function(){
+
+                var osmGeocoder = new L.Control.OSMGeocoder({placeholder: 'Buscar ubicación...'});
+                map.addControl(osmGeocoder);
+            }); */
+
+           
+                var osmGeocoder = new L.Control.OSMGeocoder({placeholder: 'Buscar ubicación...'});
+                map.addControl(osmGeocoder);
+           
+
+            
 
             function updateMarker(lat, lng) {
                 
