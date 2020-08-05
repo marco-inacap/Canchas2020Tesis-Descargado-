@@ -58,8 +58,9 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
-
+                                //NUEVO DISEÑO PAGINA
 Route::get('/', 'PagesController@home')->name('pages.home');
+Route::get('/utalawea','PagesController@canchas_all')->name('pages.todaslascanchas');
 
 /*  Route::get('/', 'PagesController@spa')->name('pages.home');  */
 

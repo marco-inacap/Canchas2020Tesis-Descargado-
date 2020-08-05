@@ -138,6 +138,7 @@ L.Control.OSMGeocoder = L.Control.extend({
 			));
 			return;
 		}
+		
 
 		//and now Nominatim
 		//http://wiki.openstreetmap.org/wiki/Nominatim

@@ -13,7 +13,7 @@
 	@foreach ($canchas as $cancha)
 	<article class="post">
 		@if ($cancha->photos->count() === 1)
-		<figure><img src="{{ url($cancha->photos->first()->url) }}" alt="" class="img-responsive"></figure>
+		<figure><img src="{{ url($cancha->photos->first()->url) }}" style="width:20px; height:20px;" alt="" class="img-responsive"></figure>
 		@elseif($cancha->photos->count() > 1)
 		@include('canchas.carousel-preview')
 		@elseif($cancha->iframe)

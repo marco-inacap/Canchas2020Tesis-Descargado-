@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cancha;
+use App\Complejo;
 use Illuminate\Support\Facades\DB;
 use App\Reserva;
 use App\Transaction;
@@ -17,7 +18,7 @@ use Transbank\Webpay\WebPayNormal;
 class PagesController extends Controller
 {
 
-    
+
     public function spa()
     {
         return view('pages.spa');
@@ -27,7 +28,9 @@ class PagesController extends Controller
     {
         $fechaActual = Carbon::now()->format('y-m-d H:i:s');
 
-        $canchas = Cancha::latest('created_at')->paginate(5);
+        $canchas = Cancha::latest('created_at')->paginate(6);
+
+        $complejos = Complejo::latest('created_at')->paginate(3);
 
         //aquí quede!
 
@@ -39,17 +42,17 @@ class PagesController extends Controller
                 $cancha->save();
             }
         } */
-        
 
-
-        
-        
-
-        
-
-        return view('pages.home', compact('canchas'));
+        return view('new.home', compact('canchas','complejos'));
+        /* return view('pages.home', compact('canchas')); */
     }
 
+    public function canchas_all()
+    {
+        $canchas = Cancha::all();
+
+        return view('new.home.pages.canchas',compact('canchas'));
+    }
     public function contacto()
     {
         return view('pages.contacto');
