@@ -5,8 +5,7 @@
 <section class="posts container">
 	<ul class="container-flex space-center list-unstyled">
 		@if (isset($complejo))
-		<span>Buscaste por <a class="text-uppercase c-black"
-				style="color: tomato; font-weight:bold; font-size: 22px">{{$complejo->nombre}}.</a> </span>
+		<span>Buscaste por <a class="text-uppercase c-black" style="color: tomato; font-weight:bold; font-size: 22px">{{$complejo->nombre}}.</a> </span>
 
 		@endif
 	</ul>
@@ -20,9 +19,6 @@
 		<div class="video" width="100%" height="480">
 			{!! $cancha->iframe !!}
 		</div>
-		
-		
-
 		@endif
 		<div class="content-post">
 			<form action="">

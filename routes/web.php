@@ -60,13 +60,17 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
                                 //NUEVO DISEÑO PAGINA
 Route::get('/', 'PagesController@home')->name('pages.home');
-Route::get('/utalawea','PagesController@canchas_all')->name('pages.todaslascanchas');
+Route::get('/su-cancha-canchas','PagesController@canchas_all')->name('pages.todaslascanchas');
+Route::get('/su-cancha-complejos','PagesController@complejos_all')->name('pages.todosloscomplejos');
+
+//borrar
+ Route::get('/complejos_check', 'ComplejoMapaController@index')->name('complejos_map.index');
 
 /*  Route::get('/', 'PagesController@spa')->name('pages.home');  */
 
 Route::get('contacto', 'PagesController@contacto')->name('pages.contacto');
 
-Route::get('/complejos_check', 'ComplejoMapaController@index')->name('complejos_map.index');
+
 
 
 Route::get('/inicio/{cancha}', 'CanchaController@show')->name('canchas.show');

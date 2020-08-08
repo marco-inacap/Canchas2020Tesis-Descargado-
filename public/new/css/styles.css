@@ -779,13 +779,29 @@ input[type='checkbox'] {
 	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('../images/soccer.jpg') center center no-repeat;
 	background-size: cover;
 }
+.header3 {
+	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url('../images/map.png') center center no-repeat;
+	background-size: cover;
+}
+.header3 .header-content {
+	padding-top: 8rem;
+	padding-bottom: 2.125rem;
+	text-align: center;
+}
 .header2 .header-content {
 	padding-top: 8rem;
 	padding-bottom: 2.125rem;
 	text-align: center;
 }
+.header3 .text-container {
+	margin-bottom: 10rem;
+}
 .header2 .text-container {
 	margin-bottom: 10rem;
+}
+.header3 h1 {
+	margin-bottom: 0.5rem;
+	color: #fff;
 }
 .header2 h1 {
 	margin-bottom: 0.5rem;

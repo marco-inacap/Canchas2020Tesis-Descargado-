@@ -14,14 +14,21 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle page-scroll" href="#about" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">COMPLEJOS</a>
+                {{-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @foreach ($complejos as $complejo)
+                        <a class="dropdown-item" href="{{route('complejos.show', $complejo)}}"><span class="item-text">{{$complejo->nombre}}</span></a>
+                        <div class="dropdown-items-divide-hr"></div>
+                    @endforeach
+                </div> --}}
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">OSORNO SOCCER</span></a>
                     <div class="dropdown-items-divide-hr"></div>
-                    <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">MATICES Y WEAS</span></a>
+                    <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">MATICES</span></a>
+                        
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link page-scroll" href="#services">CANCHAS</a>
+                <a href="{{route('pages.todaslascanchas')}}" class="nav-link page-scroll" href="#services">CANCHAS</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle page-scroll" href="#about" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">SESION</a>

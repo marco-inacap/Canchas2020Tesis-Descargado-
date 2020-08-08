@@ -13,7 +13,7 @@ class ComplejoMapaController extends Controller
      */
     public function index()
     {
-        return view('pages.complejos');
+        return view('new.home.pages.complejos');
     }
 
     /**

@@ -23,8 +23,8 @@
                     </ul>
                 </div>
             </div> <!-- end of col -->
+            
             <div class="col-lg-6">
-               
                 <!-- Call Me Form -->
                 <form id="callMeForm" data-toggle="validator" data-focus="false">
                     <div class="form-group">

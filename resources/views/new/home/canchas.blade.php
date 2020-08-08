@@ -23,7 +23,7 @@
                             </li>
                             <li class="media">
                                 <i class="fas fa-square"></i>
-                                <div class="media-body">{{$cancha->complejo->nombre}}</div>
+                                <a href="{{route('complejos.show', $cancha->complejo)}}"><div class="media-body">{{$cancha->complejo->nombre}}</div></a>
                             </li>
                             <li class="media">
                                 <i class="fas fa-square"></i>

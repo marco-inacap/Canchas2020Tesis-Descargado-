@@ -20,7 +20,7 @@
 
                     <!-- Card -->
                     <div class="card">
-                        <a href="">
+                        <a href="{{route('pages.todosloscomplejos')}}">
                             <span class="fa-stack">
                                 <span class="hexagon"></span>
                                 <i class="fas fa-home fa-stack-1x"></i>

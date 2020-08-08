@@ -21,7 +21,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">CANCHAS</div>
-                <h2>Todas</h2>
+                @if (isset($complejo))
+                <a href="{{route('pages.todaslascanchas')}}"><div class="section">Volver</div></a>
+                <p class="p-heading">Buscaste por</p><h2>{{$complejo->nombre}}</h2>
+                @endif
             </div>
         </div>
         <div class="row contenedor">
@@ -41,7 +44,7 @@
                             </li>
                             <li class="media">
                                 <i class="fas fa-square"></i>
-                                <div class="media-body">{{$cancha->complejo->nombre}}</div>
+                            <a href="{{route('complejos.show', $cancha->complejo)}}"><div class="media-body">{{$cancha->complejo->nombre}}</div></a> 
                             </li>
                             <li class="media">
                                 <i class="fas fa-square"></i>

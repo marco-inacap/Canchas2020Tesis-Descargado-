@@ -53,6 +53,21 @@ class PagesController extends Controller
 
         return view('new.home.pages.canchas',compact('canchas'));
     }
+
+    public function complejos_all()
+    {
+        
+        $complejos = Complejo::all();
+
+        return view('new.home.pages.complejos',compact('complejos'));
+    }
+
+    public function complejos_nav()
+    {
+        $complejos = Complejo::all(); 
+        
+        return view('new.partials.nav2',compact('complejos'));
+    }
     public function contacto()
     {
         return view('pages.contacto');
