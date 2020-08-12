@@ -17,7 +17,7 @@
                             <!-- Slide -->
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="card-image" src="images/testimonial-1.jpg" alt="alternative">
+                                    <img class="card-image" src="" alt="alternative">
                                     <div class="card-body">
                                         <div class="testimonial-text">The guys from Aria helped with getting my business off the ground and turning into a profitable company.</div>
                                         <div class="testimonial-author">Jude Thorn - Founder</div>
@@ -29,7 +29,7 @@
                             <!-- Slide -->
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="card-image" src="images/testimonial-2.jpg" alt="alternative">
+                                    <img class="card-image" src="" alt="alternative">
                                     <div class="card-body">
                                         <div class="testimonial-text">I purchased the Growth Accelerator service pack a few years ago and I renewed the contract each year. </div>
                                         <div class="testimonial-author">Marsha Singer - Marketer</div>
@@ -41,7 +41,7 @@
                             <!-- Slide -->
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="card-image" src="images/testimonial-3.jpg" alt="alternative">
+                                    <img class="card-image" src="" alt="alternative">
                                     <div class="card-body">
                                         <div class="testimonial-text">Aria's CEO personally attends client meetings and gives his feedback on business growth strategies.</div>
                                         <div class="testimonial-author">Roy Smith - Developer</div>
@@ -53,7 +53,7 @@
                             <!-- Slide -->
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="card-image" src="images/testimonial-4.jpg" alt="alternative">
+                                    <img class="card-image" src="" alt="alternative">
                                     <div class="card-body">
                                         <div class="testimonial-text">At the beginning I thought the prices are a little high for what they offer but they over deliver each and every time.</div>
                                         <div class="testimonial-author">Ronald Spice - Owner</div>
@@ -65,7 +65,7 @@
                             <!-- Slide -->
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="card-image" src="images/testimonial-5.jpg" alt="alternative">
+                                    <img class="card-image" src="" alt="alternative">
                                     <div class="card-body">
                                         <div class="testimonial-text">I recommend Aria to every business owner or growth leader that wants to take his company to the next level.</div>
                                         <div class="testimonial-author">Lindsay Rune - Manager</div>
@@ -77,7 +77,7 @@
                             <!-- Slide -->
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="card-image" src="images/testimonial-6.jpg" alt="alternative">
+                                    <img class="card-image" src="" alt="alternative">
                                     <div class="card-body">
                                         <div class="testimonial-text">My goals for using Aria's services seemed high when I first set them but they've met them with no problems.</div>
                                         <div class="testimonial-author">Ann Black - Consultant</div>

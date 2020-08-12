@@ -4,7 +4,7 @@
   <li {{request()->is('admin') ? 'class=active' : ''}}><a href="{{route('dashboard')}}"><i class="fa fa-tachometer"></i>
       <span>Inicio</span></a></li>
 
-  @can('View Complejo', $complejo)
+  @can('View Complejo')
   <li class="treeview {{request()->is('admin/complejos*') ? 'active' : ''}}">
     <a href="#"><i class="fa fa-home"></i> <span>Complejos</span>
       <span class="pull-right-container">
@@ -15,7 +15,7 @@
     <ul class="treeview-menu">
       <li {{request()->is('admin/complejos') ? 'class=active' : ''}}><a href="{{route('admin.complejo.index')}}"><i
             class="fa fa-eye"></i>Mis Complejos</a></li>
-      @can('Create Complejo', $complejo)
+      @can('Create Complejo')
       <li>
         <a href="{{route('admin.complejo.create')}}"><i class="fa fa-pencil"></i>Crear Complejo</a>
       </li>
@@ -24,7 +24,7 @@
   </li>
 
 
-  @can('View Cancha',$cancha)
+  @can('View Cancha')
   <li class="treeview {{request()->is('admin/canchas*') ? 'active' : ''}}">
     <a href="#"><i class="fa fa-futbol-o"></i> <span>Canchas</span>
       <span class="pull-right-container">
@@ -36,7 +36,7 @@
       <li {{request()->is('admin/canchas') ? 'class=active' : ''}}><a href="{{route('admin.cancha.index')}}"><i
             class="fa fa-eye"></i>Ver Mis Canchas</a></li>
 
-      @can('Create Cancha',$cancha)
+      @can('Create Cancha')
       <li>
         @if (request()->is('admin/canchas/*'))
         <a href="{{route('admin.cancha.index', '#create')}}"><i class="fa fa-pencil"></i>Crear Cancha</a>
@@ -49,7 +49,7 @@
   </li>
   @endcan
 
-  @can('View Horario', $horario)
+  @can('View Horario')
   <li class="treeview {{request()->is('admin/horarios*') ? 'active' : ''}}">
     <a href="#"><i class="fa fa-clock-o"></i> <span>Horarios</span>
       <span class="pull-right-container">
@@ -59,7 +59,7 @@
     <ul class="treeview-menu">
       <li {{request()->is('admin/horarios') ? 'class=active' : ''}}><a href="{{route('admin.horarios.index')}}"><i
             class="fa fa-eye"></i>Ver lista de horarios</a></li>
-      @can('Create Horario', $complejo)      
+      @can('Create Horario')      
       <li>
         <a href="{{route('admin.horarios.create')}}"><i class="fa fa-pencil"></i>Crear Horario</a>
       </li>
@@ -71,7 +71,7 @@
 
 
 
-  @can('View Users',$user)
+  @can('View Users')
   <li class="treeview {{request()->is('admin/users*') ? 'active' : ''}}">
     <a href="#"><i class="fa fa-users"></i> <span>Usuarios</span>
       <span class="pull-right-container">
@@ -81,7 +81,7 @@
     <ul class="treeview-menu">
       <li {{request()->is('admin/users') ? 'class=active' : ''}}><a href="{{route('admin.users.index')}}"><i
             class="fa fa-eye"></i>Ver todos los Usuarios</a></li>
-      @can('Create Users',$user)
+      @can('Create Users')
       <li>
         <a href="{{route('admin.users.create')}}"><i class="fa fa-pencil"></i>Crear usuario</a>
       </li>
@@ -89,7 +89,7 @@
     </ul>
   </li>
   @endcan
-  @can('View Roles',$role)
+  @can('View Roles')
   <li class="treeview {{request()->is('admin/roles*') ? 'active' : ''}}">
     <a href="#"><i class="fa fa-lock"></i> <span>Roles</span>
       <span class="pull-right-container">
@@ -99,7 +99,7 @@
     <ul class="treeview-menu">
       <li {{request()->is('admin/roles') ? 'class=active' : ''}}><a href="{{route('admin.roles.index')}}"><i
             class="fa fa-eye"></i>Ver todos los Roles</a></li>
-      @can('Create Roles',$role)
+      @can('Create Roles')
       <li>
         <a href="{{route('admin.roles.create')}}"><i class="fa fa-pencil"></i>Crear Roles</a>
       </li>
@@ -107,7 +107,7 @@
     </ul>
   </li>
   @endcan
-  @can('View Permissions', $permission)
+  @can('View Permissions')
   <li class="treeview {{request()->is('admin/permissions*') ? 'active' : ''}}">
     <a href="#"><i class="fa fa-ban"></i> <span>Permisos</span>
       <span class="pull-right-container">

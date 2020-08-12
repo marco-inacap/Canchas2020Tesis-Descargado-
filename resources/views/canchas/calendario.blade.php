@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('new.layout2')
 
 @section('meta-title')Reserva | {{$cancha->nombre}}@endsection
 
@@ -14,26 +14,80 @@
     }
 </style>
 
-<body>
-    <article class="pages container">
-        <div class="page page-contact">
-            <h1 class="text-black" style="font-size:15px;">Selecciona</h1>
-            <h3 class="text-black text-right" style="font-size:15px;">Las fechas en color <b
-                    style="color: red; font-weight: bold;">ROJO</b> son el tiempo en el que esta cerrada la cancha.</h1>
-                <div class="footer content">
-                    <img class="profile-user-img img-responsive img-circle" style="width:28px; height:35px;"
-                        src="/img/select.png">
-                    <h2 class="text-black text-center" style="font-size:20px;">Selecciona una fecha en el calendario,
-                        para reservar <b style="font-size:25px">{{$cancha->nombre}}</b>.</h1>
+<div class="counter">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-xl-4">
+                <div class="image-container">
+                    @if ($cancha->photos->count() === 1)
+                    <figure><img src="{{ $cancha->photos->first()->url }}" alt="" class="img-fluid img-responsive">
+                    </figure>
+                    @elseif($cancha->photos->count() > 1)
+                    @include('canchas.carousel')
+                    @elseif($cancha->iframe)
+                    <div class="video" width="100%" height="480">
+                        {!! $cancha->iframe !!}
+                    </div>
+                    @endif
+                </div> <!-- end of image-container -->
+                <!-- Counter -->
+                <div id="counter">
+                    <div class="cell">
+                        <div class="counter-value number-count" data-count="{{$cancha->total_visitas}}">{{$cancha->total_visitas}}</div>
+                        <div class="counter-info">Total<br>Visitas</div>
+                    </div>
+                    <div class="cell">
+                        <div class="counter-value number-count" data-count="{{count($cancha->complejo->reservas)}}">{{count($cancha->complejo->reservas)}}</div>
+                        <div class="counter-info">Nº<br>Reservas</div>
+                    </div>
                 </div>
-                <br>
-                <div class="divider-2" style="margin:25px; text-align: center;"></div>
-                <div class="col-md-12">
+                <div class="card-body">
+                    <h3 class="card-title">{{$cancha->nombre}}</h3>
+                    <p>{{$cancha->descripcion}}</p>
+                    <ul class="list-unstyled li-space-lg">
+                        <li class="media">
+                            <i class="fas fa-square"></i>
+                            <a href="{{route('complejos.show', $cancha->complejo)}}">
+                                <div class="media-body">{{$cancha->complejo->nombre}}</div>
+                            </a>
+                        </li>
+                        <li class="media">
+                            <i class="fas fa-square"></i>
+                            <div class="media-body">{{$cancha->complejo->ubicacion}}</div>
+                        </li>
+                        <li class="media">
+                            <i class="fas fa-square"></i>
+                            <div class="media-body">$ {{number_format($cancha->precio,0, ',', '.')}}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div> 
+            <div class="col-lg-6 col-xl-8">
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="alert-heading">Para reservar 👀</h4>
+                    <p>Las fechas en color <b style="color: red; font-weight: bold;">rojo </b>son el tiempo en el que
+                        esta cerrada la cancha.</p>
+                    <hr>
+                    <p class="mb-0"><img class="profile-user-img img-responsive img-circle"
+                            style="width:20px; height:25px;" src="/img/select.png">Selecciona una fecha en el
+                        calendario, para reservar <b style="font-size:20px">{{$cancha->nombre}}.</b></p>
+                </div>
+                <div class="text-container">
+                    <div class="section-title">RESERVA</div>
+                    <div class="card wizard-card" data-color="orange" id="wizardProfile">
+
+                    </div>
+
                     <div id='calendar'></div>
-                </div>
-        </div>
-    </article>
-</body>
+
+                </div> <!-- end of text-container -->
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of counter -->
 
 <div class="modal fade bd-example-modal-sm" id="infoModal" tabindex="-1" role="dialog"
     aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -111,9 +165,7 @@
 
             <div class="modal-footer">
                 {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-                <button onclick="reservar()" type="button"
-                    style="background-color:rgb(0,188,159,0.4); border-color:rgb(0,200,159,0.4); " class="btn "
-                    id="btnReservar">Reservar</button>
+                <button onclick="reservar()" type="button"class="btn-solid-reg page-scroll" id="btnReservar">Reservar</button>
             </div>
         </div>
     </div>
@@ -123,24 +175,23 @@
 
 
 @push('styles')
+<link rel="stylesheet" type="text/css" href="/css/twitter-bootstrap.css">
 <link href='/fullcalendar/core/main.css' rel='stylesheet' />
 <link href='/fullcalendar/daygrid/main.css' rel='stylesheet' />
 <link href='/fullcalendar/list/main.css' rel='stylesheet' />
 <link href='/fullcalendar/timegrid/main.css' rel='stylesheet' />
 
-
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 @endpush
 
 @push('scripts')
-{{-- <script src="/fullcalendar/jQuery/jquery-3.5.1.js"></script>   --}}
-{{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>  --}}
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-
+<script src="/js/twitter-bootstrap.js"></script>
 <script src='/fullcalendar/core/main.js'></script>
 <script src='/fullcalendar/interaction/main.js'></script>
 <script src='/fullcalendar/daygrid/main.js'></script>

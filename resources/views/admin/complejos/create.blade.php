@@ -19,7 +19,8 @@
                     </div>
                     <div class="form-group {{$errors->has('imagen') ? 'has-error':''}}">
                         <label for="imagen">Seleecione una imágen:</label>
-                        <input type="file" name="imagen" class="form-control" value="{{old('imagen')}}">
+                        <img id="img" src="#" class="profile-user-img img-responsive img-circle" style="width:80px; height:80px;" alt="Imágen" >
+                        <input type="file" name="imagen" id="imagen" class="form-control" value="{{old('imagen')}}">
                         {!!$errors->first('imagen','<span class="help-block">:message</span>')!!}
                     </div>
                     <div class="form-group {{$errors->has('ubicacion') ? 'has-error':''}}">
@@ -158,6 +159,23 @@
 
     $('#latitude').on('input', updateMarkerByInputs);
     $('#longitude').on('input', updateMarkerByInputs);
+
+
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#img').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#imagen").change(function(){
+    readURL(this);
+});
 
 </script>
 @endpush

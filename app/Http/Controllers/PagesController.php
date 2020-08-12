@@ -50,8 +50,9 @@ class PagesController extends Controller
     public function canchas_all()
     {
         $canchas = Cancha::all();
+        $complejos = Complejo::all();
 
-        return view('new.home.pages.canchas',compact('canchas'));
+        return view('new.home.pages.canchas',compact('canchas','complejos'));
     }
 
     public function complejos_all()
@@ -95,5 +96,13 @@ class PagesController extends Controller
 
 
         return view('pages.reserva-user', compact('reserva', 'responses'));
+    }
+
+    public function search()
+    {
+        $complejos = Complejo::all(); 
+
+
+        return view('new.home.pages.search',compact('complejos'));
     }
 }

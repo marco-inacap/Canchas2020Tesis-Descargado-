@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('new.layout2')
 
 @section('meta-title')Reserva | Detalle @endsection
 
@@ -45,13 +45,14 @@
                         @foreach ($responses as $response)
                         <b>Nº de orden:</b> {{$response->buy_order}}<br>
                         <b>Fecha transacción:
-                        </b>{{Carbon\Carbon::parse($response->transaction_date)->isoFormat('D-MM-YY')}}<br>
-                        <b>Hora transacción:
-                        </b>{{Carbon\Carbon::parse($response->transaction_date)->isoFormat('HH:mm:ss')}}<br>
+                        </b>{{Carbon\Carbon::parse($response->transaction_date)->isoFormat('D-MM-YY')}} {{Carbon\Carbon::parse($response->transaction_date)->isoFormat('HH:mm:ss')}}<br>
+                        <b>Nº Tarjeta:</b> xxxxxxxxxxxx{{ $response->card_number }} <br>
                         <b>Estado de Transacción: </b>{{\App\reserva::STATUS_DESC[$reserva->status]}}<br>
+                        <b>Cuotas:</b> {{ $response->shares_number }} <br>
                         @endforeach
                     </div>
                 </div>
+                <br>
                 <div class="row">
                     <div class="col-xs-12 table-responsive">
                         <table class="table table-striped">
@@ -103,6 +104,7 @@
 </section>
 
 @endsection
+
 @push('styles')
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 @endpush

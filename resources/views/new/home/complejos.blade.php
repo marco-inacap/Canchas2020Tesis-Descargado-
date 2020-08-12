@@ -35,7 +35,7 @@
 
                     <!-- Card -->
                     <div class="card">
-                        <a href="">
+                        <a href="{{route('pages.misreservas')}}">
                             <span class="fa-stack">
                                 <span class="hexagon"></span>
                                 <i class="fas fa-dollar-sign fa-stack-1x"></i>

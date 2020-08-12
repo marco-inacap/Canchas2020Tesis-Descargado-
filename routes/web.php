@@ -92,7 +92,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/reserva/{cancha}/reservar', 'ReservaCanchaController@store')->name('reservar.guardar');
         Route::delete('reservas/{reserva}', 'ReservaCanchaController@destroy');
 
-        Route::get('misreservas', 'PagesController@reservas')->name('pages.misreservas');
+        Route::get('/su-cancha/mis-reservas', 'PagesController@reservas')->name('pages.misreservas');
         Route::get('detalle/{reserva}', 'PagesController@detalle')->name('detalle.reserva');
 
         Route::get('detalle/{reserva}/download', 'DownloadPdfController@download')->name('detalle.reserva.download');
@@ -108,6 +108,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/complejos/inicio/{cancha}/reserva/index', 'ReservaCanchaController@init_webpay')->name('pago.index');
         Route::post('/webpayplus/return/', 'ReservaCanchaController@return_webpay')->name('webpay.return');
         Route::post('/webpayplus/final/', 'ReservaCanchaController@final_webpay')->name('webpay.final');
+
+        //nuevo metodo de reserva
+        Route::get('/reservar-cancha/{cancha}','NuevoMetodoReserva@init')->name('newReserva.init');
+
+        
+
 });
 
 

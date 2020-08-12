@@ -9,6 +9,9 @@
     <!-- end of mobile menu toggle button -->
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav ml-auto">
+            <div class="button-container">
+                <a  href="{{route('dashboard')}}"  class="btn-solid-reg page-scroll">ADMIN</a>
+            </div>
             <li class="nav-item">
                 <a class="nav-link page-scroll" href="#header">HOME <span class="sr-only">(current)</span></a>
             </li>
@@ -31,12 +34,27 @@
                 <a href="{{route('pages.todaslascanchas')}}" class="nav-link page-scroll" href="#services">CANCHAS</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle page-scroll" href="#about" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">SESION</a>
+                <a class="nav-link dropdown-toggle page-scroll" id="navbarDropdown" role="button" aria-haspopup="true"
+                    aria-expanded="false"><i class="fas fa-user fa-stack-1xs"></i></a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">LOGIN</span></a>
+                    @guest
+                    <a data-toggle="modal" data-target="#LoginModal" class="dropdown-item" href="#"><span class="item-text">INGRESAR</span></a>
                     <div class="dropdown-items-divide-hr"></div>
-                    <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">REGISTRARME</span></a>
+                    <a class="dropdown-item" href="{{route('users.register')}}"><span
+                            class="item-text">REGISTRARME</span></a>
+                    @else
                 </div>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a href="" class="dropdown-item"><span class="item-text">{{ Auth::user()->name }} </span></a>
+                    <div class="dropdown-items-divide-hr"></div>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        class="dropdown-item"><span class="item-text">Cerrar sesión</span></a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </div>
+                @endguest
             </li>
         </ul>
         <span class="nav-item social-icons">

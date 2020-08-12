@@ -12,6 +12,9 @@
     <!-- end of mobile menu toggle button -->
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav ml-auto">
+            <div class="button-container">
+                <a  href="{{route('dashboard')}}"  class="btn-solid-reg page-scroll">ADMIN</a>
+            </div>
             <li class="nav-item">
                 <a class="nav-link page-scroll" href="#header">HOME <span class="sr-only">(current)</span></a>
             </li>
@@ -44,8 +47,7 @@
                     aria-expanded="false"><i class="fas fa-user fa-stack-1xs"></i></a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     @guest
-                    <a data-toggle="modal" data-target="#LoginModal" class="dropdown-item" href="#"><span
-                            class="item-text">INGRESAR</span></a>
+                    <a data-toggle="modal" data-target="#LoginModal" class="dropdown-item" href="#"><span class="item-text">INGRESAR</span></a>
                     <div class="dropdown-items-divide-hr"></div>
                     <a class="dropdown-item" href="{{route('users.register')}}"><span
                             class="item-text">REGISTRARME</span></a>
