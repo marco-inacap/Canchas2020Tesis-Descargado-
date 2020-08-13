@@ -10,8 +10,7 @@
                     <div class="text-container">
                         <h1>TODAS TODITAS!</h1>
                     </div>
-
-                    <!-- search -->
+                    <!-- buscador -->
                     <div class="row no-gutters custom-search-input-2">
                         <div class="col-lg-4">
                             <div class="form-group">
@@ -30,16 +29,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-6">
                             <div class="form-group">
-                                <input class="form-control search-slt" type="date" name="dates"
-                                    placeholder="Seleccione fecha">
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <input class="form-control search-slt" type="time" name="dates"
-                                    placeholder="Seleccione hora">
+                                <input id="texto" class="form-control search-slt" type="text"
+                                    placeholder="Buscar por complejo, canchas, precios, etc...">
                             </div>
                         </div>
                         <div class="col-lg-2">
@@ -47,7 +40,6 @@
                                 </span></button>
                         </div>
                     </div>
-
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
         </div> <!-- end of container -->
@@ -56,53 +48,19 @@
 
 <div id="services" class="cards-2">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">CANCHAS</div>
-                @if (isset($complejo))
-                <a href="{{route('pages.todaslascanchas')}}">
-                    <div class="section">Volver</div>
-                </a>
-                <p class="p-heading">Buscaste por</p>
-                <h2>{{$complejo->nombre}}</h2>
-                @endif
+        <div class="row contenedor">
+            <div class="basic-1">
+                <div class="col-lg-12">
+                    <div id="resultados"></div>
+                    <div class="progress" style="height: 1px;">
+                        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row contenedor">
-            <div class="col-lg-12">
-                @foreach ($canchas as $cancha)
-                <div class="card">
-                    <div class="card-image">
-                        <img class="img-fluid img-responsive" src="{{ url($cancha->photos->first()->url) }}"
-                            alt="alternative">
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">{{$cancha->nombre}}</h3>
-                        <p>{{$cancha->descripcion}}</p>
-                        <ul class="list-unstyled li-space-lg">
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">Nº Reservas: {{count($cancha->complejo->reservas)}}</div>
-                            </li>
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <a href="{{route('complejos.show', $cancha->complejo)}}">
-                                    <div class="media-body">{{$cancha->complejo->nombre}}</div>
-                                </a>
-                            </li>
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">{{$cancha->complejo->ubicacion}}</div>
-                            </li>
-                        </ul>
-                        <p class="price">Precio <span>$ {{number_format($cancha->precio,0, ',', '.')}}</span></p>
-                    </div>
-                    <div class="button-container">
-                        <a class="btn-solid-reg page-scroll" href="#callMe">Reservar</a>
-                    </div>
-                </div>
-                @endforeach
-            </div>
+            @include('new.home.pages.buscador')
             <div class="row">
                 <div class="col-lg-12">
                     <a href="" class="section-title text-center">VER MÁS</a>
@@ -142,4 +100,22 @@
     src="https://www.jqueryscript.net/demo/Customizable-Animated-Dropdown-Plugin-with-jQuery-CSS3-Nice-Select/js/jquery.nice-select.js">
 </script>
 <script src="/search/search.js"></script>
+
+
+<script>
+    window.addEventListener("load",function(){
+    document.getElementById("texto").addEventListener("keyup",function(){
+        if((document.getElementById("texto").value.length)>=3)
+            fetch(`/canchitas/buscador?texto=${document.getElementById("texto").value}`,{
+            method:'get'
+            })
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("resultados").innerHTML = html
+            })
+        else
+            document.getElementById("resultados").innerHTML = ""
+    });
+});
+</script>
 @endpush

@@ -76,7 +76,7 @@
       <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
     </div>
   </form>
-    
+
   <table id="cancha-table" class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -109,7 +109,8 @@
     <tfoot class="">
       <tr>
         <th colspan="5" style="font-weight: bold; font-size: 20px">Monto total</th>
-        <td colspan="0" style="font-weight: bold; font-size: 18px; color: green">$ {{number_format($totalReservas, 0, ',', '.' )}} </td>
+        <td colspan="0" style="font-weight: bold; font-size: 18px; color: green">$
+          {{number_format($totalReservas, 0, ',', '.' )}} </td>
       </tr>
     </tfoot>
   </table>

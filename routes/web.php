@@ -58,13 +58,16 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
-                                //NUEVO DISEÑO PAGINA
+//NUEVO DISEÑO PAGINA
 Route::get('/', 'PagesController@home')->name('pages.home');
-Route::get('/su-cancha-canchas','PagesController@canchas_all')->name('pages.todaslascanchas');
-Route::get('/su-cancha-complejos','PagesController@complejos_all')->name('pages.todosloscomplejos');
+Route::get('/su-cancha-canchas', 'PagesController@canchas_all')->name('pages.todaslascanchas');
+Route::get('/su-cancha-complejos', 'PagesController@complejos_all')->name('pages.todosloscomplejos');
+                                //buscador
+/* Route::post('canchas-search/{complejo}', 'PagesController@search_canchas')->name('search.canchas'); */
+Route::get('/canchitas/buscador', 'PagesController@buscador');
 
 //borrar
- Route::get('/complejos_check', 'ComplejoMapaController@index')->name('complejos_map.index');
+Route::get('/complejos_check', 'ComplejoMapaController@index')->name('complejos_map.index');
 
 /*  Route::get('/', 'PagesController@spa')->name('pages.home');  */
 
@@ -97,7 +100,6 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('detalle/{reserva}/download', 'DownloadPdfController@download')->name('detalle.reserva.download');
 
-        Route::resource('canchas', 'CanchaController');
 
         Route::get('canchas/{cancha}/like', 'CanchaController@like')->name('canchas.like');
         Route::get('canchas/{cancha}/unlike', 'CanchaController@unlike')->name('canchas.unlike');
@@ -110,10 +112,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/webpayplus/final/', 'ReservaCanchaController@final_webpay')->name('webpay.final');
 
         //nuevo metodo de reserva
-        Route::get('/reservar-cancha/{cancha}','NuevoMetodoReserva@init')->name('newReserva.init');
-
-        
-
+        Route::get('/reservar-cancha/{cancha}', 'NuevoMetodoReserva@init')->name('newReserva.init');
 });
 
 
@@ -144,8 +143,8 @@ Route::group(
                 Route::middleware('role:Admin')->put('users/{user}/permissions', 'UsersPermissionsController@update')->name('admin.users.permissions.update');
 
                 Route::resource('horarios', 'HorariosController', ['only' => ['index', 'create', 'edit', 'update', 'store'], 'as' => 'admin']);
-                Route::get('horarios/{complejo}','HorariosController@lista_canchas')->name('complejo.horario');
-                Route::get('horarios/complejo/{cancha}','HorariosController@lista_horarios')->name('complejo.horario.cancha');
+                Route::get('horarios/{complejo}', 'HorariosController@lista_canchas')->name('complejo.horario');
+                Route::get('horarios/complejo/{cancha}', 'HorariosController@lista_horarios')->name('complejo.horario.cancha');
 
                 /* Route::get('horarios','HorariosController@index')->name('admin.horarios.index');
                 Route::get('horarios/create','HorariosController@create')->name('admin.horarios.create');
@@ -174,7 +173,7 @@ Route::group(
                 Route::get('ganancias/{complejo}', 'GananciasController@ganancias_canchas')->name('admin.ganancias.canchas');
                 Route::get('canchas/ganancias/{cancha}', 'GananciasController@lista_reservas')->name('admin.ganancias.lista');
                 Route::post('canchas/ganancias/{cancha}', 'GananciasController@filtrar_fechas')->name('admin.ganancias.lista.filtrar');
-                Route::get('ganancias/{complejo}/total','GananciasController@detalle_complejo')->name('admin.ganancias.complejo');
+                Route::get('ganancias/{complejo}/total', 'GananciasController@detalle_complejo')->name('admin.ganancias.complejo');
 
                 //ajax
                 Route::post('/ganancias/all', 'GananciasController@all');

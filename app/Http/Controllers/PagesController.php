@@ -55,6 +55,14 @@ class PagesController extends Controller
         return view('new.home.pages.canchas',compact('canchas','complejos'));
     }
 
+    public function buscador(Request $request)
+    {
+        $canchas = Cancha::where('nombre','like',$request->texto.'%')->get();
+
+        return view('new.home.pages.buscador',compact('canchas'));
+        
+    }
+
     public function complejos_all()
     {
         
