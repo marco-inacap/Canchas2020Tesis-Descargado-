@@ -2,7 +2,7 @@
     @foreach ($canchas as $cancha)
     <div class="card">
         <div class="card-image">
-            <img class="img-fluid img-responsive" src="{{ url($cancha->photos->first()->url) }}"
+            <img class="img-fluid img-responsive" style="width: 600px; height: 200px;" src="{{ url($cancha->photos->first()->url) }}"
                 alt="alternative">
         </div>
         <div class="card-body">
@@ -24,10 +24,10 @@
                     <div class="media-body">{{$cancha->complejo->ubicacion}}</div>
                 </li>
             </ul>
-            <p class="price">Precio <span>$ {{number_format($cancha->precio,0, ',', '.')}}</span></p>
+            <p class="price">Precio <span>${{number_format($cancha->precio,0, ',', '.')}}</span></p>
         </div>
         <div class="button-container">
-            <a class="btn-solid-reg page-scroll" href="#callMe">Reservar</a>
+            <a class="btn-solid-reg page-scroll" href="{{route('reservar.cancha',$cancha)}}">Reservar</a>
         </div>
     </div>
     @endforeach

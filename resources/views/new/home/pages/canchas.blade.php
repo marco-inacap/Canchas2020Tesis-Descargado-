@@ -8,7 +8,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-container">
-                        <h1>TODAS TODITAS!</h1>
+                        <h1>TODAS LAS CANCHAS</h1>
+                        <p class="p-heading p-large">Buscala!</p>
                     </div>
                     <!-- buscador -->
                     <div class="row no-gutters custom-search-input-2">
@@ -19,11 +20,11 @@
                                         <option value="">
                                             Seleeciona un Complejo </option>
                                         @isset($complejos)
-                                        @foreach ($complejos as $complejo)
-                                        <option value="{{$complejo->id}}">
-                                            {{$complejo->nombre}}
-                                        </option>
-                                        @endforeach
+                                            @foreach ($complejos as $complejo)
+                                            <option value="{{$complejo->id}}">
+                                                {{$complejo->nombre}}
+                                            </option>
+                                            @endforeach
                                         @endisset
                                     </select>
                                 </div>
@@ -32,7 +33,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <input id="texto" class="form-control search-slt" type="text"
-                                    placeholder="Buscar por complejo, canchas, precios, etc...">
+                                    placeholder="Buscar por cancha o precio...">
                             </div>
                         </div>
                         <div class="col-lg-2">

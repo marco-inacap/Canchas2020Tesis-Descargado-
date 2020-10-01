@@ -57,7 +57,7 @@ class HorariosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Horario $horario)
     {
 
         $this->authorize('create', new Horario);
@@ -74,7 +74,7 @@ class HorariosController extends Controller
         $canchas = Cancha::where('user_id', auth()->id())->get();
 
 
-        return view('admin.horarios.create', compact('canchas', 'complejos'));
+        return view('admin.horarios.create', compact('canchas', 'complejos','horario'));
     }
 
     /**

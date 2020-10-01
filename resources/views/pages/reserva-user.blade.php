@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <h2 class="page-header ">
-                            <i class="fa fa-globe"></i> #Tuscanchas
+                            <i class="fa fa-globe"></i> #ReservaUnaCancha.cl
                         </h2>
                     </div>
                     <div class="col-md-4">
@@ -26,7 +26,7 @@
                     <div class="col-sm-4 invoice-col">
                         Nosotros
                         <address>
-                            <strong>Tus Canchas</strong><br>
+                            <strong>ReservaUnaCancha.cl</strong><br>
                             Bilbao #856<br>
                             Osorno, X Region<br>
                             Phone: 9 637 324 09<br>
@@ -70,9 +70,8 @@
                             <tbody>
                                 <tr>
                                     <td>{{ $reserva->id}}</td>
-                                    <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MM - YY')}}</td>
-                                    <td>{{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}
-                                    </td>
+                                    <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('DD - MM - YY')}}</td>
+                                    <td>{{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}</td>
                                     <td>{{ $reserva->cancha->nombre}}</td>
                                     <td>{{ $reserva->cancha->complejo->nombre}}</td>
                                     <td>{{auth()->user()->name }}</td>

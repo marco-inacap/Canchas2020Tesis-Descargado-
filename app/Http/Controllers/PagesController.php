@@ -43,7 +43,7 @@ class PagesController extends Controller
             }
         } */
 
-        return view('new.home', compact('canchas','complejos'));
+        return view('new.home', compact('canchas', 'complejos'));
         /* return view('pages.home', compact('canchas')); */
     }
 
@@ -52,30 +52,32 @@ class PagesController extends Controller
         $canchas = Cancha::all();
         $complejos = Complejo::all();
 
-        return view('new.home.pages.canchas',compact('canchas','complejos'));
+        return view('new.home.pages.canchas', compact('canchas', 'complejos'));
     }
 
     public function buscador(Request $request)
     {
-        $canchas = Cancha::where('nombre','like',$request->texto.'%')->get();
 
-        return view('new.home.pages.buscador',compact('canchas'));
-        
+        $canchas = Cancha::where('nombre', 'like', $request->texto . '%')
+                        ->orWhere('precio', 'like', $request->texto . '%')
+            ->get();
+
+        return view('new.home.pages.buscador', compact('canchas'));
     }
 
     public function complejos_all()
     {
-        
+
         $complejos = Complejo::all();
 
-        return view('new.home.pages.complejos',compact('complejos'));
+        return view('new.home.pages.complejos', compact('complejos'));
     }
 
     public function complejos_nav()
     {
-        $complejos = Complejo::all(); 
-        
-        return view('new.partials.nav2',compact('complejos'));
+        $complejos = Complejo::all();
+
+        return view('new.partials.nav2', compact('complejos'));
     }
     public function contacto()
     {
@@ -108,9 +110,9 @@ class PagesController extends Controller
 
     public function search()
     {
-        $complejos = Complejo::all(); 
+        $complejos = Complejo::all();
 
 
-        return view('new.home.pages.search',compact('complejos'));
+        return view('new.home.pages.search', compact('complejos'));
     }
 }

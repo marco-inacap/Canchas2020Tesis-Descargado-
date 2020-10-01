@@ -9,7 +9,7 @@
 <ol class="breadcrumb">
   <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> Inicio</a></li>
   <li class="active">Ganancias</li>
-  <li class="active">{{$complejo->nombre}}</li>
+  <li class="active">{{$cancha->complejo->nombre}}</li>
   <li class="active">{{$cancha->nombre}}</li>
 </ol>
 

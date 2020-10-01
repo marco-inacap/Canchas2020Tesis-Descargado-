@@ -1,6 +1,6 @@
 <html lang="{{ app()->getLocale() }}">
 <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
-    <a class="navbar-brand logo-image" href="{{route('pages.home')}}"><img src="/new/images/logo.png" style="width:50px; height:50px;"
+    <a class="navbar-brand logo-image" href="{{route('pages.home')}}"><img src="/new/images/logo2.png" style="width:50px; height:50px;"
             alt="alternative"></a>
 
     <!-- Mobile Menu Toggle Button -->

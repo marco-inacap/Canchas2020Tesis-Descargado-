@@ -7,9 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Complejo;
 use App\Reserva;
 use App\Cancha;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use DB;
 
 class GananciasController extends Controller
 {
@@ -47,7 +48,11 @@ class GananciasController extends Controller
 
     public function lista_reservas(Cancha $cancha)
     {
-        $reservas = Reserva::where('cancha_id', $cancha->id)->get();
+        $reservas = Reserva::where('cancha_id', $cancha->id)->get();  
+
+        //procedimiento almacenado
+        /* $reservas = collect(DB::select('call totalReservas()',array($cancha)))
+        ->where('cancha_id',$cancha->id)->sortByDesc('created_at');  */     
 
         $totalReservas = DB::table('reservas')
             ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
@@ -115,7 +120,6 @@ class GananciasController extends Controller
             ->where('status', 13)
             ->get();
 
-
         $totalReservas = DB::table('reservas')
             ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
             ->whereBetween('fecha', [$fecha_inicio, $fecha_final])
@@ -124,7 +128,7 @@ class GananciasController extends Controller
             ->where('cancha_id', '=', $cancha->id)
             ->sum('total');
 
-        return view('admin.ganancias.listareservas', compact('reservas', 'cancha', 'totalReservas'));
+        return view('admin.ganancias.listareservas', compact('reservas', 'cancha', 'totalReservas','totalReservasDia'));
     }
 
     public function all(Request $request)
@@ -233,7 +237,7 @@ class GananciasController extends Controller
             'numReservasSemana',
             'numReservasMes',
             'numReservasTotal',
-            'fecha_select'
+            /* 'fecha_select' */
         ));
     }
 }

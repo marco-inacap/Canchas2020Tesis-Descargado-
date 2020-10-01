@@ -21,12 +21,17 @@ class DownloadPdfController extends Controller
             
         
     }
+    
     $pdf = \PDF::loadView('pages.reserva-pdf',
         [
         'reserva'=> $reserva,
         'responses' => $responses
-            ]);
-
+            ])
+            ->setOptions([
+                'tempDir' => public_path(),
+                'chroot'  => '/var/www',
+            ])
+            ;
         return $pdf->stream("Comprobante de pago $reserva->fecha.pdf");
     }
 }

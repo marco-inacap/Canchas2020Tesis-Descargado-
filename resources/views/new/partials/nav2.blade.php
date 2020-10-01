@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
-    <a class="navbar-brand logo-image"  href="{{route('pages.home')}}"><img src="/new/images/logo.png" style="width:50px; height:50px;" alt="alternative"></a>
+    <a class="navbar-brand logo-image"  href="{{route('pages.home')}}"><img src="/new/images/logo2.png" style="width:50px; height:50px;" alt="alternative"></a>
     
     <!-- Mobile Menu Toggle Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,22 +13,25 @@
                 <a  href="{{route('dashboard')}}"  class="btn-solid-reg page-scroll">ADMIN</a>
             </div>
             <li class="nav-item">
-                <a class="nav-link page-scroll" href="#header">HOME <span class="sr-only">(current)</span></a>
+                <a class="nav-link page-scroll" href="{{route('pages.home')}}">HOME <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle page-scroll" href="#about" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">COMPLEJOS</a>
-                {{-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {{-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle page-scroll" href="{{route('pages.todosloscomplejos')}}" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">COMPLEJOS</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     @foreach ($complejos as $complejo)
                         <a class="dropdown-item" href="{{route('complejos.show', $complejo)}}"><span class="item-text">{{$complejo->nombre}}</span></a>
                         <div class="dropdown-items-divide-hr"></div>
                     @endforeach
-                </div> --}}
+                </div> 
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">OSORNO SOCCER</span></a>
                     <div class="dropdown-items-divide-hr"></div>
                     <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">MATICES</span></a>
                         
                 </div>
+            </li> --}}
+            <li class="nav-item">
+                <a href="{{route('pages.todosloscomplejos')}}" class="nav-link page-scroll" href="#services">COMPLEJOS</a>
             </li>
             <li class="nav-item">
                 <a href="{{route('pages.todaslascanchas')}}" class="nav-link page-scroll" href="#services">CANCHAS</a>
