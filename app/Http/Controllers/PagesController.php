@@ -14,6 +14,7 @@ use Auth;
 use Transbank\Webpay\Configuration;
 use Transbank\Webpay\Webpay;
 use Transbank\Webpay\WebPayNormal;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PagesController extends Controller
 {
@@ -91,43 +92,38 @@ class PagesController extends Controller
 
     public function reservas(Request $request)
     {
-        
+
         $fecha_inicio = $request->fecha_inicio;
         $fecha_final = $request->fecha_final;
 
         if ($fecha_inicio != '' && $fecha_final != '') {
 
-            $reservas = Reserva::whereBetween('fecha', array($request->fecha_inicio,$request->fecha_final))
-            ->where('user_id', auth()->id())
-            ->where('status', '=', 13)
-            ->orderby('created_at', 'DESC')
-            ->get(); 
+            $reservas = Reserva::whereBetween('fecha', array($request->fecha_inicio, $request->fecha_final))
+                ->where('user_id', auth()->id())
+                ->where('status', '=', 13)
+                ->orderby('created_at', 'DESC')
+                ->get();
         } else {
             $reservas = Reserva::where('user_id', auth()->id())
-            ->where('status', '=', 13)
-            ->orderby('created_at', 'DESC')->get(); 
-
+                ->where('status', '=', 13)
+                ->orderby('created_at', 'DESC')->get();
             /* return redirect()->route('pages.misreservas')->with('flash','La cancha ha sido guardada con éxito'); */
         }
-
-
-
-
         return view('pages.reservas', compact('reservas'));
     }
 
     public function detalle(Reserva $reserva)
     {
-
         $transaction = Transaction::where('reserva_id', $reserva->id)->get();
-
 
         foreach ($transaction as $valor) {
             $responses = Respuesta::where('transaction_id', $valor->id)->get();
         }
 
+        $codigoqr = QrCode::size(80)
+            ->generate($reserva->id);
 
-        return view('pages.reserva-user', compact('reserva', 'responses'));
+        return view('pages.reserva-user', compact('reserva', 'responses', 'codigoqr'));
     }
 
     public function search()

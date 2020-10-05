@@ -24,9 +24,10 @@
                 </div>
                 <div class="row invoice-info">
                     <div class="col-sm-4 invoice-col">
-                        Nosotros
+                       <strong>Nosotros</strong>
+                       
                         <address>
-                            <strong>ReservaUnaCancha.cl</strong><br>
+                            ReservaUnaCancha.cl<br>
                             Bilbao #856<br>
                             Osorno, X Region<br>
                             Phone: 9 637 324 09<br>
@@ -34,19 +35,21 @@
                         </address>
                     </div>
                     <div class="col-sm-4 invoice-col">
-                        Tus Datos
+                        <strong>Tus Datos</strong> 
                         <address>
-                            <strong>{{$reserva->user->name}}</strong><br>
+                            {{$reserva->user->name}}<br>
                             {{$reserva->user->email}}<br>
                         </address>
                     </div>
                     <div class="col-sm-4 invoice-col">
+                        <strong>Datos de pago</strong> 
                         <br>
                         @foreach ($responses as $response)
                         <b>Nº de orden:</b> {{$response->buy_order}}<br>
                         <b>Fecha transacción:
-                        </b>{{Carbon\Carbon::parse($response->transaction_date)->isoFormat('D-MM-YY')}} {{Carbon\Carbon::parse($response->transaction_date)->isoFormat('HH:mm:ss')}}<br>
-                        <b>Nº Tarjeta:</b> xxxxxxxxxxxx{{ $response->card_number }} <br>
+                        </b>{{Carbon\Carbon::parse($response->transaction_date)->isoFormat('D-MM-YY')}}
+                        {{Carbon\Carbon::parse($response->transaction_date)->isoFormat('HH:mm:ss')}}<br>
+                        <b>Nº Tarjeta:</b> ************{{ $response->card_number }} <br>
                         <b>Estado de Transacción: </b>{{\App\reserva::STATUS_DESC[$reserva->status]}}<br>
                         <b>Cuotas:</b> {{ $response->shares_number }} <br>
                         @endforeach
@@ -71,7 +74,8 @@
                                 <tr>
                                     <td>{{ $reserva->id}}</td>
                                     <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('DD - MM - YY')}}</td>
-                                    <td>{{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}</td>
+                                    <td>{{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}
+                                    </td>
                                     <td>{{ $reserva->cancha->nombre}}</td>
                                     <td>{{ $reserva->cancha->complejo->nombre}}</td>
                                     <td>{{auth()->user()->name }}</td>
@@ -82,7 +86,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
@@ -96,6 +100,10 @@
                             </table>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                            <span class="float-right">{!! $codigoqr !!}</span>
+                    </div>
+                    <br>
                 </div>
             </section>
         </div>
