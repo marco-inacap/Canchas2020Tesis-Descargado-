@@ -134,7 +134,6 @@
             <td>$ {{ number_format($hoy->total, 0, ',', '.' )}}</td>
             <td>
               <a>ver</a>
-              <a>exportar</a>
             </td>
           </tr>
           @endforeach
@@ -185,8 +184,7 @@
             <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
             <td>${{ number_format($reserva->total, 0, ',', '.' )}}</td>
             <td>
-              <a>ver</a>
-              <a>#</a>
+              <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}">Ver</a>
             </td>
           </tr>
           @endforeach

@@ -187,14 +187,15 @@ class GananciasController extends Controller
             ->orderby('fecha', 'DESC')
             ->get(); 
             
-            $totalReservas = $reservas->sum('total');
+            $totalReservas = $reservas->where('status', '=', 13)->sum('total');
 
         } else {
             $reservas = Reserva::where('complejo_id', $complejo->id)
             ->where('status', '=', 13)
-            ->orderby('created_at', 'DESC')->get(); 
+            ->orderby('created_at', 'DESC')
+            ->get(); 
 
-            $totalReservas = $reservas->sum('total');
+            $totalReservas = $reservas->where('status', '=', 13)->sum('total');
         }
 
         /* $totalReservas = DB::table('reservas')
