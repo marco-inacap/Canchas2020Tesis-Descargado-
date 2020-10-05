@@ -65,17 +65,14 @@
 </div>
 
 <div class="box-body">
-  <label>Filtrar por fechas de creación.</label>
-  <form action="{{route('admin.ganancias.lista.filtrar',$cancha)}}" method="POST" class="form form-inline">
-    @csrf
-    <div class="form-group">
-      <label>Fecha Inicial</label>
-      <input id="txtFecha" name="fecha_inicio" type="date" class="form-control-sm" value="{{old('fecha_inicio')}}">
-      <label>Fecha Final</label>
-      <input id="txtFecha" name="fecha_final" type="date" class="form-control-sm" value="{{old('fecha_final')}}">
-      <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-    </div>
-  </form>
+  <label>Filtrar por fechas de reserva a jugar.</label>
+  <form class="form-inline float-right">
+    <b>Fecha Desde:</b>
+    <input class="form-control mr-sm-2" type="date" id="fecha_inicio" name="fecha_inicio" required>
+    <b>Hasta:</b>
+    <input class="form-control mr-sm-2" type="date" id="fecha_final" name="fecha_final" required>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="buscar">Buscar</button>
+</form>
 
   <table id="cancha-table" class="table table-bordered table-striped">
     <thead>
@@ -114,6 +111,7 @@
       </tr>
     </tfoot>
   </table>
+  @if ($reservas->count() < 1 ) <b style="color: red;">No existen reservas.</b>@endif
 </div>
 
 @endsection

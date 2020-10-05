@@ -59,7 +59,7 @@ class PagesController extends Controller
     {
 
         $canchas = Cancha::where('nombre', 'like', $request->texto . '%')
-                        ->orWhere('precio', 'like', $request->texto . '%')
+            ->orWhere('precio', 'like', $request->texto . '%')
             ->get();
 
         return view('new.home.pages.buscador', compact('canchas'));
@@ -84,10 +84,32 @@ class PagesController extends Controller
         return view('pages.contacto');
     }
 
-    public function reservas()
+    function index()
     {
+        return view('pages.reservas');
+    }
 
-        $reservas = Reserva::where('user_id', auth()->id())->orderby('created_at', 'DESC')->get();
+    public function reservas(Request $request)
+    {
+        
+        $fecha_inicio = $request->fecha_inicio;
+        $fecha_final = $request->fecha_final;
+
+        if ($fecha_inicio != '' && $fecha_final != '') {
+
+            $reservas = Reserva::whereBetween('fecha', array($request->fecha_inicio,$request->fecha_final))
+            ->where('user_id', auth()->id())
+            ->where('status', '=', 13)
+            ->orderby('created_at', 'DESC')
+            ->get(); 
+        } else {
+            $reservas = Reserva::where('user_id', auth()->id())
+            ->where('status', '=', 13)
+            ->orderby('created_at', 'DESC')->get(); 
+
+            /* return redirect()->route('pages.misreservas')->with('flash','La cancha ha sido guardada con éxito'); */
+        }
+
 
 
 

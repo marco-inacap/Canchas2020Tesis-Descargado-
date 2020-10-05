@@ -1,7 +1,7 @@
 <html lang="{{ app()->getLocale() }}">
 <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
-    <a class="navbar-brand logo-image" href="{{route('pages.home')}}"><img src="/new/images/logo2.png" style="width:50px; height:50px;"
-            alt="alternative"></a>
+    <a class="navbar-brand logo-image" href="{{route('pages.home')}}"><img src="/new/images/logo2.png"
+            style="width:50px; height:50px;" alt="alternative"></a>
 
     <!-- Mobile Menu Toggle Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav ml-auto">
             <div class="button-container">
-                <a  href="{{route('dashboard')}}"  class="btn-solid-reg page-scroll">ADMIN</a>
+                <a href="{{route('dashboard')}}" class="btn-solid-reg page-scroll">ADMIN</a>
             </div>
             <li class="nav-item">
                 <a class="nav-link page-scroll" href="#header">HOME <span class="sr-only">(current)</span></a>
@@ -47,7 +47,8 @@
                     aria-expanded="false"><i class="fas fa-user fa-stack-1xs"></i></a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     @guest
-                    <a data-toggle="modal" data-target="#LoginModal" class="dropdown-item" href="#"><span class="item-text">INGRESAR</span></a>
+                    <a data-toggle="modal" data-target="#LoginModal" class="dropdown-item" href="#"><span
+                            class="item-text">INGRESAR</span></a>
                     <div class="dropdown-items-divide-hr"></div>
                     <a class="dropdown-item" href="{{route('users.register')}}"><span
                             class="item-text">REGISTRARME</span></a>
@@ -55,6 +56,8 @@
                 </div>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a href="" class="dropdown-item"><span class="item-text">{{ Auth::user()->name }} </span></a>
+                    <div class="dropdown-items-divide-hr"></div>
+                    <a href="{{route('pages.misreservas')}}" class="dropdown-item"><span class="item-text">Mis reservas</span></a>
                     <div class="dropdown-items-divide-hr"></div>
                     <a href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
@@ -107,7 +110,7 @@
                         <span class="help-block">
                             <strong style="color: red;">{{ $errors->first('email') }}</strong>
                         </span>
-                        
+
                         @endif
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
@@ -134,10 +137,19 @@
                                 <i style="color: rgba(222, 45, 44);" class="fab fa-google fa-stack-1x"></i>
                             </a>
                         </span>
+                        <div class="container">
+                            <div class="col-md-12 text-center">
+                                <button class="btn-solid-lg page-scroll">Ingresar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn-solid-lg page-scroll">Ingresar</button>
+                <div class="container bg-light">
+                    <div class="modal-footer">
+                        <div class="col-md-12 text-center">
+                            <a href="{{route('password.request')}}" class="page-scroll">Recuperar contraseña</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ use App\Cancha;
 use App\EstadoReserva;
 use Illuminate\Support\Facades\DB;
 
+
 class Reserva extends Model
 {
     public const STATUS_PENDING_PAYMENT = 0;
@@ -79,5 +80,20 @@ class Reserva extends Model
         return $query->where($cancha,'===',auth()->id());
         }
     }
+
+   /*  public function scopeFecha_inicio($query, $fecha_inicio)
+    {
+        if($fecha_inicio)
+        {
+            return $query->where('fecha','like',"%fecha_inicio%");
+        }
+    }
+    public function scopeFecha_final($query, $fecha_final)
+    {
+        if($fecha_final)
+        {
+            return $query->where('fecha','like',"%fecha_final%");
+        }
+    } */
 
 }

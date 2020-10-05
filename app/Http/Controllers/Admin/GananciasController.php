@@ -46,20 +46,15 @@ class GananciasController extends Controller
         return view('admin.ganancias.canchas', compact('canchas', 'complejo'));
     }
 
-    public function lista_reservas(Cancha $cancha)
+    public function lista_reservas(Cancha $cancha, Request $request)
     {
-        $reservas = Reserva::where('cancha_id', $cancha->id)->get();  
+        /* $reservas = Reserva::where('cancha_id', $cancha->id)->get();   */
 
         //procedimiento almacenado
         /* $reservas = collect(DB::select('call totalReservas()',array($cancha)))
         ->where('cancha_id',$cancha->id)->sortByDesc('created_at');  */     
 
-        $totalReservas = DB::table('reservas')
-            ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
-            ->select('reservas.total')
-            ->where('reservas.cancha_id', '=', $cancha->id)
-            ->where('status', '=', 13)
-            ->sum('reservas.total');
+        
 
         $totalReservasDia = DB::table('reservas')
             ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
@@ -93,6 +88,30 @@ class GananciasController extends Controller
             ->where('status', '=', 13)
             ->where('reservas.cancha_id', '=', $cancha->id)->sum('reservas.total');
 
+
+            $fecha_inicio = $request->fecha_inicio;
+            $fecha_final = $request->fecha_final;
+    
+            if ($fecha_inicio != '' && $fecha_final != '') {
+    
+                $reservas = Reserva::whereBetween('fecha', array($request->fecha_inicio,$request->fecha_final))
+                ->where('cancha_id', $cancha->id)
+                //lo comente para que el administrador pueda ver las reservas nulas o las erroneas.
+                /* ->where('status', '=', 13) */
+                ->orderby('fecha', 'ASC')
+                ->get(); 
+
+                $totalReservas = $reservas->sum('total');
+                
+            } else {
+                
+                $reservas = Reserva::where('cancha_id', $cancha->id)
+                ->where('status', '=', 13)
+                ->orderby('fecha', 'ASC')->get(); 
+
+                $totalReservas = $reservas->sum('total');
+            }
+
         return view('admin.ganancias.listareservas', compact(
             'reservas',
             'cancha',
@@ -103,7 +122,7 @@ class GananciasController extends Controller
             'totalReservasMesPasado'
         ));
     }
-    public function filtrar_fechas(Request $request, Cancha $cancha)
+    /* public function filtrar_fechas(Request $request, Cancha $cancha)
     {
         $this->validate($request, [
             'fecha_inicio' => 'required',
@@ -129,7 +148,7 @@ class GananciasController extends Controller
             ->sum('total');
 
         return view('admin.ganancias.listareservas', compact('reservas', 'cancha', 'totalReservas','totalReservasDia'));
-    }
+    } */
 
     public function all(Request $request)
     {
@@ -149,21 +168,41 @@ class GananciasController extends Controller
         return response(json_encode($canchas), 200)->header('content-type', 'text/plain');
     }
 
-    public function detalle_complejo(Complejo $complejo)
+    public function detalle_complejo(Complejo $complejo, Request $request)
     {
-        if ($complejo->canchas->count() > 0) {
+        /* if ($complejo->canchas->count() > 0) {
 
             $reservas = Reserva::where('complejo_id', $complejo->id)->orderby('created_at', 'DESC')->get();
         } else {
             return redirect()->route('admin.ganancias.index')->with('alert', 'El complejo aún no tiene canchas');
+        } */
+
+        $fecha_inicio = $request->fecha_inicio;
+        $fecha_final = $request->fecha_final;
+
+        if ($fecha_inicio != '' && $fecha_final != '') {
+
+            $reservas = Reserva::whereBetween('fecha', array($request->fecha_inicio,$request->fecha_final))
+            ->where('complejo_id', $complejo->id)
+            ->orderby('fecha', 'DESC')
+            ->get(); 
+            
+            $totalReservas = $reservas->sum('total');
+
+        } else {
+            $reservas = Reserva::where('complejo_id', $complejo->id)
+            ->where('status', '=', 13)
+            ->orderby('created_at', 'DESC')->get(); 
+
+            $totalReservas = $reservas->sum('total');
         }
 
-        $totalReservas = DB::table('reservas')
+        /* $totalReservas = DB::table('reservas')
             ->join('complejos', 'complejos.id', '=', 'reservas.complejo_id')
             ->select('reservas.total')
             ->where('reservas.complejo_id', '=', $complejo->id)
             ->where('status', '=', 13)
-            ->sum('reservas.total');
+            ->sum('reservas.total'); */
 
         $totalReservasDia = DB::table('reservas')
             ->join('complejos', 'complejos.id', '=', 'reservas.complejo_id')
@@ -220,9 +259,6 @@ class GananciasController extends Controller
             ->where('status', 13)
             ->get();
 
-        /* foreach ($fechas_check as $check) {
-        $fecha_select = $check;
-        } */
 
         return view('admin.ganancias.complejo-detalle', compact(
             'complejo',

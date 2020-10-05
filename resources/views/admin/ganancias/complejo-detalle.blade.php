@@ -104,11 +104,11 @@
 
 <div class="nav-tabs-custom">
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#tab_1" data-toggle="tab">HOY</a></li>
-    <li><a href="#tab_2" data-toggle="tab">General</a></li>
+    <li><a href="#tab_1" data-toggle="tab">HOY</a></li>
+    <li class="active"><a href="#tab_2" data-toggle="tab">General</a></li>
   </ul>
   <div class="tab-content">
-    <div class="box-body tab-pane active" id="tab_1">
+    <div class="box-body tab-pane" id="tab_1">
       @if ($reservasHoy->count() > 0)
       <table id="cancha-table" class="table table-bordered table-striped">
         <thead>
@@ -151,8 +151,16 @@
       <h3 class="box-title">Aún no tienes reservas hoy :(</h3>
       @endif
     </div>
-    <div class="tab-pane" id="tab_2">
-      <table id="cancha-table2" class="table table-bordered table-striped">
+    <div class="tab-pane active" id="tab_2">
+      <form class="form-inline float-right">
+        <b>Fecha Desde:</b>
+        <input class="form-control mr-sm-2" type="date" id="fecha_inicio" name="fecha_inicio" required>
+        <b>Hasta:</b>
+        <input class="form-control mr-sm-2" type="date" id="fecha_final" name="fecha_final" required>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="buscar">Buscar</button>
+    </form>
+      <table id="cancha-table2" class="table table-bordered table-striped">  
+        <br>
         <thead>
           <tr>
             <th>Id</th>

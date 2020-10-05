@@ -95,7 +95,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/reserva/{cancha}/reservar', 'ReservaCanchaController@store')->name('reservar.guardar');
         Route::delete('reservas/{reserva}', 'ReservaCanchaController@destroy');
 
-        Route::get('/su-cancha/mis-reservas', 'PagesController@reservas')->name('pages.misreservas');
+        
+       
+         Route::get('/su-cancha/mis-reservas', 'PagesController@reservas')->name('pages.misreservas'); 
+
+
         Route::get('detalle/{reserva}', 'PagesController@detalle')->name('detalle.reserva');
 
         Route::get('detalle/{reserva}/download', 'DownloadPdfController@download')->name('detalle.reserva.download');

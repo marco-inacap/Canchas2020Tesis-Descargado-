@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', '#SuCancha'),
+    'name' => env('APP_NAME', 'ReservaUnaCancha.cl'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost:8000/'),
 
     /*
     |--------------------------------------------------------------------------

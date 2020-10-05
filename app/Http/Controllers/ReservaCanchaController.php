@@ -70,7 +70,6 @@ class ReservaCanchaController extends Controller
 
     public function listar($cancha)
     {
-
         $reserva = Reserva::where('cancha_id', $cancha)->get();
         $nuevaReserva = [];
 

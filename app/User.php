@@ -9,6 +9,7 @@ use Cog\Laravel\Love\Liker\Models\Traits\Liker;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Cog\Contracts\Love\Liker\Models\Liker as LikerContrat;
 use App\Reserva;
+use App\Notifications\ResetPasswordNotification;
 
 
 class User extends Authenticatable implements LikerContrat
@@ -75,5 +76,16 @@ class User extends Authenticatable implements LikerContrat
     public function reservas()
     {
         return $this->hasMany(Reserva::class);
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
