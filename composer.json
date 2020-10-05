@@ -11,6 +11,7 @@
         "laravel/framework": "5.8.*",
         "laravel/socialite": "^4.4",
         "laravel/tinker": "~1.0",
+        "simplesoftwareio/simple-qrcode": "^4.0",
         "spatie/laravel-permission": "^3.13",
         "taliptako/laravel-love": "^5.3",
         "transbank/transbank-sdk": "^1.7"
