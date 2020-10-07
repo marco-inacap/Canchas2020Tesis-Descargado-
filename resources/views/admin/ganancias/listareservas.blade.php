@@ -97,8 +97,75 @@
         <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
         <td>$ {{ number_format($reserva->total, 0, ',', '.' )}}</td>
         <td>
-          <a>ver</a>
-          <a>exportar</a>
+          <a data-toggle="modal" data-target="#ModalShow{{$reserva->id}}" href="">Ver</a>
+
+          <div class="modal fade" id="ModalShow{{$reserva->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Detalle reserva</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <table class="table">
+                    <tbody>
+                      <h6 style="font-size: 10px;"><b>Id reserva: {{$reserva->id}}</b></h6>
+                        <tr>
+                            <th scope="row">Nombre de usuario:</th>
+                            <td>{{$reserva->user->name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email:</th>
+                            <td>{{$reserva->user->email}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Estado de Transacción:</th>
+                            <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Fecha de reserva</th>
+                            <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MM - YY')}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Hora de reserva</th>
+                            <td>{{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Nombre de complejo</th>
+                            <td>{{ $reserva->cancha->complejo->nombre}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Nombre de cancha</th>
+                            <td>{{ $reserva->cancha->nombre}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Fecha de pago</th>
+                          <td>{{Carbon\Carbon::parse($reserva->created_at)->isoFormat('D - MM - YY / HH:mm')}}</td>
+                      </tr>
+                        <tr>
+                            <th scope="row">Monto:</th>
+                            <td colspan="2"></td>
+                            <td>${{ number_format($reserva->total, 0, ',', '.') }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Total:</th>
+                            <td colspan="2"></td>
+                            <td><b>${{ number_format($reserva->total, 0, ',', '.') }}</b></td>
+                        </tr>
+                        <tr>
+                          {!!QrCode::size(50)->generate($reserva->id) !!}
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}">PDF</a>
         </td>
       </tr>
       @endforeach

@@ -242,6 +242,7 @@ class ReservaCanchaController extends Controller
         $db_transaction->token = $response->token;
         $db_transaction->save();
         $reserva->status = Reserva::STATUS_WP_NORMAL_INIT_SUCCESS;
+        $reserva->total = 0;
         $reserva->save();
 
 
@@ -297,6 +298,9 @@ class ReservaCanchaController extends Controller
         }
 
         $db_transaction->reserva->status = Reserva::STATUS_WP_NORMAL_FINISH_SUCCESS;
+
+        // aquí hice el cambio, para que se actualize el precio.
+        $db_transaction->reserva->total = $db_transaction->reserva->cancha->precio;
         $db_transaction->reserva->save();
 
         /* return redirect($response->url,$response->token); */

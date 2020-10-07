@@ -24,8 +24,8 @@
                 </div>
                 <div class="row invoice-info">
                     <div class="col-sm-4 invoice-col">
-                       <strong>Nosotros</strong>
-                       
+                        <strong>Nosotros</strong>
+
                         <address>
                             ReservaUnaCancha.cl<br>
                             Bilbao #856<br>
@@ -35,14 +35,14 @@
                         </address>
                     </div>
                     <div class="col-sm-4 invoice-col">
-                        <strong>Tus Datos</strong> 
+                        <strong>Tus Datos</strong>
                         <address>
                             {{$reserva->user->name}}<br>
                             {{$reserva->user->email}}<br>
                         </address>
                     </div>
                     <div class="col-sm-4 invoice-col">
-                        <strong>Datos de pago</strong> 
+                        <strong>Datos de pago</strong>
                         <br>
                         @foreach ($responses as $response)
                         <b>Nº de orden:</b> {{$response->buy_order}}<br>
@@ -56,12 +56,12 @@
                     </div>
                 </div>
                 <br>
+                <h6 style="font-size: 10px;">Id Reserva: <b>{{$reserva->id}}</b></h6>
                 <div class="row">
                     <div class="col-xs-12 table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Id Reserva</th>
                                     <th>Fecha de reserva</th>
                                     <th>Hora</th>
                                     <th>Cancha</th>
@@ -72,8 +72,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{ $reserva->id}}</td>
-                                    <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('DD - MM - YY')}}</td>
+                                    <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('DD - MMMM - YYYY')}}</td>
                                     <td>{{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}
                                     </td>
                                     <td>{{ $reserva->cancha->nombre}}</td>
@@ -101,7 +100,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                            <span class="float-right">{!! $codigoqr !!}</span>
+                        <span class="float-right">{!! $codigoqr !!}</span>
                     </div>
                     <br>
                 </div>

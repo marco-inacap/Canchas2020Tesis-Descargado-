@@ -21,8 +21,6 @@
     </form>
   </div>
 
-  
-
   @push('scripts')
 
   <script>

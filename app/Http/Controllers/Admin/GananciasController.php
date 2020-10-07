@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use DB;
 
+
 class GananciasController extends Controller
 {
 

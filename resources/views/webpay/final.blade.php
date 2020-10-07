@@ -15,7 +15,7 @@
                         Complejo :) <br> <b>Tambien lo puedes ver en <a href="{{route('pages.misreservas')}}">Mis
                                 Reservas.</a> </b> </p>
                     <h5>Datos de transacción</h5>
-                    <ul class="list-unstyled li-space-lg white">
+                    <ul class="list-unstyled li-space-lg ">
                         <li class="media">
                             <i class="fas fa-square"></i>
                             <div class="media"><strong>Orden de compra:</strong> {{ $response->buy_order }}</div>
@@ -40,7 +40,7 @@
                         </li>
                     </ul>
                     <h5>Datos de tu tarjeta</h5>
-                    <ul class="list-unstyled li-space-lg white">
+                    <ul class="list-unstyled li-space-lg ">
                         <li class="media">
                             <i class="fas fa-square"></i>
                             <div class="media-body"><strong>Número de tarjeta:</strong> {{ $response->card_number }}
@@ -53,7 +53,7 @@
                         </li>
                     </ul>
                     <h5>Resultado de transacción</h5>
-                    <ul class="list-unstyled li-space-lg white">
+                    <ul class="list-unstyled li-space-lg ">
                         <li class="media">
                             <i class="fas fa-square"></i>
                             <div class="media-body"><strong>Código de respuesta:</strong> {{ $response->response_code }}

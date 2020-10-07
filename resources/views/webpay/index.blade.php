@@ -77,7 +77,7 @@
                   <td>{{ $reserva->cancha->nombre}}</td>
                   <td>{{ $reserva->cancha->complejo->nombre}}</td>
                   <td>{{auth()->user()->name }}</td>
-                  <td>${{ number_format($reserva->total, 0, ',', '.') }}</td>
+                  <td>${{ number_format($reserva->cancha->precio, 0, ',', '.') }}</td>
                 </tr>
               </tbody>
             </table>
@@ -105,11 +105,11 @@
               <table class="table">
                 <tr>
                   <th style="width:50%">Subtotal:</th>
-                  <td>${{ number_format($reserva->total, 0, ',', '.') }}</td>
+                  <td>${{ number_format($reserva->cancha->precio, 0, ',', '.') }}</td>
                 </tr>
                 <tr>
                   <th>Total:</th>
-                  <td>${{ number_format($reserva->total, 0, ',', '.') }}</td>
+                  <td>${{ number_format($reserva->cancha->precio, 0, ',', '.') }}</td>
                 </tr>
               </table>
             </div>
