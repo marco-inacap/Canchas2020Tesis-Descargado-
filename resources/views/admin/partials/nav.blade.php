@@ -132,4 +132,15 @@
             class="fa fa-bar-chart-o"></i>Lista</a></li>
     </ul>
   </li>
+  <li class="treeview {{request()->is('filros/reservas/download-pdf*') ? 'active' : ''}}">
+    <a href="#"><i class="fa fa-file-pdf-o"></i> <span>PDF</span>
+      <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+      </span>
+    </a>
+    <ul class="treeview-menu">
+      <li {{request()->is('filros/reservas/download-pdf') ? 'class=active' : ''}}><a href="{{route('vista.filtros')}}"><i
+            class="fa fa-download"></i>Filtros</a></li>
+    </ul>
+  </li>
 </ul>

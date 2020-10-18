@@ -37,4 +37,7 @@ class DownloadPdfController extends Controller
 
         return $pdf->stream("Comprobante de pago $reserva->fecha.pdf");
     }
+
+
+    
 }

@@ -50,10 +50,17 @@ class PagesController extends Controller
 
     public function canchas_all()
     {
-        $canchas = Cancha::all();
+        $canchas = Cancha::paginate(3);
         $complejos = Complejo::all();
 
         return view('new.home.pages.canchas', compact('canchas', 'complejos'));
+    }
+
+    public function pagination()
+    {
+        $canchas = Cancha::paginate(3);
+
+        return view('new.home.pages.pagination', compact('canchas'));   
     }
 
     public function buscador(Request $request)
@@ -93,6 +100,8 @@ class PagesController extends Controller
     public function reservas(Request $request)
     {
 
+
+
         $fecha_inicio = $request->fecha_inicio;
         $fecha_final = $request->fecha_final;
 
@@ -109,7 +118,11 @@ class PagesController extends Controller
                 ->orderby('created_at', 'DESC')->get();
             /* return redirect()->route('pages.misreservas')->with('flash','La cancha ha sido guardada con éxito'); */
         }
-        return view('pages.reservas', compact('reservas'));
+
+       
+            return view('pages.reservas', compact('reservas'));
+        
+        
     }
 
     public function detalle(Reserva $reserva)

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
         error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 }
@@ -61,6 +63,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 //NUEVO DISEÑO PAGINA
 Route::get('/', 'PagesController@home')->name('pages.home');
 Route::get('/su-cancha-canchas', 'PagesController@canchas_all')->name('pages.todaslascanchas');
+Route::get('/su-cancha-canchas/pagination', 'PagesController@pagination')->name('pages.pagination');
 Route::get('/su-cancha-complejos', 'PagesController@complejos_all')->name('pages.todosloscomplejos');
                                 //buscador
 /* Route::post('canchas-search/{complejo}', 'PagesController@search_canchas')->name('search.canchas'); */
@@ -86,6 +89,8 @@ Route::get('/complejos/inicio/{cancha}', 'CanchaController@show')->name('canchas
 
 
 
+
+
 Route::group(['middleware' => 'auth'], function () {
         Route::get('/complejos/inicio/{cancha}/reserva', 'ReservaCanchaController@index')->name('reservar.cancha');
 
@@ -95,10 +100,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/reserva/{cancha}/reservar', 'ReservaCanchaController@store')->name('reservar.guardar');
         Route::delete('reservas/{reserva}', 'ReservaCanchaController@destroy');
 
-        
-       
-         Route::get('/su-cancha/mis-reservas', 'PagesController@reservas')->name('pages.misreservas'); 
-
+        Route::get('/su-cancha/mis-reservas', 'PagesController@reservas')->name('pages.misreservas'); 
 
         Route::get('detalle/{reserva}', 'PagesController@detalle')->name('detalle.reserva');
 
@@ -178,6 +180,11 @@ Route::group(
                 Route::get('canchas/ganancias/{cancha}', 'GananciasController@lista_reservas')->name('admin.ganancias.lista');
                 Route::post('canchas/ganancias/{cancha}', 'GananciasController@filtrar_fechas')->name('admin.ganancias.lista.filtrar');
                 Route::get('ganancias/{complejo}/total', 'GananciasController@detalle_complejo')->name('admin.ganancias.complejo');
+
+                //download pdf
+
+                Route::get('filros/reservas/download-pdf','PDFReservasController@vista_Filtros')->name('vista.filtros');
+                Route::post('filros/reservas/download-pdf/export','PDFReservasController@export_pdf')->name('vista.filtros.export');
 
                 //ajax
                 Route::post('/ganancias/all', 'GananciasController@all');

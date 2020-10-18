@@ -53,9 +53,9 @@ class GananciasController extends Controller
 
         //procedimiento almacenado
         /* $reservas = collect(DB::select('call totalReservas()',array($cancha)))
-        ->where('cancha_id',$cancha->id)->sortByDesc('created_at');  */     
+        ->where('cancha_id',$cancha->id)->sortByDesc('created_at');  */
 
-        
+
 
         $totalReservasDia = DB::table('reservas')
             ->join('canchas', 'canchas.id', '=', 'reservas.cancha_id')
@@ -90,28 +90,27 @@ class GananciasController extends Controller
             ->where('reservas.cancha_id', '=', $cancha->id)->sum('reservas.total');
 
 
-            $fecha_inicio = $request->fecha_inicio;
-            $fecha_final = $request->fecha_final;
-    
-            if ($fecha_inicio != '' && $fecha_final != '') {
-    
-                $reservas = Reserva::whereBetween('fecha', array($request->fecha_inicio,$request->fecha_final))
+        $fecha_inicio = $request->fecha_inicio;
+        $fecha_final = $request->fecha_final;
+
+        if ($fecha_inicio != '' && $fecha_final != '') {
+
+            $reservas = Reserva::whereBetween('fecha', array($request->fecha_inicio, $request->fecha_final))
                 ->where('cancha_id', $cancha->id)
                 //lo comente para que el administrador pueda ver las reservas nulas o las erroneas.
                 /* ->where('status', '=', 13) */
                 ->orderby('fecha', 'ASC')
-                ->get(); 
+                ->get();
 
-                $totalReservas = $reservas->sum('total');
-                
-            } else {
-                
-                $reservas = Reserva::where('cancha_id', $cancha->id)
+            $totalReservas = $reservas->sum('total');
+        } else {
+
+            $reservas = Reserva::where('cancha_id', $cancha->id)
                 ->where('status', '=', 13)
-                ->orderby('fecha', 'ASC')->get(); 
+                ->orderby('fecha', 'ASC')->get();
 
-                $totalReservas = $reservas->sum('total');
-            }
+            $totalReservas = $reservas->sum('total');
+        }
 
         return view('admin.ganancias.listareservas', compact(
             'reservas',
@@ -181,20 +180,39 @@ class GananciasController extends Controller
         $fecha_inicio = $request->fecha_inicio;
         $fecha_final = $request->fecha_final;
 
+        $fecha_pagos_inicio = $request->fecha_pago_inicio;
+        $fecha_pagos_final = $request->fecha_pago_final;
+
+
+
         if ($fecha_inicio != '' && $fecha_final != '') {
 
-            $reservas = Reserva::whereBetween('fecha', array($request->fecha_inicio,$request->fecha_final))
-            ->where('complejo_id', $complejo->id)
-            ->orderby('fecha', 'DESC')
-            ->get(); 
-            
-            $totalReservas = $reservas->where('status', '=', 13)->sum('total');
+            $reservas = Reserva::whereBetween('fecha', array($request->fecha_inicio, $request->fecha_final))
+                ->where('complejo_id', $complejo->id)
+                ->orderby('fecha', 'DESC')
+                ->get();
 
+            $totalReservas = $reservas->where('status', '=', 13)->sum('total');
+            
+            
         } else {
             $reservas = Reserva::where('complejo_id', $complejo->id)
-            ->where('status', '=', 13)
-            ->orderby('created_at', 'DESC')
-            ->get(); 
+                ->where('status', '=', 13)
+                ->orderby('fecha', 'DESC')
+                ->get();
+
+            $totalReservas = $reservas->where('status', '=', 13)->sum('total');
+        }
+
+
+        //arreglar
+
+        if ($fecha_pagos_inicio != '' && $fecha_pagos_final != '') {
+
+            $reservas = Reserva::whereBetween('created_at', array($request->fecha_pago_inicio, $request->fecha_pago_final))
+                ->where('complejo_id', $complejo->id)
+                ->orderby('created_at', 'DESC')
+                ->get();
 
             $totalReservas = $reservas->where('status', '=', 13)->sum('total');
         }

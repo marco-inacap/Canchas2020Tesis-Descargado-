@@ -20,11 +20,11 @@
                                         <option value="">
                                             Seleeciona un Complejo </option>
                                         @isset($complejos)
-                                            @foreach ($complejos as $complejo)
-                                            <option value="{{$complejo->id}}">
-                                                {{$complejo->nombre}}
-                                            </option>
-                                            @endforeach
+                                        @foreach ($complejos as $complejo)
+                                        <option value="{{$complejo->id}}">
+                                            {{$complejo->nombre}}
+                                        </option>
+                                        @endforeach
                                         @endisset
                                     </select>
                                 </div>
@@ -54,18 +54,15 @@
                 <div class="col-lg-12">
                     <div id="resultados"></div>
                     <div class="progress" style="height: 1px;">
-                        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25"
-                            aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row contenedor">
-            @include('new.home.pages.buscador')
-            <div class="row">
-                <div class="col-lg-12">
-                    <a href="" class="section-title text-center">VER MÁS</a>
-                </div>
+        <div  class="row contenedor">
+            <div id="canchas" class="col-lg-12">
+                {{-- @include('new.home.pages.buscador') --}}
+                @include('new.home.pages.pagination') 
             </div>
         </div>
     </div>
@@ -104,6 +101,7 @@
 
 
 <script>
+    
     window.addEventListener("load",function(){
     document.getElementById("texto").addEventListener("keyup",function(){
         if((document.getElementById("texto").value.length)>=3)
@@ -118,5 +116,27 @@
             document.getElementById("resultados").innerHTML = ""
     });
 });
+
+
+let page = 2;
+        window.onscroll = () => {
+            if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+                const section = document.getElementById('canchas');
+                
+                // Pedir al servidor
+                fetch(`/su-cancha-canchas/pagination?page=${page}`, {
+                    method: 'get'
+                })
+                .then(response => response.text())
+                .then(htmlContent => {
+                    // Respuesta en HTML
+                    console.log(htmlContent);
+                    section.innerHTML += htmlContent;
+                    page += 1;
+                })
+                .catch(err => console.log(err));                                
+            }
+        };
+
 </script>
 @endpush

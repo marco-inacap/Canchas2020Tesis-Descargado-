@@ -2,7 +2,7 @@
 <div class="card">
     <div class="card-image">
         <img class="img-fluid img-responsive" style="width: 600px; height: 200px;"
-            src="{{ url($cancha->photos->first()->url) }}" alt="alternative">
+            src="{{url($cancha->photos->first()->url) }}" alt="alternative">
     </div>
     <div class="card-body">
         <h3 class="card-title">{{$cancha->nombre}}</h3>

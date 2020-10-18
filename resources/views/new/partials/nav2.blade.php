@@ -78,3 +78,52 @@
         </span>
     </div>
 </nav>
+
+@include('new.partials.modal-login')
+
+@push('styles')
+
+<style>
+    .invalid input:required:invalid {
+        background: #BE4C54;
+    }
+
+    .invalid input:required:valid {
+        background: #17D654;
+    }
+</style>
+
+@endpush
+
+@push('scripts')
+
+@if($errors->any())
+    <script>
+        $('#LoginModal').modal('show');
+    </script>
+@endif 
+
+
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+ (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>
+
+@endpush

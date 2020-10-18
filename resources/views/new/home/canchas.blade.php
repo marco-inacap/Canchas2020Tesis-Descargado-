@@ -42,15 +42,15 @@
                 </div>
                 @endforeach
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <a href="{{route('pages.todaslascanchas')}}" class="section-title text-center">VER
-                        MÁS</a>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="{{route('pages.todaslascanchas')}}" class="btn btn-solid-reg-vermas btn-lg btn-block"><b class="text-center">VER TODAS</b></a>
             </div>
         </div>
     </div>
 </div>
+
 
 
 <div class="modal fade" id="modalRedireccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

@@ -150,125 +150,151 @@
       <h3 class="box-title">Aún no tienes reservas hoy :(</h3>
       @endif
     </div>
-    <div class="tab-pane active" id="tab_2">
-      <form class="form-inline float-right">
-        <b>Fecha Desde:</b>
-        <input class="form-control mr-sm-2" type="date" id="fecha_inicio" name="fecha_inicio" required>
-        <b>Hasta:</b>
-        <input class="form-control mr-sm-2" type="date" id="fecha_final" name="fecha_final" required>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="buscar">Buscar</button>
-    </form>
-      <table id="cancha-table2" class="table table-bordered table-striped">  
-        <br>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Fecha a jugar</th>
-            <th>H. Inicio / Fin</th>
-            <th>Cancha</th>
-            <th>Usuario</th>
-            <th>Estado Reserva</th>
-            <th>Fecha de pago</th>
-            <th>Valor</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($reservas as $reserva)
-          <tr>
-            <td>{{ $reserva->id}}</td>
-            <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MMMM - YYYY')}}</td>
-            <td>{{  Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm ') }} -
-              {{  Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm a') }}</td>
-            <td>{{ $reserva->cancha->nombre}}</td>
-            <td>{{ $reserva->user->name}}</td>
-            <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
-            <td>{{Carbon\Carbon::parse($reserva->created_at)->isoFormat('D - MMMM - YYYY')}}</td>
-            <td>${{ number_format($reserva->total, 0, ',', '.' )}}</td>
-            <td>
-              <a data-toggle="modal" data-target="#ModalShow{{$reserva->id}}" href="">Ver</a>
 
-              <div class="modal fade" id="ModalShow{{$reserva->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Detalle reserva</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <table class="table">
-                        <tbody>
-                          <h6 style="font-size: 10px;"><b>Id reserva: {{$reserva->id}}</b></h6>
-                            <tr>
-                                <th scope="row">Nombre de usuario:</th>
-                                <td>{{$reserva->user->name}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Email:</th>
-                                <td>{{$reserva->user->email}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Estado de Transacción:</th>
-                                <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Fecha de reserva</th>
-                                <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MM - YY')}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Hora de reserva</th>
-                                <td>{{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Nombre de complejo</th>
-                                <td>{{ $reserva->cancha->complejo->nombre}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Nombre de cancha</th>
-                                <td>{{ $reserva->cancha->nombre}}</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Fecha de pago</th>
-                              <td>{{Carbon\Carbon::parse($reserva->created_at)->isoFormat('D - MM - YY / HH:mm')}}</td>
-                          </tr>
-                            <tr>
-                                <th scope="row">Monto:</th>
-                                <td colspan="2"></td>
-                                <td>${{ number_format($reserva->total, 0, ',', '.') }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Total:</th>
-                                <td colspan="2"></td>
-                                <td><b>${{ number_format($reserva->total, 0, ',', '.') }}</b></td>
-                            </tr>
-                            <tr>
-                              {!!QrCode::size(50)->generate($reserva->id) !!}
-                            </tr>
-                        </tbody>
-                    </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#fecha_1">Filtrar por fecha a jugar</a></li>
+          <li><a data-toggle="tab" href="#fecha_2">Filtrar por fecha de pago</a></li>
+        </ul>
 
-              <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}">PDF</a>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-        <tfoot class="">
-          <tr>
-            <th colspan="7" style="font-weight: bold; font-size: 20px">Monto total</th>
-            <td colspan="0" style="font-weight: bold; font-size: 18px; color: green">$
-              {{number_format($totalReservas, 0, ',', '.' )}} </td>
-          </tr>
-        </tfoot>
-      </table>
+        <div class="form-group">
+          <div id="fecha_1" class="tab-pane fade in active">
+            <form class="form-inline float-right">
+              <b>Fecha Desde:</b>
+              <input class="form-control mr-sm-2" type="date" id="fecha_inicio" name="fecha_inicio" required>
+              <b>Hasta:</b>
+              <input class="form-control mr-sm-2" type="date" id="fecha_final" name="fecha_final" required>
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="buscar">Buscar</button>
+            </form>
+          </div>
+
+          <div id="fecha_2" class="tab-pane fade">
+            <form class="form-inline float-right">
+              <b>Fecha Desdeee:</b>
+              <input class="form-control mr-sm-2" type="date" id="fecha_pago_inicio" name="fecha_pago_inicio" required>
+              <b>Hasta:</b>
+              <input class="form-control mr-sm-2" type="date" id="fecha_pago_final" name="fecha_pago_final" required>
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="buscar">Buscar</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <table id="cancha-table2" class="table table-bordered table-striped">
+    <br>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Fecha a jugar</th>
+        <th>H. Inicio / Fin</th>
+        <th>Cancha</th>
+        <th>Usuario</th>
+        <th>Estado Reserva</th>
+        <th>Fecha de pago</th>
+        <th>Valor</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach ($reservas as $reserva)
+      <tr>
+        <td>{{ $reserva->id}}</td>
+        <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MMMM - YYYY')}}</td>
+        <td>{{  Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm ') }} -
+          {{  Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm a') }}</td>
+        <td>{{ $reserva->cancha->nombre}}</td>
+        <td>{{ $reserva->user->name}}</td>
+        <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
+        <td>{{Carbon\Carbon::parse($reserva->created_at)->isoFormat('D - MMMM - YYYY')}}</td>
+        <td>${{ number_format($reserva->total, 0, ',', '.' )}}</td>
+        <td>
+          <a data-toggle="modal" data-target="#ModalShow{{$reserva->id}}" href="">Ver</a>
+
+          <div class="modal fade" id="ModalShow{{$reserva->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Detalle reserva</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <table class="table">
+                    <tbody>
+                      <h6 style="font-size: 10px;"><b>Id reserva: {{$reserva->id}}</b></h6>
+                      <tr>
+                        <th scope="row">Nombre de usuario:</th>
+                        <td>{{$reserva->user->name}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Email:</th>
+                        <td>{{$reserva->user->email}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Estado de Transacción:</th>
+                        <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Fecha de reserva</th>
+                        <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MM - YY')}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Hora de reserva</th>
+                        <td>
+                          {{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Nombre de complejo</th>
+                        <td>{{ $reserva->cancha->complejo->nombre}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Nombre de cancha</th>
+                        <td>{{ $reserva->cancha->nombre}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Fecha de pago</th>
+                        <td>{{Carbon\Carbon::parse($reserva->created_at)->isoFormat('D - MM - YY / HH:mm')}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Monto:</th>
+                        <td colspan="2"></td>
+                        <td>${{ number_format($reserva->total, 0, ',', '.') }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Total:</th>
+                        <td colspan="2"></td>
+                        <td><b>${{ number_format($reserva->total, 0, ',', '.') }}</b></td>
+                      </tr>
+                      <tr>
+                        {!!QrCode::size(50)->generate($reserva->id) !!}
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}">PDF</a>
+        </td>
+      </tr>
+      @endforeach
+    </tbody>
+    <tfoot class="">
+      <tr>
+        <th colspan="7" style="font-weight: bold; font-size: 20px">Monto total</th>
+        <td colspan="0" style="font-weight: bold; font-size: 18px; color: green">$
+          {{number_format($totalReservas, 0, ',', '.' )}} </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+</div>
 </div>
 @endsection
 
