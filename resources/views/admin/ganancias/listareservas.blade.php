@@ -164,7 +164,6 @@
               </div>
             </div>
           </div>
-
           <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}">PDF</a>
         </td>
       </tr>

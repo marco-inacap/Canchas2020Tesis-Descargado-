@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">CANCHAS</div>
-                <h2>Las 6 canchas más reservadas</h2>
+                <h2>Las 6 canchas más visitadas</h2>
             </div>
         </div>
         <div class="row contenedor">
@@ -11,8 +11,13 @@
                 @foreach ($canchas as $cancha)
                 <div class="card">
                     <div class="card-image">
-                        <img class="img-fluid img-responsive" style="width: 600px; height: 200px;"  src="{{ url($cancha->photos->first()->url) }}"
-                            alt="alternative">
+                        @if ($cancha->photos->count() === 0)
+                        <img class="img-fluid img-responsive img-circle" style="width: 600px; height: 200px;"  src="/img/sin-imagen.png" alt="alternative" onerror="this.src='/img/logo.png';">
+                        @elseif ($cancha->photos->count() === 1)
+                            <img class="img-fluid img-responsive" style="width: 600px; height: 200px;"  src="{{ url($cancha->photos->first()->url) }}" alt="alternative" onerror="this.src='/img/logo.png';">
+                        @elseif($cancha->photos->count() > 1)
+                            @include('new.home.carousel-2')
+                        @endif
                     </div>
                     <div class="card-body">
                         <h3 class="card-title">{{$cancha->nombre}}</h3>

@@ -14,6 +14,9 @@ use Transbank\Webpay\Webpay;
 use Transbank\Webpay\WebPayNormal;
 use Carbon\Carbon;
 use Auth;
+use App\Events\ReservaEmail;
+use Cache;
+
 
 class ReservaCanchaController extends Controller
 {
@@ -41,8 +44,20 @@ class ReservaCanchaController extends Controller
      */
     public function index(Cancha $cancha, User $user)
     {
+        if ($cancha->isPublished() || auth()->check()) {
 
-        return view('canchas.calendario', compact('cancha', 'user'));
+
+            $id = $cancha->id;
+            $visitas = Cancha::find($id);
+
+            if (Cache::has($id) == false) {
+                Cache::add($id, 'contador', 0.30);
+                $visitas->total_visitas++;
+                $visitas->save();
+            }
+            return view('canchas.calendario', compact('cancha', 'user','visitas',$visitas));
+        }
+        abort(404);
     }
 
     public function horarioCierre($cancha)
@@ -303,6 +318,10 @@ class ReservaCanchaController extends Controller
         $db_transaction->reserva->total = $db_transaction->reserva->cancha->precio;
         $db_transaction->reserva->save();
 
+       
+
+        
+
         /* return redirect($response->url,$response->token); */
 
         return view('webpay.return', compact('response', 'token'));
@@ -333,7 +352,17 @@ class ReservaCanchaController extends Controller
         switch ($db_transaction->reserva->status) {
             case Reserva::STATUS_WP_NORMAL_FINISH_SUCCESS:
                 $response = $db_transaction->response;
-                return view('webpay.final', compact('response'));
+
+                 //enviar email
+        $user_reserva = $db_transaction->reserva->user;
+        $email_reserva =  $db_transaction->reserva;
+        ReservaEmail::dispatch($user_reserva, $email_reserva);
+
+        $id_transaction = $response->transaction_id;
+        $reserva_datos = Reserva::find($id_transaction);
+
+        return view('webpay.final', compact('response','reserva_datos'));
+
             case Reserva::STATUS_WP_NORMAL_INIT_SUCCESS:
                 $db_response = new Respuesta;
                 $db_response->transaction()->associate($db_transaction);

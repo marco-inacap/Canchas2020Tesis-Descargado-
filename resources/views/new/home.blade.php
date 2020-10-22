@@ -4,14 +4,16 @@
 
     @include('new.home.header')
 
-    @include('new.home.complejos')
+    @include('new.home.menu-pequeño')
 
     @include('new.home.canchas')
 
-    @include('new.home.comentarios')
+    @include('new.home.lista-complejos')
 
     @include('new.home.llamanos')
-
+    
     @include('new.home.contacto')
+    
+    
 
 @endsection

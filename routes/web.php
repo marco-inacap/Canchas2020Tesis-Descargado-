@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\Facades\Auth;
 
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
@@ -7,12 +8,31 @@ if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 }
 
 /* DB::listen(function($query){
-            var_dump($query->sql);
+        var_dump($query->sql);
     }); */
 
 /* Route::get('email',function(){
-            return new  App\Mail\LoginCredentials(App\User::first(),'asd123');
-    }); */
+        return new  App\Mail\LoginCredentials(App\User::first(),'asd123');
+    });  */
+
+/* Route::get('email',function(){
+
+                return new App\Mail\PlantillaEmailReserva(App\Reserva::first(),App\Reserva::first());
+        });  */
+
+/* Route::get('final',function(){
+
+                $response = App\Respuesta::first();
+                return view('webpay.final',compact('response'));
+        });  */
+
+        /* Route::get('pagar',function(){
+
+                $reserva = App\Reserva::first();
+
+
+                return view('webpay.index',compact('reserva'));
+        }); */
 
 
 //Rutas Google
@@ -65,7 +85,7 @@ Route::get('/', 'PagesController@home')->name('pages.home');
 Route::get('/su-cancha-canchas', 'PagesController@canchas_all')->name('pages.todaslascanchas');
 Route::get('/su-cancha-canchas/pagination', 'PagesController@pagination')->name('pages.pagination');
 Route::get('/su-cancha-complejos', 'PagesController@complejos_all')->name('pages.todosloscomplejos');
-                                //buscador
+//buscador
 /* Route::post('canchas-search/{complejo}', 'PagesController@search_canchas')->name('search.canchas'); */
 Route::get('/canchitas/buscador', 'PagesController@buscador');
 
@@ -79,19 +99,12 @@ Route::get('contacto', 'PagesController@contacto')->name('pages.contacto');
 
 
 
-Route::get('/inicio/{cancha}', 'CanchaController@show')->name('canchas.show');
-Route::get('/complejos/{complejo}', 'ComplejoController@show')->name('complejos.show');
-Route::get('/complejos/inicio/{cancha}', 'CanchaController@show')->name('canchas.show');
-
-
-
-
-
-
-
-
 
 Route::group(['middleware' => 'auth'], function () {
+        Route::get('/inicio/{cancha}', 'CanchaController@show')->name('canchas.show');
+        Route::get('/complejos/{complejo}', 'ComplejoController@show')->name('complejos.show');
+        Route::get('/complejos/inicio/{cancha}', 'CanchaController@show')->name('canchas.show');
+
         Route::get('/complejos/inicio/{cancha}/reserva', 'ReservaCanchaController@index')->name('reservar.cancha');
 
         Route::get('/reservas/{cancha}/listar', 'ReservaCanchaController@listar');
@@ -100,7 +113,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/reserva/{cancha}/reservar', 'ReservaCanchaController@store')->name('reservar.guardar');
         Route::delete('reservas/{reserva}', 'ReservaCanchaController@destroy');
 
-        Route::get('/su-cancha/mis-reservas', 'PagesController@reservas')->name('pages.misreservas'); 
+        Route::get('/su-cancha/mis-reservas', 'PagesController@reservas')->name('pages.misreservas');
 
         Route::get('detalle/{reserva}', 'PagesController@detalle')->name('detalle.reserva');
 
@@ -183,8 +196,9 @@ Route::group(
 
                 //download pdf
 
-                Route::get('filros/reservas/download-pdf','PDFReservasController@vista_Filtros')->name('vista.filtros');
-                Route::post('filros/reservas/download-pdf/export','PDFReservasController@export_pdf')->name('vista.filtros.export');
+                Route::get('filtros/reservas/download-pdf', 'PDFReservasController@vista_Filtros')->name('vista.filtros');
+                Route::post('filtros/reservas/download-pdf/export', 'PDFReservasController@export_pdf')->name('vista.filtros.export');
+                Route::post('filtros/reservas/download-pdf-complejo/export', 'PDFReservasController@export_pdf_complejo')->name('vista.filtros-complejo.export');
 
                 //ajax
                 Route::post('/ganancias/all', 'GananciasController@all');

@@ -6,26 +6,19 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-<style>
-    body {
-
-        padding: 0;
-        font-family: Arial Narrow;
-    }
-</style>
-
 <div class="counter">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-5 col-xl-4">
                 <div class="image-container">
                     @if ($cancha->photos->count() === 1)
-                    <figure><img src="{{ $cancha->photos->first()->url }}" alt="" class="img-fluid img-responsive">
+                    <figure>
+                        <img src="{{ $cancha->photos->first()->url }}" alt="" class="img-fluid img-responsive">
                     </figure>
                     @elseif($cancha->photos->count() > 1)
                     @include('canchas.carousel')
                     @elseif($cancha->iframe)
-                    <div class="video" width="100%" height="480">
+                    <div class="video" width="100%" height="300">
                         {!! $cancha->iframe !!}
                     </div>
                     @endif
@@ -33,11 +26,12 @@
                 <!-- Counter -->
                 <div id="counter">
                     <div class="cell">
-                        <div class="counter-value number-count" data-count="{{$cancha->total_visitas}}">{{$cancha->total_visitas}}</div>
+                        <div class="counter-value number-count" data-count="{{$visitas->total_visitas}}">{{$visitas->total_visitas}}</div>
                         <div class="counter-info">Total<br>Visitas</div>
                     </div>
                     <div class="cell">
-                        <div class="counter-value number-count" data-count="{{count($cancha->complejo->reservas)}}">{{count($cancha->complejo->reservas)}}</div>
+                        <div class="counter-value number-count" data-count="{{count($cancha->complejo->reservas)}}">
+                            {{count($cancha->complejo->reservas)}}</div>
                         <div class="counter-info">Nº<br>Reservas</div>
                     </div>
                 </div>
@@ -57,11 +51,33 @@
                         </li>
                         <li class="media">
                             <i class="fas fa-square"></i>
-                            <div class="media-body">$ {{number_format($cancha->precio,0, ',', '.')}}</div>
+                            <div class="media-body">${{number_format($cancha->precio,0, ',', '.')}}</div>
                         </li>
                     </ul>
+                    Compartir: &nbsp;
+                        <a href="https://www.facebook.com/sharer.php?u={{ request()->fullUrl()}}&t={{$cancha->nombre}}" title="Compartir en Facebook" target="_blank"><img alt="Share on Facebook" src="/img/flat_web_icon_set/Facebook.png"></a>
+                        &nbsp;
+                        <a href="https://api.whatsapp.com/send?text={{$cancha->nombre}}%20{{request()->fullUrl()}}" target="_blank" title="Tweet"><img alt="Tweet" src="/img/flat_web_icon_set/whatsapp.png"></a>
                 </div>
-            </div> 
+                <div class="card-body">
+                    @if (! $cancha->liked)
+                    <a href="{{ route('canchas.like', $cancha) }}"><i class="far fa-thumbs-up like puntero"></i></a>
+                    <span class="alert-info">{{ $cancha->likesCount }}</span>
+                    @else
+                    <a href="{{ route('canchas.unlike', $cancha) }}"><i class="fas fa-thumbs-up like nomegusta puntero"></i></a>
+                    <span class="alert-info">{{ $cancha->likesCount }}</span>
+                    @endif
+            
+                    @if (! $cancha->disliked)
+                    <a href="{{ route('canchas.dislike', $cancha) }}"><i class="far fa-thumbs-down dislike puntero"></i></a>
+                    <span class="alert-info">{{ $cancha->dislikesCount }}</span>
+                    @else
+                    <a href="{{ route('canchas.undislike', $cancha) }}"><i
+                        class="fas fa-thumbs-down dislike nomegusta puntero"></i></a>
+                    <span class="alert-info">{{ $cancha->dislikesCount }}</span>
+                    @endif
+                </div>
+            </div>
             <div class="col-lg-6 col-xl-8">
                 <div class="alert alert-success" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -165,7 +181,8 @@
 
             <div class="modal-footer">
                 {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-                <button onclick="reservar()" type="button"class="btn-solid-reg page-scroll" id="btnReservar">Reservar</button>
+                <button onclick="reservar()" type="button" class="btn-solid-reg page-scroll"
+                    id="btnReservar">Reservar</button>
             </div>
         </div>
     </div>
@@ -180,18 +197,17 @@
 <link href='/fullcalendar/daygrid/main.css' rel='stylesheet' />
 <link href='/fullcalendar/list/main.css' rel='stylesheet' />
 <link href='/fullcalendar/timegrid/main.css' rel='stylesheet' />
+<script src="https://kit.fontawesome.com/42afc6e0a5.js" crossorigin="anonymous"></script>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 @endpush
 
 @push('scripts')
-
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-<script src="/js/twitter-bootstrap.js"></script>
+{{-- <script src="/js/twitter-bootstrap.js"></script> --}}
 <script src='/fullcalendar/core/main.js'></script>
 <script src='/fullcalendar/interaction/main.js'></script>
 <script src='/fullcalendar/daygrid/main.js'></script>
@@ -220,7 +236,7 @@
             },
             navLinks: true,
             selectable: true,
-            height: 550,
+            height: 990,
             
             buttonText: {
                 today: 'Hoy',

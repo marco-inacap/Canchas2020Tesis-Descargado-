@@ -1,5 +1,5 @@
 @component('mail::message')
-# Tus credenciales para acceder a #TusCanchas
+# Tus credenciales para acceder a ReservaUnaCancha.cl
 
 Utiliza esta contraseña para acceder a la pagina web.
 

@@ -1,5 +1,5 @@
 <!-- Contact -->
-<div id="contact" class="form-2">
+<div class="slider">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">

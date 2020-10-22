@@ -19,7 +19,7 @@ class CanchaController extends Controller
     {
         $this->authorize('view', new Cancha);
         
-         $canchas = Cancha::where('user_id',auth()->id())->get(); 
+         $canchas = Cancha::where('user_id',auth()->id())->orderBy('id','desc')->get(); 
         /* $canchas = auth()->user()->canchas; */
         
          /* $canchas = Cancha::allowed()->get();  */

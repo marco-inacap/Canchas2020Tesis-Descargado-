@@ -2,9 +2,8 @@
 
 
 @section('header')
-
 <h1>
-    Filtro para exportar reservas.
+    Exportar reservas.
 </h1>
 <ol class="breadcrumb">
     <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -15,6 +14,58 @@
 
 
 @section('content')
+<div class="row">
+    <form target="_blank" method="POST" action="{{route('vista.filtros-complejo.export')}}" onsubmit="return ValidarFechas()">
+        {{ csrf_field() }}
+        <div class="col-md-6">
+            <div class="box box-success">
+                <div class="box-header">
+                    <h3 class="box-title">Exportar por complejo</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group {{$errors->has('complejo_id') ? 'has-error':''}}">
+                        <label>Complejo</label>
+                        <select multiple="multiple" name="complejo_id[]" class="form-control select2" required >
+                            <option value="">
+                                Seleeciona un Complejo </option>
+                            @foreach ($complejos as $complejo)
+                            <option value="{{$complejo->id}}"
+                                {{old('complejo_id',$horario->complejo_id) == $complejo->id ? 'selected' : ''}}>
+                                {{$complejo->nombre}}
+                            </option>
+                            @endforeach
+                        </select>
+                        {!!$errors->first('complejo_id','<span class="help-block">:message</span>')!!}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-success">
+                <div class="box-header">
+                    <h3 class="box-title">Fechas de reservas</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Desde</label>
+                        <input id="fecha_inicio" name="fecha_inicio" type="date" class="form-control" value="" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hasta</label>
+                        <input id="fecha_fin" name="fecha_fin" type="date" class="form-control" value="" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success btn-block">Generar PDF</button>
+        </div>
+    </form>
+</div>
+
+
+
+
 
 <div class="row">
     <form target="_blank" method="POST" action="{{route('vista.filtros.export')}}" onsubmit="return ValidarFechas()">
@@ -22,7 +73,7 @@
         <div class="col-md-6">
             <div class="box box-danger">
                 <div class="box-header">
-                    <h3 class="box-title">Datos</h3>
+                    <h3 class="box-title">Exportar por complejo y cancha</h3>
                 </div>
                 <div class="box-body">
                     <div class="form-group {{$errors->has('complejo_id') ? 'has-error':''}}">
@@ -67,7 +118,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button  class="btn btn-danger btn-block">Generar PDF</button>
+            <button class="btn btn-danger btn-block">Generar PDF</button>
         </div>
     </form>
 </div>
@@ -124,21 +175,14 @@ function ValidarFechas()
                         icon:'warning',
                         text:'No puedes buscar en una fecha futura.'})
                         return false;
-            } else if (fechaFormulario1 >=  fechaFormulario2) {
+            } else if (fechaFormulario1 > fechaFormulario2) {
                 Swal.fire({
                     icon:'warning',
                     text:'La fecha 1 tiene que ser menor a la 2'})
                     return false;
-            } 
+            }
                 console.log("Ok");
                 return true;
-                
-            
-            
-
-
-            
-
     }
 
 </script>

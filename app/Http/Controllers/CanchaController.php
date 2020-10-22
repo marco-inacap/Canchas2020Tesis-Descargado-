@@ -12,25 +12,22 @@ class CanchaController extends Controller
 {
     public function show(Cancha $cancha)
     {
-        
 
-        if($cancha->isPublished() || auth()->check())
-        {
-        
+
+        if ($cancha->isPublished() || auth()->check()) {
+
 
             $id = $cancha->id;
             $visitas = Cancha::find($id);
-            
-                if(Cache::has($id)==false){
-                     Cache::add($id,'contador',0.30);
+
+            if (Cache::has($id) == false) {
+                Cache::add($id, 'contador', 0.30);
                 $visitas->total_visitas++;
                 $visitas->save();
+            }
+            return view('canchas.calendario', compact('cancha', 'visitas', $visitas));
         }
-
-            return view('canchas.show', compact('cancha','visitas',$visitas));
-
-        } 
-        abort(404);  
+        abort(404);
     }
     public function like(Cancha $cancha)
     {
@@ -59,6 +56,4 @@ class CanchaController extends Controller
 
         return back();
     }
-
-    
 }

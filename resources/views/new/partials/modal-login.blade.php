@@ -3,13 +3,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="card-body">
-                    <h4 class="card-title">LOGIN</h4>
-                    <p>Por favor ingresa tu correo y contraseña para ingresar.</p>
-                </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">LOGIN</h4>
+                <p>Por favor ingresa tu correo y contraseña para ingresar.</p>
             </div>
             <div class="modal-body">
                 <form class="needs-validation" method="POST" action="{{ route('logg') }}" novalidate>

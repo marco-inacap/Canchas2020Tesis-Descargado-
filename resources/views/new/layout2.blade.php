@@ -16,7 +16,7 @@
     <meta property="og:type" content="article" />
 
     <!-- Website Title -->
-    <title>Poner ruta</title>
+    <title>ReservaUnaCancha.cl</title>
 
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext"

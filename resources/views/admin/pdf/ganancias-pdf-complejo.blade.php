@@ -15,9 +15,9 @@
     <img class="center" src="{{ public_path('new/images/logo.png') }}" style="width:50px; height:50px;">
     {{-- <td rowspan="6"><img src="../public/new/images/logo.png"></td> --}}
 
-    <h4>Reporte de reservas en <b>{{$complejo->nombre}}, cancha "{{$cancha->nombre}}".</b></h4>
+    <h4>Reporte de reservas en mis complejos.</h4>
     <hr style="height: 2px; color: blue;">
-    <h5 class="card-title">Fecha de <b>{{Carbon\Carbon::parse($fecha_inicio)->isoFormat('D / MM / YYYY')}}</b> hasta <b>{{Carbon\Carbon::parse($fecha_fin)->isoFormat('D / MMMM / YYYY')}}</b></h5>
+    <h5 class="card-title">Fecha de <b>{{Carbon\Carbon::parse($fecha_inicio)->isoFormat('D / MMMM / YYYY')}}</b> hasta <b>{{Carbon\Carbon::parse($fecha_fin)->isoFormat('D / MMMM / YYYY')}}</b></h5>
     <table class="table">
         <thead>
             <tr>
@@ -33,12 +33,14 @@
                 $i=0;
             @endphp
             @foreach ($reservas as $reserva)
+            
             @php
                 $i++;
             @endphp
             <tr>
+                
                 <th scope="row">{{$i}}</th>
-                <td>{{Carbon\Carbon::parse($reserva->created_at)->isoFormat('D / MM / YYYY')}}</td>
+                <td>{{Carbon\Carbon::parse($reserva->created_at)->isoFormat('D / MM / YY')}}</td>
                 <td>{{$reserva->complejo->nombre}}</td>
                 <td>{{$reserva->cancha->nombre}}</td>
                 <td>${{number_format($reserva->total, 0, ',', '.' )}}</td>

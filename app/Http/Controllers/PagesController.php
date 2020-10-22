@@ -27,11 +27,10 @@ class PagesController extends Controller
 
     public function home()
     {
-        $fechaActual = Carbon::now()->format('y-m-d H:i:s');
 
-        $canchas = Cancha::latest('created_at')->paginate(6);
-
-        $complejos = Complejo::latest('created_at')->paginate(3);
+        $canchas = Cancha::latest('total_visitas','DESC')->paginate(6);
+        
+        $complejos = Complejo::all();
 
         //aquí quede!
 

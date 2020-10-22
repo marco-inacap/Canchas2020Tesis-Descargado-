@@ -72,7 +72,7 @@
                 <div class="box-body">
                     <div class="form-group {{$errors->has('iframe') ? 'has-error':''}}">
                         <label>Ingresa un link de Youtube</label>
-                        <input name="iframe" type="text" class="form-control" placeholder='width="100%" height="480"'
+                        <input name="iframe" type="text" class="form-control" placeholder='width="500%" height="400"'
                             value="{{old('iframe', $cancha->iframe)}}">
                         {!!$errors->first('iframe','<span class="help-block">:message</span>')!!}
                     </div>

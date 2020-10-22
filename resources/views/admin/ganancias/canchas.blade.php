@@ -33,13 +33,13 @@
             </div>
             <ul class="list-group list-group-unbordered">
             <li class="list-group-item">              
-                <b>Nº de Reservas</b> <a class="pull-right text-blue">{{count($cancha->reservas)}}</a>
+                <b>Nº de Reservas</b> <a class="pull-right text-blue">{{count($cancha->reservas->where('status','=',13))}}</a>
             </li>
             <li class="list-group-item">
-                <b>Precio Cancha</b> <a class="pull-right"> <span class="description-percentage text-green">$ {{number_format($cancha->precio, 0, ',', '.' )}}</span></a> 
+                <b>Precio Cancha</b> <a class="pull-right"> <span class="description-percentage text-green">${{number_format($cancha->precio, 0, ',', '.' )}}</span></a> 
             </li>
             <li class="list-group-item">
-                <b>Ganancias Total </b> <a class="pull-right"> <span class="description-percentage text-red"><i class="fa fa-caret-up"></i> $ {{number_format($cancha->reservas->sum('total'), 0, ',', '.' ) }}</span></a> 
+                <b>Ganancias Total </b> <a class="pull-right"> <span class="description-percentage text-red"><i class="fa fa-caret-up"></i> ${{number_format($cancha->reservas->where('status','=',13)->sum('total'), 0, ',', '.' ) }}</span></a> 
             </div>  
             <a href="{{route('admin.ganancias.lista', $cancha)}}" class="btn bg-lightblue btn-flat margin"><b>Ver más</b></a>
         </div>

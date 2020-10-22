@@ -189,16 +189,14 @@ class GananciasController extends Controller
 
             $reservas = Reserva::whereBetween('fecha', array($request->fecha_inicio, $request->fecha_final))
                 ->where('complejo_id', $complejo->id)
-                ->orderby('fecha', 'DESC')
+                ->orderBy('created_at', 'desc')
                 ->get();
 
             $totalReservas = $reservas->where('status', '=', 13)->sum('total');
-            
-            
         } else {
             $reservas = Reserva::where('complejo_id', $complejo->id)
                 ->where('status', '=', 13)
-                ->orderby('fecha', 'DESC')
+                ->orderBy('created_at', 'desc')
                 ->get();
 
             $totalReservas = $reservas->where('status', '=', 13)->sum('total');
@@ -207,7 +205,7 @@ class GananciasController extends Controller
 
         //arreglar
 
-        if ($fecha_pagos_inicio != '' && $fecha_pagos_final != '') {
+        /* if ($fecha_pagos_inicio != '' && $fecha_pagos_final != '') {
 
             $reservas = Reserva::whereBetween('created_at', array($request->fecha_pago_inicio, $request->fecha_pago_final))
                 ->where('complejo_id', $complejo->id)
@@ -215,7 +213,7 @@ class GananciasController extends Controller
                 ->get();
 
             $totalReservas = $reservas->where('status', '=', 13)->sum('total');
-        }
+        } */
 
         /* $totalReservas = DB::table('reservas')
             ->join('complejos', 'complejos.id', '=', 'reservas.complejo_id')
@@ -230,6 +228,15 @@ class GananciasController extends Controller
             ->whereDay('reservas.created_at', Carbon::now()->format('d'))
             ->where('status', '=', 13)
             ->where('reservas.complejo_id', '=', $complejo->id)->sum('reservas.total');
+
+            $totalReservasDiaAnterior = DB::table('reservas')
+            ->join('complejos', 'complejos.id', '=', 'reservas.complejo_id')
+            ->select('reservas.total')
+            ->whereDay('reservas.created_at','<', Carbon::now()->format('d'))
+            ->where('status', '=', 13)
+            ->where('reservas.complejo_id', '=', $complejo->id)->sum('reservas.total');
+
+            
 
         $ar = CarbonImmutable::now()->locale('ar');
         $start = $ar->startOfWeek(Carbon::TUESDAY);
@@ -256,6 +263,15 @@ class GananciasController extends Controller
             ->where('status', '=', 13)
             ->where('reservas.complejo_id', '=', $complejo->id)->sum('reservas.total');
 
+
+            /* $valor_inicial = $totalReservasMesPasado;
+            $valor_final = $totalReservasMes;
+            
+            $incremento = $valor_inicial - $valor_final;
+            $valor = $incremento/$valor_inicial*100;
+
+            dd($valor); */
+
         $reservasHoy = Reserva::where('complejo_id', $complejo->id)
             ->where('status', 13)
             ->whereDay('reservas.created_at', Carbon::now()->format('d'))->orderby('created_at', 'DESC')->get();
@@ -278,7 +294,6 @@ class GananciasController extends Controller
         $fechas_check = Reserva::where('complejo_id', $complejo->id)
             ->where('status', 13)
             ->get();
-
 
         return view('admin.ganancias.complejo-detalle', compact(
             'complejo',

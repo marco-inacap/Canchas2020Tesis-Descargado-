@@ -12,9 +12,13 @@
     <!-- end of mobile menu toggle button -->
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav ml-auto">
-            <div class="button-container">
-                <a href="{{route('dashboard')}}" class="btn-solid-reg page-scroll">ADMIN</a>
-            </div>
+            @if (Auth::user())
+                @if (Auth::user()->hasRole(['Admin','Dueño']))
+                    <div class="button-container">
+                        <a href="{{route('dashboard')}}" class="btn-solid-reg page-scroll">ADMIN</a>
+                    </div>
+                @endif
+            @endif
             <li class="nav-item">
                 <a class="nav-link page-scroll" href="#header">HOME <span class="sr-only">(current)</span></a>
             </li>
@@ -166,11 +170,17 @@ aria-hidden="true">
 
 @push('scripts')
 
-@if($errors->any())
+{{-- @if($errors->any())
     <script>
         $('#LoginModal').modal('show');
     </script>
-@endif 
+@endif  --}}
+
+@if (session('openLogin') || Session::has('errors'))
+        <script>
+            $('#LoginModal').modal('show');
+        </script>
+@endif
 
 
 
