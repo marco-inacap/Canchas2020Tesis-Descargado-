@@ -11,11 +11,16 @@
 
 @endcomponent
 
+@component('mail::panel')
+Ubicación de <b>{{$email_reserva->complejo->nombre}}</b>: {{$email_reserva->complejo->ubicacion}}. 
+@endcomponent
+
+<div style="display: flex; justify-content: center; text-align: center;">
+    {!! \QrCode::size(60)->generate(url('detalle/'.$email_reserva->id.'/download')); !!}
+</div>
 {{-- @component('mail::button', ['url' => 'detalle/'.$email_reserva->id, 'color' => 'success'])
 MAS DETALLES
 @endcomponent --}}
-
-Ubicación de <b>{{$email_reserva->complejo->nombre}}</b>: {{$email_reserva->complejo->ubicacion}}. 
 
 @component('mail::button', ['url' => url('detalle/'.$email_reserva->id), 'color' => 'success'])
 MAS DETALLES

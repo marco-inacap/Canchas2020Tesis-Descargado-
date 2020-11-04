@@ -10,7 +10,7 @@ use App\Cancha;
 
 class PDFReservasController extends Controller
 {
-    
+
 
     public function vista_Filtros()
     {
@@ -24,7 +24,7 @@ class PDFReservasController extends Controller
             $complejos = $user->complejo()->get();
         }
 
-        return view('admin.pdf.filtros',compact('complejos'));
+        return view('admin.pdf.filtros', compact('complejos'));
     }
 
     public function export_pdf(Request $request)
@@ -43,12 +43,12 @@ class PDFReservasController extends Controller
                 ->where('complejo_id', $complejo->id)
                 ->where('cancha_id', $cancha->id)
                 ->where('status', '=', 13)
-                ->orderby('created_at', 'ASC')
+                ->orderBy('created_at', 'ASC')
                 ->get();
 
             $totalReservas = $reservas->where('status', '=', 13)->sum('total');
 
-            if($reservas->count() > 0){
+            if ($reservas->count() > 0) {
                 $pdf = \PDF::loadView(
                     'admin.pdf.ganancias-pdf',
                     [
@@ -58,16 +58,14 @@ class PDFReservasController extends Controller
                         'fecha_fin' => $fecha_fin,
                         'reservas' => $reservas,
                         'totalReservas' => $totalReservas
-                    ]   
+                    ]
                 );
                 return $pdf->stream("Reporte/$complejo->nombre/$cancha->nombre/$fecha_inicio/$fecha_fin.pdf");
-            }else{
+            } else {
                 /* return response()->json(["ok" => false ]); */
                 return redirect()->route('vista.filtros')->with('alert', 'No existen reservas.');
-            }    
-        
-        }  
-        
+            }
+        }
     }
 
     public function export_pdf_complejo(Request $request)
@@ -76,8 +74,8 @@ class PDFReservasController extends Controller
         $fecha_inicio = $request->fecha_inicio;
         $fecha_fin = $request->fecha_fin;
 
-        
-        
+
+
         $complejo = Complejo::findOrFail([$complejo_req]);
 
         if ($fecha_inicio != '' && $fecha_fin != '') {
@@ -87,29 +85,26 @@ class PDFReservasController extends Controller
                 ->where('status', '=', 13)
                 ->orderBy('created_at', 'ASC')
                 ->get();
-               
-                                
+
+
             $totalReservas = $reservas->where('status', '=', 13)->sum('total');
 
-            if($reservas->count() > 0){
+            if ($reservas->count() > 0) {
                 $pdf = \PDF::loadView(
                     'admin.pdf.ganancias-pdf-complejo',
                     [
                         'complejo' => $complejo,
                         'fecha_inicio' => $fecha_inicio,
-                        'cancha' => $cancha,
                         'fecha_fin' => $fecha_fin,
                         'reservas' => $reservas,
                         'totalReservas' => $totalReservas
-                    ]   
+                    ]
                 );
                 return $pdf->stream("Reporte/$fecha_inicio/$fecha_fin.pdf");
-            }else{
+            } else {
                 /* return response()->json(["ok" => false ]); */
                 return redirect()->route('vista.filtros')->with('alert', 'No existen reservas.');
-            }    
-        
-        }  
-        
+            }
+        }
     }
 }

@@ -47,19 +47,43 @@ class PagesController extends Controller
         /* return view('pages.home', compact('canchas')); */
     }
 
-    public function canchas_all()
+
+
+
+
+
+
+    public function canchas_all(Request $request)
     {
-        $canchas = Cancha::paginate(3);
+    
         $complejos = Complejo::all();
 
-        return view('new.home.pages.canchas', compact('canchas', 'complejos'));
+        $canchas = Cancha::orderBy('created_at','desc')->simplePaginate(6);
+
+        $complejo_req = $request->complejo;
+        
+        return view('new.home.pages.canchas', compact('canchas', 'complejos','complejo_req'));
     }
 
-    public function pagination()
+    public function buscador_canchas(Request $request)
     {
-        $canchas = Cancha::paginate(3);
+        $fecha_request = $request->fecha;
+        $hora_request = $request->hora;
 
-        return view('new.home.pages.pagination', compact('canchas'));   
+        $complejos = Complejo::all();
+
+        $complejo_req = $request->complejo;
+        $complejo = Complejo::findOrFail($complejo_req);
+        
+        
+        if ($complejo->canchas->count() >= 1) {
+
+            $canchas = Cancha::where('complejo_id','=',$complejo->id)->simplePaginate(1);
+            return view('new.home.pages.canchas',compact('canchas','complejos','complejo_req'));
+        }else{
+            
+            return redirect()->route('pages.todaslascanchas')->with('alert', 'No existen canchas para'." ".$complejo->nombre." ".':(');
+        }    
     }
 
     public function buscador(Request $request)
@@ -67,6 +91,7 @@ class PagesController extends Controller
 
         $canchas = Cancha::where('nombre', 'like', $request->texto . '%')
             ->orWhere('precio', 'like', $request->texto . '%')
+            ->paginate(3)
             ->get();
 
         return view('new.home.pages.buscador', compact('canchas'));
@@ -99,8 +124,6 @@ class PagesController extends Controller
     public function reservas(Request $request)
     {
 
-
-
         $fecha_inicio = $request->fecha_inicio;
         $fecha_final = $request->fecha_final;
 
@@ -110,15 +133,13 @@ class PagesController extends Controller
                 ->where('user_id', auth()->id())
                 ->where('status', '=', 13)
                 ->orderby('created_at', 'DESC')
-                ->get();
+                ->simplePaginate(5);
         } else {
             $reservas = Reserva::where('user_id', auth()->id())
                 ->where('status', '=', 13)
-                ->orderby('created_at', 'DESC')->get();
+                ->orderby('created_at', 'DESC')->simplePaginate(5);
             /* return redirect()->route('pages.misreservas')->with('flash','La cancha ha sido guardada con éxito'); */
         }
-
-       
             return view('pages.reservas', compact('reservas'));
         
         
@@ -126,16 +147,25 @@ class PagesController extends Controller
 
     public function detalle(Reserva $reserva)
     {
-        $transaction = Transaction::where('reserva_id', $reserva->id)->get();
+        //solo el usuario que hizo la reserva puede visualizarla.
+        if (Auth::user()->id == $reserva->user->id ) {
+
+            $transaction = Transaction::where('reserva_id', $reserva->id)->get();
 
         foreach ($transaction as $valor) {
             $responses = Respuesta::where('transaction_id', $valor->id)->get();
         }
 
-        $codigoqr = QrCode::size(80)
-            ->generate($reserva->id);
+        /* $codigoqr = QrCode::size(80)
+            ->generate($reserva->id); */
+
+        $codigoqr = QrCode::size(80)->generate(url('detalle/'.$reserva->id.'/download'));
 
         return view('pages.reserva-user', compact('reserva', 'responses', 'codigoqr'));
+            
+        }
+        abort(403);
+        
     }
 
     public function search()

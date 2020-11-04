@@ -14,7 +14,7 @@
                         @if ($cancha->photos->count() === 0)
                         <img class="img-fluid img-responsive img-circle" style="width: 600px; height: 200px;"  src="/img/sin-imagen.png" alt="alternative" onerror="this.src='/img/logo.png';">
                         @elseif ($cancha->photos->count() === 1)
-                            <img class="img-fluid img-responsive" style="width: 600px; height: 200px;"  src="{{ url($cancha->photos->first()->url) }}" alt="alternative" onerror="this.src='/img/logo.png';">
+                            <img class="img-fluid img-responsive" style="width: 600px; height: 300px;"  src="{{ url($cancha->photos->first()->url) }}" alt="alternative" onerror="this.src='/img/logo.png';">
                         @elseif($cancha->photos->count() > 1)
                             @include('new.home.carousel-2')
                         @endif
@@ -25,7 +25,7 @@
                         <ul class="list-unstyled li-space-lg">
                             <li class="media">
                                 <i class="fas fa-square"></i>
-                                <div class="media-body">Nº Reservas: {{count($cancha->complejo->reservas)}}</div>
+                                <div class="media-body">Nº Reservas: {{count($cancha->reservas->where('status','=',13))}}</div>
                             </li>
                             <li class="media">
                                 <i class="fas fa-square"></i>

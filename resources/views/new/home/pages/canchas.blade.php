@@ -11,62 +11,67 @@
                         <h1>TODAS LAS CANCHAS</h1>
                         <p class="p-heading p-large">Buscala!</p>
                     </div>
-                    <!-- buscador -->
-                    <div class="row no-gutters custom-search-input-2">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <div class="custom-select-form">
-                                    <select name="complejo_id" class="w-100 " name="city" id="city">
-                                        <option value="">
-                                            Seleeciona un Complejo </option>
-                                        @isset($complejos)
-                                        @foreach ($complejos as $complejo)
-                                        <option value="{{$complejo->id}}">
-                                            {{$complejo->nombre}}
-                                        </option>
-                                        @endforeach
-                                        @endisset
-                                    </select>
+
+                    <form action="{{route('pages.buscador')}}" method="GET">
+                        <div class="row no-gutters custom-search-input-2">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <div class="custom-select-form">
+                                        <select name="complejo" class="w-100 " id="city" required>
+                                            <option value="">
+                                                Seleeciona un Complejo </option>
+                                            @isset($complejos)
+                                            @foreach ($complejos as $complejo)
+                                            <option value="{{$complejo->id}}"
+                                                {{old('complejo',$complejo_req) == $complejo->id ? 'selected' : ''}}>
+                                                {{$complejo->nombre}}</option>
+                                            @endforeach
+                                            @endisset
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <input id="texto" class="form-control search-slt" type="text"
-                                    placeholder="Buscar por cancha o precio...">
+                            <div class="col-lg-4">
+                                <button type="submit"
+                                    class="btn_search btn btn-danger wrn-btn ripple"><span>BUSCAR</span></button>
                             </div>
                         </div>
-                        <div class="col-lg-2">
-                            <button type="submit" class="btn_search btn btn-danger wrn-btn ripple"><span>BUSCAR
-                                </span></button>
-                        </div>
-                    </div>
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of header-content -->
-</header> <!-- end of header -->
-
-<div id="services" class="cards-2">
-    <div class="container">
-        <div class="row contenedor">
-            <div class="basic-1">
-                <div class="col-lg-12">
-                    <div id="resultados"></div>
-                    <div class="progress" style="height: 1px;">
-                        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <div  class="row contenedor">
-            <div id="canchas" class="col-lg-12">
-                {{-- @include('new.home.pages.buscador') --}}
-                @include('new.home.pages.pagination') 
+    </div>
+</header>
+
+
+<div class="cards-2">
+    <div class="container">
+        @if (session()->has('alert'))
+        <div class="alert alert-light" role="alert">
+            {{ session('alert')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        <div @if (Request::url() !=route('pages.buscador')) class="active" style="display: none;" @endif>
+            <a class="nav-link" href="{{route('pages.todaslascanchas')}}"><i class="fa fa-arrow-circle-left fa-lg"
+                    aria-hidden="true" style="color:#14bf98; width:6; height:6;"></i>&nbsp;Volver a todas las
+                canchas</a>
+        </div>
+        <br>
+        <div class="row">
+            <div id="canchas-data" class="col-lg-12">
+                @include('new.home.pages.new-canchas-all')
+                {{$canchas->appends(Request::all())->links()}}
             </div>
         </div>
     </div>
 </div>
+
+
+
+
 
 
 
@@ -91,55 +96,21 @@
 @endpush
 
 @push('scripts')
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+</script>
 
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
-<script src="https://www.jqueryscript.net/demo/Customizable-Animated-Dropdown-Plugin-with-jQuery-CSS3-Nice-Select/js/jquery.nice-select.js"></script>
+<script
+    src="https://www.jqueryscript.net/demo/Customizable-Animated-Dropdown-Plugin-with-jQuery-CSS3-Nice-Select/js/jquery.nice-select.js">
+</script>
 <script src="/search/search.js"></script>
 
-
-<script>
-    
-    window.addEventListener("load",function(){
-    document.getElementById("texto").addEventListener("keyup",function(){
-        if((document.getElementById("texto").value.length)>=3)
-            fetch(`/canchitas/buscador?texto=${document.getElementById("texto").value}`,{
-            method:'get'
-            })
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById("resultados").innerHTML = html
-            })
-        else
-            document.getElementById("resultados").innerHTML = ""
-    });
-});
-
-
-let page = 2;
-        window.onscroll = () => {
-            if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-                const section = document.getElementById('canchas');
-                
-                // Pedir al servidor
-                fetch(`/su-cancha-canchas/pagination?page=${page}`, {
-                    method: 'get'
-                })
-                .then(response => response.text())
-                .then(htmlContent => {
-                    // Respuesta en HTML
-                    console.log(htmlContent);
-                    section.innerHTML += htmlContent;
-                    page += 1;
-                })
-                .catch(err => console.log(err));                                
-            }
-        };
-
-</script>
 @endpush

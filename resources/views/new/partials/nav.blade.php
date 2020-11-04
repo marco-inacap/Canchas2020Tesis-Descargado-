@@ -88,6 +88,12 @@
                     <i class="fab fa-instagram fa-stack-1x"></i>
                 </a>
             </span>
+            <span class="fa-stack">
+                <a id="app-whatsapp" target="_blanck"
+                        href="https://api.whatsapp.com/send?phone=+56963732409&amp;text=Hola!&nbsp;me&nbsp;pueden&nbsp;apoyar?">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+            </span>
         </span>
     </div>
 </nav> <!-- end of navbar -->

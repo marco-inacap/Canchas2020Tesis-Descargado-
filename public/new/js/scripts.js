@@ -174,7 +174,7 @@
     	if (event.isDefaultPrevented()) {
             // handle the invalid form...
             lformError();
-            lsubmitMSG(false, "Please fill all fields!");
+            lsubmitMSG(false, "Por favor llena todos los espacios");
         } else {
             // everything looks good!
             event.preventDefault();
@@ -232,7 +232,7 @@
     	if (event.isDefaultPrevented()) {
             // handle the invalid form...
             cformError();
-            csubmitMSG(false, "Please fill all fields!");
+            csubmitMSG(false, "Por favor llena todos los espacios!");
         } else {
             // everything looks good!
             event.preventDefault();
@@ -289,7 +289,7 @@
     	if (event.isDefaultPrevented()) {
             // handle the invalid form...
             pformError();
-            psubmitMSG(false, "Please fill all fields!");
+            psubmitMSG(false, "Por favor llena todos los espacios!");
         } else {
             // everything looks good!
             event.preventDefault();
@@ -352,6 +352,8 @@
             $('a.back-to-top').fadeOut('500');
         }
     });
+
+    
 
 
 	/* Removes Long Focus On Buttons */

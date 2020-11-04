@@ -18,7 +18,7 @@ if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 /* Route::get('email',function(){
 
                 return new App\Mail\PlantillaEmailReserva(App\Reserva::first(),App\Reserva::first());
-        });  */
+        });    */
 
 /* Route::get('final',function(){
 
@@ -83,8 +83,11 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 //NUEVO DISEÑO PAGINA
 Route::get('/', 'PagesController@home')->name('pages.home');
 Route::get('/su-cancha-canchas', 'PagesController@canchas_all')->name('pages.todaslascanchas');
-Route::get('/su-cancha-canchas/pagination', 'PagesController@pagination')->name('pages.pagination');
 Route::get('/su-cancha-complejos', 'PagesController@complejos_all')->name('pages.todosloscomplejos');
+
+Route::get('/su-cancha-canchas/buscaste', 'PagesController@buscador_canchas')->name('pages.buscador');
+
+
 //buscador
 /* Route::post('canchas-search/{complejo}', 'PagesController@search_canchas')->name('search.canchas'); */
 Route::get('/canchitas/buscador', 'PagesController@buscador');

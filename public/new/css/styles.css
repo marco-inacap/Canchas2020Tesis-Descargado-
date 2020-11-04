@@ -2495,4 +2495,35 @@ a:hover.back-to-top {
 	}
 	/* end of navigation */
 }
+
+#app-whatsapp{
+	position: fixed;
+	right: 0.75rem;
+	bottom: 0.75rem;
+	width: 3.000rem;
+	height: 3.000rem;
+	z-index: 999;
+	display: none;
+	border-radius: 1.875rem;
+	background-size: 1.125rem 1.125rem;
+}
+#app-whatsapp{
+	bottom: 80px;
+	display: block;
+}
+#app-whatsapp i{
+	font-size: 50px;
+}
+#app-whatsapp i{
+	color: #1ebea5;
+	transition: 0.3s;
+}
+
+#app-whatsapp i:hover{
+	font-size: 53px;
+	color: #25e4c7;
+}
+
 /* end of min-width width 1200px */
+
+	

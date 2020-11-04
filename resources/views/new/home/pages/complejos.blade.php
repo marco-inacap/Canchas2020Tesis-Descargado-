@@ -33,7 +33,7 @@
                             @foreach ($complejos as $complejo)
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="card-image" src="{{ url($complejo->url_imagen) }}" onerror="this.src='/img/logo.png';" alt="alternative">
+                                    <a href="{{route('complejos.show', $complejo->url)}}"><img class="card-image" src="{{ url($complejo->url_imagen) }}" onerror="this.src='/img/logo.png';" alt="alternative"></a>
                                     <div class="card-body">
                                         <div class="testimonial-text">{{$complejo->ubicacion}}</div>
                                         <div class="testimonial-author">{{$complejo->nombre}}</div>

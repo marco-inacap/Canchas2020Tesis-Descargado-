@@ -1,6 +1,7 @@
 @if ($paginator->hasPages())
     <div class="ui pagination menu">
         {{-- Previous Page Link --}}
+        <li>hola</li>
         @if ($paginator->onFirstPage())
             <a class="icon item disabled"> <i class="left chevron icon"></i> </a>
         @else

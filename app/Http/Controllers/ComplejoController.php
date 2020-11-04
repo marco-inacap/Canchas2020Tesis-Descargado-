@@ -19,9 +19,12 @@ class ComplejoController extends Controller
 
     public function show(Complejo $complejo)
     {
+        $complejos = Complejo::all();
+
         return view('new.home.pages.canchas',[
             'complejo' => $complejo,
-            'canchas' => $complejo->canchas()->paginate(2)
+            'canchas' => $complejo->canchas()->paginate(2),
+            'complejos' => $complejos
         ]);
     }
 }

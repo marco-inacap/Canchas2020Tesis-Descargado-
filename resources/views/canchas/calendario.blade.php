@@ -13,10 +13,11 @@
                 <div class="image-container">
                     @if ($cancha->photos->count() === 1)
                     <figure>
-                        <img src="{{ $cancha->photos->first()->url }}" alt="" class="img-fluid img-responsive">
+                        {{-- <img src="{{ $cancha->photos->first()->url }}" alt="" class="img-fluid img-responsive"> --}}
+                        <img class="d-block w-100 img-responsive" style="width: 500px; height: 400px;" src="{{url($cancha->photos->first()->url)}}">
                     </figure>
                     @elseif($cancha->photos->count() > 1)
-                    @include('canchas.carousel')
+                        @include('canchas.carousel')
                     @elseif($cancha->iframe)
                     <div class="video" width="100%" height="300">
                         {!! $cancha->iframe !!}

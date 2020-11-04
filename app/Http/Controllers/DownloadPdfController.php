@@ -7,6 +7,7 @@ use App\Reserva;
 use App\Transaction;
 use App\Respuesta;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Auth;
 
 class DownloadPdfController extends Controller
 {
@@ -14,9 +15,12 @@ class DownloadPdfController extends Controller
 
     public function download(Reserva $reserva)
     {
+
+        $user = Auth()->user();
+
+        if ($user->id == $reserva->user->id || $user->hasRole(['Admin','Dueño'])) {
+
         $transaction = Transaction::where('reserva_id', $reserva->id)->get();
-
-
 
         $codigoqr = QrCode::size(80)->generate($reserva->id);
 
@@ -32,12 +36,9 @@ class DownloadPdfController extends Controller
                 'codigoqr' => $codigoqr
             ]
         );
-
-
-
         return $pdf->stream("Comprobante de pago $reserva->fecha.pdf");
     }
-
-
+    abort(403);
+    }    
     
 }

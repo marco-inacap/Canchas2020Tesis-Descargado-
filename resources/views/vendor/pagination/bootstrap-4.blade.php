@@ -2,7 +2,6 @@
 
 <div class="pagination">
     <ul class="list-unstyled container-flex space-center">
-  
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
             <li class="page-item disabled"><span>&laquo;</span></li>

@@ -2,6 +2,7 @@
 @if ($paginator->hasPages())
 
 <div class="pagination">
+    <li>hola</li>
     <ul class="list-unstyled container-flex space-center">
   
         {{-- Previous Page Link --}}

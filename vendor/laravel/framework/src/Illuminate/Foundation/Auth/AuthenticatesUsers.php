@@ -20,6 +20,8 @@ trait AuthenticatesUsers
         /* return view('auth.login'); */
         
         return redirect('/')->with('openLogin',true);
+        
+
     }
     public function showLoginFormUser()
     {

@@ -50,6 +50,7 @@
                         </table>
                         @if($reservas->count() < 1 ) <p>Aún no tienes reservas, que esperas!</p>@endif
                     </div>
+                    {{$reservas->appends(Request::all())->links()}}
                 </div>
             </div>
         </div>

@@ -29,8 +29,7 @@
                             <option value="">
                                 Seleeciona un Complejo </option>
                             @foreach ($complejos as $complejo)
-                            <option value="{{$complejo->id}}"
-                                {{old('complejo_id',$horario->complejo_id) == $complejo->id ? 'selected' : ''}}>
+                            <option value="{{$complejo->id}}">
                                 {{$complejo->nombre}}
                             </option>
                             @endforeach
@@ -82,8 +81,7 @@
                             <option value="">
                                 Seleeciona un Complejo </option>
                             @foreach ($complejos as $complejo)
-                            <option value="{{$complejo->id}}"
-                                {{old('complejo_id',$horario->complejo_id) == $complejo->id ? 'selected' : ''}}>
+                            <option value="{{$complejo->id}}">
                                 {{$complejo->nombre}}
                             </option>
                             @endforeach
