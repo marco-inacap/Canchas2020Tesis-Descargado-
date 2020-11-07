@@ -21,6 +21,7 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
+                                    <th scope="col">#</th>
                                     <th scope="col">Fecha</th>
                                     <th scope="col">Hora Inicio/Fin</th>
                                     <th scope="col">Cancha</th>
@@ -33,6 +34,7 @@
                             <tbody>
                                 @foreach ($reservas as $reserva)
                                 <tr>
+                                    <th >{{ $loop->iteration }}</th>
                                     <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MMMM - YYYY')}}</td>
                                     <td>{{  Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm ') }} -
                                         {{  Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm a') }}</td>
@@ -50,8 +52,8 @@
                         </table>
                         @if($reservas->count() < 1 ) <p>Aún no tienes reservas, que esperas!</p>@endif
                     </div>
-                    {{$reservas->appends(Request::all())->links()}}
                 </div>
+                {{$reservas->appends(Request::all())->links()}}
             </div>
         </div>
     </div>

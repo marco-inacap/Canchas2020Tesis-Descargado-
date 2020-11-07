@@ -13,11 +13,13 @@
                 <div class="image-container">
                     @if ($cancha->photos->count() === 1)
                     <figure>
-                        {{-- <img src="{{ $cancha->photos->first()->url }}" alt="" class="img-fluid img-responsive"> --}}
-                        <img class="d-block w-100 img-responsive" style="width: 500px; height: 400px;" src="{{url($cancha->photos->first()->url)}}">
+                        {{-- <img src="{{ $cancha->photos->first()->url }}" alt="" class="img-fluid img-responsive">
+                        --}}
+                        <img class="d-block w-100 img-responsive" style="width: 500px; height: 400px;"
+                            src="{{url($cancha->photos->first()->url)}}">
                     </figure>
                     @elseif($cancha->photos->count() > 1)
-                        @include('canchas.carousel')
+                    @include('canchas.carousel')
                     @elseif($cancha->iframe)
                     <div class="video" width="100%" height="300">
                         {!! $cancha->iframe !!}
@@ -27,7 +29,8 @@
                 <!-- Counter -->
                 <div id="counter">
                     <div class="cell">
-                        <div class="counter-value number-count" data-count="{{$visitas->total_visitas}}">{{$visitas->total_visitas}}</div>
+                        <div class="counter-value number-count" data-count="{{$visitas->total_visitas}}">
+                            {{$visitas->total_visitas}}</div>
                         <div class="counter-info">Total<br>Visitas</div>
                     </div>
                     <div class="cell">
@@ -56,25 +59,30 @@
                         </li>
                     </ul>
                     Compartir: &nbsp;
-                        <a href="https://www.facebook.com/sharer.php?u={{ request()->fullUrl()}}&t={{$cancha->nombre}}" title="Compartir en Facebook" target="_blank"><img alt="Share on Facebook" src="/img/flat_web_icon_set/Facebook.png"></a>
-                        &nbsp;
-                        <a href="https://api.whatsapp.com/send?text={{$cancha->nombre}}%20{{request()->fullUrl()}}" target="_blank" title="Tweet"><img alt="Tweet" src="/img/flat_web_icon_set/whatsapp.png"></a>
+                    <a href="https://www.facebook.com/sharer.php?u={{ request()->fullUrl()}}&t={{$cancha->nombre}}"
+                        title="Compartir en Facebook" target="_blank"><img alt="Share on Facebook"
+                            src="/img/flat_web_icon_set/Facebook.png"></a>
+                    &nbsp;
+                    <a href="https://api.whatsapp.com/send?text={{$cancha->nombre}}%20{{request()->fullUrl()}}"
+                        target="_blank" title="Tweet"><img alt="Tweet" src="/img/flat_web_icon_set/whatsapp.png"></a>
                 </div>
                 <div class="card-body">
                     @if (! $cancha->liked)
                     <a href="{{ route('canchas.like', $cancha) }}"><i class="far fa-thumbs-up like puntero"></i></a>
                     <span class="alert-info">{{ $cancha->likesCount }}</span>
                     @else
-                    <a href="{{ route('canchas.unlike', $cancha) }}"><i class="fas fa-thumbs-up like nomegusta puntero"></i></a>
+                    <a href="{{ route('canchas.unlike', $cancha) }}"><i
+                            class="fas fa-thumbs-up like nomegusta puntero"></i></a>
                     <span class="alert-info">{{ $cancha->likesCount }}</span>
                     @endif
-            
+
                     @if (! $cancha->disliked)
-                    <a href="{{ route('canchas.dislike', $cancha) }}"><i class="far fa-thumbs-down dislike puntero"></i></a>
+                    <a href="{{ route('canchas.dislike', $cancha) }}"><i
+                            class="far fa-thumbs-down dislike puntero"></i></a>
                     <span class="alert-info">{{ $cancha->dislikesCount }}</span>
                     @else
                     <a href="{{ route('canchas.undislike', $cancha) }}"><i
-                        class="fas fa-thumbs-down dislike nomegusta puntero"></i></a>
+                            class="fas fa-thumbs-down dislike nomegusta puntero"></i></a>
                     <span class="alert-info">{{ $cancha->dislikesCount }}</span>
                     @endif
                 </div>
@@ -98,7 +106,7 @@
 
                     </div>
 
-                    <div id='calendar'></div>
+                    <div  id='calendar'></div>
 
                 </div> <!-- end of text-container -->
             </div> <!-- end of col -->
@@ -230,6 +238,7 @@
             plugins: [ 'dayGrid', 'interaction', 'timeGrid', 'list' ],
             defaultView: 'timeGridWeek',
             defaultTimedEventDuration: '01:00:00',
+            slotDuration: '01:00:00',
             header:{
                 left:'prev,next today',
                 center:'title',
@@ -237,8 +246,10 @@
             },
             navLinks: true,
             selectable: true,
-            height: 990,
-            
+            height: 480,
+            slotWidth: 10,
+            allDaySlot:false ,
+            minTime:'09:00:00',            
             buttonText: {
                 today: 'Hoy',
                 month: 'Mes',
@@ -246,7 +257,17 @@
                 day: 'Día',
                 list: 'Lista'
             },
-            
+            validRange: function(nowDate) {
+                var nowDate = new Date();
+                var end = new Date();
+                end.setMonth(nowDate.getMonth() + 1);
+            return {
+            end: end
+            };
+        },
+
+
+
             /* selectMirror: true, */
 
             //funcion para capturar datos del calendario al modal.
@@ -273,6 +294,7 @@
                 }  
                 /* calendar.addEvent({title:"Evento x",date:info.dateStr});    */          
             },
+
             
             //array de eventos, para tarear varias url del controlador. FUENTES JSON
             
@@ -319,6 +341,7 @@
         calendar.setOption('locale','Es');
         calendar.render();
     });
+
 
     $('#delete').on('click', function(){
             

@@ -156,6 +156,7 @@ class GananciasController extends Controller
 
         $canchas = Cancha::where('user_id', auth()->id())->get();
 
+
         /* foreach ($canchas as $cancha  ) {
         $reservas = $cancha->reservas()->get();
         dd($reservas);

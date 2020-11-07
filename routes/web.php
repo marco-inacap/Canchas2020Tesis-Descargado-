@@ -34,7 +34,6 @@ if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
                 return view('webpay.index',compact('reserva'));
         }); */
 
-
 //Rutas Google
 
 Route::get('/auth/redirect/{provider}', 'SocialController@redirect');

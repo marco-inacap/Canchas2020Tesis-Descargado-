@@ -85,6 +85,8 @@ class AdminController extends Controller
             ->where('canchas.user_id', '=', $usuarioauth)->sum('reservas.total');
             /* $reservas = Auth::user()->id ===  ; */
 
+            
+
             /* $reservas = Reserva::where($cancha,auth()->id())->get();  */
         return view('admin.dashboard', compact(
             'reservas',

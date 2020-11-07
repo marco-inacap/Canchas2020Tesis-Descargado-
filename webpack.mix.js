@@ -15,6 +15,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
    /* .sass('resources/assets/sass/app.scss', 'public/css') */;
 
    mix.browserSync({
-      proxy: 'http://127.0.0.1:8000',
+      proxy: 'http://localhost:8000/',
       open: false
    });
