@@ -10,21 +10,23 @@ class ComplejoController extends Controller
     public function index()
     {
         $complejosQuery = Complejo::query();
-        $complejosQuery->where('nombre', 'like', '%'.request('q').'%');
+        $complejosQuery->where('nombre', 'like', '%' . request('q') . '%');
         $complejos = $complejosQuery->paginate(25);
-        
 
-        return view('new.home.pages.complejos',compact('complejos'));
+
+        return view('new.home.pages.complejos', compact('complejos'));
     }
 
-    public function show(Complejo $complejo)
+    public function show(Request $request, Complejo $complejo)
     {
         $complejos = Complejo::all();
+        $complejo_req = $complejo->id;
 
-        return view('new.home.pages.canchas',[
+        return view('new.home.pages.canchas', [
             'complejo' => $complejo,
             'canchas' => $complejo->canchas()->paginate(2),
-            'complejos' => $complejos
+            'complejos' => $complejos,
+            'complejo_req' => $complejo_req
         ]);
     }
 }

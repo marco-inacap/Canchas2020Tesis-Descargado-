@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Cancha;
 
 class Horario extends Model
 {
@@ -14,6 +15,6 @@ class Horario extends Model
 
     public function cancha()
     {
-        return $this->hasOne(Cancha::class);
+        return $this->belongsTo(Cancha::class);
     }
 }

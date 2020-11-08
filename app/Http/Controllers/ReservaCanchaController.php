@@ -74,7 +74,7 @@ class ReservaCanchaController extends Controller
                 "id" => $horario->id,
                 "end" => $horario->fecha . " " . $horario->hora_apertura,
                 "start" => $horario->fecha . " " . $horario->hora_cierre,
-                "title" => "Horario cerrado.",
+                "title" => "Cerrada.",
                 "textColor" => "#ffffff",
                 "backgroundColor" => 'rgba(240,52,52,0.3)',
                 "borderColor" => "red"

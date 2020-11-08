@@ -167,9 +167,11 @@ Route::group(
                 Route::get('horarios/{complejo}', 'HorariosController@lista_canchas')->name('complejo.horario');
                 Route::get('horarios/complejo/{cancha}', 'HorariosController@lista_horarios')->name('complejo.horario.cancha');
 
-                /* Route::get('horarios','HorariosController@index')->name('admin.horarios.index');
+                Route::get('horarios','HorariosController@index')->name('admin.horarios.index');
                 Route::get('horarios/create','HorariosController@create')->name('admin.horarios.create');
-                Route::get('horarios','HorariosController@store')->name('admin.horarios.store'); */
+                Route::get('horarios','HorariosController@store')->name('admin.horarios.store');
+                Route::get('horarios/{horario}','HorariosController@update')->name('admin.horarios.update');
+                Route::delete('horarios/{horario}','HorariosController@destroy')->name('admin.horarios.destroy');
 
                 Route::get('canchas', 'CanchaController@index')->name('admin.cancha.index');
                 Route::get('canchas/create', 'CanchaController@create')->name('admin.cancha.create');

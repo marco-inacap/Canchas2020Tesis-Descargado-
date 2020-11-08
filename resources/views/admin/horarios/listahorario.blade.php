@@ -39,7 +39,7 @@
                 @foreach ($horarios as $horario)
                 <tr>
                     <td>{{ $horario->id}}</td>
-                    <td>{{ $cancha->nombre}}</td>
+                    <td>{{ $horario->cancha->id}}</td>
                     <td>{{Carbon\Carbon::parse($horario->fecha)->isoFormat('D - MMMM - YYYY')}}</td>
                     <td>{{ $horario->hora_cierre}}</td>
                     <td>{{ $horario->hora_apertura}}</td>

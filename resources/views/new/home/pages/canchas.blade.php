@@ -11,7 +11,6 @@
                         <h1>TODAS LAS CANCHAS</h1>
                         <p class="p-heading p-large">Buscala!</p>
                     </div>
-
                     <form action="{{route('pages.buscador')}}" method="GET">
                         <div class="row no-gutters custom-search-input-2">
                             <div class="col-lg-8">

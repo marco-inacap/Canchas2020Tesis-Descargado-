@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cog\Laravel\Love\Likeable\Models\Traits\Likeable;
 use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
 use App\Reserva;
+use App\Horario;
 
 
 class Cancha extends Model implements LikeableContract
@@ -21,9 +22,10 @@ class Cancha extends Model implements LikeableContract
     {
         return $this->hasMany(Reserva::class);
     }
+    
     public function horario()
     {
-        return $this->hasOne(Horario::class);
+        return $this->hasMany(Horario::class)->orderBy('created_at','asc');
     }
 
     public function getRouteKeyName()

@@ -57,11 +57,9 @@
       </span>
     </a>
     <ul class="treeview-menu">
-      <li {{request()->is('admin/horarios') ? 'class=active' : ''}}><a href="{{route('admin.horarios.index')}}"><i
-            class="fa fa-eye"></i>Ver lista de horarios</a></li>
       @can('Create Horario')      
       <li>
-        <a href="{{route('admin.horarios.create')}}"><i class="fa fa-pencil"></i>Crear Horario</a>
+        <a href="{{route('admin.horarios.create')}}"><i class="fa fa-pencil"></i>Ver horarios</a>
       </li>
       @endcan
     </ul>

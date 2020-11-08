@@ -35,8 +35,8 @@ class HorariosController extends Controller
     }
 
     public function lista_canchas(Complejo $complejo)
-    {    
-            $canchas = $complejo->canchas()->get();
+    {
+        $canchas = $complejo->canchas()->get();
 
         return view('admin.horarios.listacanchashorario', compact('canchas'));
     }
@@ -49,7 +49,7 @@ class HorariosController extends Controller
         $horarios = Horario::where('cancha_id', $cancha->id)->get();
 
 
-        return view('admin.horarios.listahorario', compact('horarios','cancha'));
+        return view('admin.horarios.listahorario', compact('horarios', 'cancha'));
     }
 
     /**
@@ -72,9 +72,9 @@ class HorariosController extends Controller
         }
 
         $canchas = Cancha::where('user_id', auth()->id())->get();
+        
 
-
-        return view('admin.horarios.create', compact('canchas', 'complejos','horario'));
+        return view('admin.horarios.create', compact('canchas', 'complejos', 'horario'));
     }
 
     /**
@@ -97,7 +97,7 @@ class HorariosController extends Controller
 
         $horario = Horario::create($request->all());
 
-        return redirect()->route('admin.horarios.index')->with('flash', 'El horario se ha agregado');
+        return redirect()->route('admin.horarios.create')->with('flash', 'El horario se ha agregado');
     }
 
     /**
@@ -134,9 +134,11 @@ class HorariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Horario $horario)
     {
-        //
+        $horario->update($request->all());
+
+        return redirect()->route('admin.horarios.create')->with('flash','El horario se actualizo con éxito');
     }
 
     /**
@@ -145,9 +147,12 @@ class HorariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Horario $horario)
     {
         $this->authorize('delete', new Horario);
-        //
+        
+        $horario->delete();
+        
+        return redirect()->route('admin.horarios.create')->with('flash','El horario a sido eliminada');
     }
 }
