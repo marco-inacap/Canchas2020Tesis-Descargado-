@@ -190,7 +190,7 @@
           <form action="{{$response->url}}" method="post">
             @csrf
             <input type="hidden" name="token_ws" value="{{$response->token}}">
-            <button style="width:24rem; margin:0 auto; " target="_blank" class="btn-solid-reg">PAGAR</button>
+            <button style="width:24rem; margin:0 auto; " target="_blank" class="btn-solid-reg" type="submit" id="btnPagar">PAGAR</button>
           </form>
         </div>
       </div>
@@ -199,6 +199,22 @@
 </div>
 <br>
 @endsection
+
 @push('styles')
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+@endpush
+
+@push('scripts')
+
+<script>
+    $('#btnPagar').click(function(){
+        this.form.submit();
+        this.disabled=true;
+        this.innerHTML='<i class="fa fa-spinner fa-spin"></i> A pagar...';
+    });
+    
+</script>
+
 @endpush

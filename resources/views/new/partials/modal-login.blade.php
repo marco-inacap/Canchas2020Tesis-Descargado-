@@ -42,14 +42,14 @@
                     </div>
                     <div class="container">
                         <div class="col-md-12 text-center">
-                            <button type="submit" class="btn btn-solid-lg">Ingresar</button>
+                            <button type="submit" id="btnIngresar" class="btn btn-solid-lg">Ingresar</button>
                         </div>
                     </div>
                     <br>
-                    <h6 class="text-center"><a href="{{ route('password.request') }}">Se me olvido la contraseña</a></h6>
+                    <h6 class="text-center"><a style="text-decoration: none;" href="{{ route('password.request') }}">Se me olvido la contraseña</a></h6>
                     <div class="form-group">
                         <div class="col-md-12">
-                            <a href="#" style="border-color: rgba(66, 104, 173); background-color: rgba(66, 104, 173);"
+                            <a href="#" style="text-decoration: none; border-color: rgba(66, 104, 173); background-color: rgba(66, 104, 173);"
                                 class="btn btn-light btn-lg btn-block"><i style="float:left;"
                                     class="fab fa-facebook-f text-white"></i>
                                 <h6 class="text-white">Continuar con Facebook</h6>
@@ -58,7 +58,7 @@
                         <br>
                         <div class="col-md-12">
                             <a href="{{ url('/auth/redirect/google') }}"
-                                style="border-color: rgba(222, 45, 44); background-color:  rgba(222, 45, 44);"
+                                style="text-decoration: none; border-color: rgba(222, 45, 44); background-color:  rgba(222, 45, 44);"
                                 class="btn btn-light btn-lg btn-block"><i style="float: left;"
                                     class="fab fa-google text-white"></i>
                                 <h6 class="text-white">Continuar con Google</h6>
@@ -70,3 +70,16 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+
+<script>
+    $('#btnIngresar').click(function(){
+        this.form.submit();
+        this.disabled=true;
+        this.innerHTML='<i class="fa fa-spinner fa-spin"></i> Ingresar';
+    });
+    
+</script>
+
+@endpush

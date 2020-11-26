@@ -119,7 +119,8 @@ class GananciasController extends Controller
             'totalReservasDia',
             'totalReservasSemana',
             'totalReservasMes',
-            'totalReservasMesPasado'
+            'totalReservasMesPasado',
+            'request'
         ));
     }
     /* public function filtrar_fechas(Request $request, Cancha $cancha)
@@ -155,7 +156,10 @@ class GananciasController extends Controller
         $usuarioauth = Auth()->user()->id;
 
         $canchas = Cancha::where('user_id', auth()->id())->get();
-
+        $ids = $canchas->pluck('id');
+        $reservas = Reserva::whereIn('cancha_id', $ids)
+            ->where('status', '=', 13)
+            ->get();
 
         /* foreach ($canchas as $cancha  ) {
         $reservas = $cancha->reservas()->get();
@@ -166,7 +170,7 @@ class GananciasController extends Controller
             ->select('canchas.precio','reservas.created_at')
             ->where('canchas.user_id', '=',$usuarioauth)->sum('canchas.precio')->orderby('created_at','ASC')->get(); */
 
-        return response(json_encode($canchas), 200)->header('content-type', 'text/plain');
+        return response(json_encode($reservas), 200)->header('content-type', 'text/plain');
     }
 
     public function detalle_complejo(Complejo $complejo, Request $request)
@@ -309,6 +313,7 @@ class GananciasController extends Controller
             'numReservasSemana',
             'numReservasMes',
             'numReservasTotal',
+            'request'
             /* 'fecha_select' */
         ));
     }

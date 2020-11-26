@@ -42,7 +42,7 @@ class AdminController extends Controller
                 'reservas.created_at'
             )
             ->whereDay('reservas.created_at', Carbon::now()->format('d'))
-            ->where('status','=', 13)
+            ->where('status', '=', 13)
             ->where('canchas.user_id', '=', $usuarioauth)
             ->get();
 
@@ -83,11 +83,11 @@ class AdminController extends Controller
             ->select('reservas.total')
             ->whereDay('reservas.created_at', Carbon::now()->format('d'))
             ->where('canchas.user_id', '=', $usuarioauth)->sum('reservas.total');
-            /* $reservas = Auth::user()->id ===  ; */
+        /* $reservas = Auth::user()->id ===  ; */
 
-            
+        
 
-            /* $reservas = Reserva::where($cancha,auth()->id())->get();  */
+        /* $reservas = Reserva::where($cancha,auth()->id())->get();  */
         return view('admin.dashboard', compact(
             'reservas',
             'totalReservas',

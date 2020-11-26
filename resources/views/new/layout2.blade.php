@@ -28,6 +28,14 @@
     <link href="/new/css/swiper.css" rel="stylesheet">
     <link href="/new/css/magnific-popup.css" rel="stylesheet">
     <link href="/new/css/styles.css" rel="stylesheet">
+    <script>
+        window.callbellSettings = {
+          token: "4yWWhp6vbrcgSWrH7Zpb4bCa"
+        };
+      </script>
+      <script>
+        (function(){var w=window;var ic=w.callbell;if(typeof ic==="function"){ic('reattach_activator');ic('update',callbellSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Callbell=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://dash.callbell.eu/include/'+window.callbellSettings.token+'.js';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
+      </script>
 
     <!-- Favicon  -->
     <link rel="icon" href="/new/images/favicon.png">
@@ -47,18 +55,18 @@
         <footer>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="text-container about">
-                            <h4>Few Words About Aria</h4>
-                            <p class="white">We're passionate about delivering the best business growth services for
-                                companies just starting out as startups or industry players that have established their
-                                market position a long tima ago.</p>
+                            <h4>ReservaUnaCancha.cl</h4>
+                            <p class="white">Proyecto de tesis</p>
+                            <p class="white">Aún esta en proceso de <b>Desarrollo</b>, por lo que el diseño, interacción
+                                y funcionalidades no estan totalmente completo y no es primordial por el momento.</p>
                         </div> <!-- end of text-container -->
                     </div> <!-- end of col -->
                     <div class="col-md-2">
                         <div class="text-container">
-                            <h4>Links</h4>
-                            <ul class="list-unstyled li-space-lg white">
+                            <a style="text-decoration: none;" href="{{route('pages.todaslascanchas')}}"><h4>CANCHAS</h4></a>
+                            {{-- <ul class="list-unstyled li-space-lg white">
                                 <li>
                                     <a class="white" href="#your-link">startupguide.com</a>
                                 </li>
@@ -68,13 +76,13 @@
                                 <li>
                                     <a class="white" href="privacy-policy.html">Privacy Policy</a>
                                 </li>
-                            </ul>
+                            </ul> --}}
                         </div> <!-- end of text-container -->
                     </div> <!-- end of col -->
                     <div class="col-md-2">
                         <div class="text-container">
-                            <h4>Tools</h4>
-                            <ul class="list-unstyled li-space-lg">
+                            <a style="text-decoration: none;" href="{{route('pages.todosloscomplejos')}}"><h4>COMPLEJOS</h4></a>
+                            {{-- <ul class="list-unstyled li-space-lg">
                                 <li>
                                     <a class="white" href="#your-link">businessgrowth.com</a>
                                 </li>
@@ -84,23 +92,7 @@
                                 <li class="media">
                                     <a class="white" href="#your-link">optimizer.net</a>
                                 </li>
-                            </ul>
-                        </div> <!-- end of text-container -->
-                    </div> <!-- end of col -->
-                    <div class="col-md-2">
-                        <div class="text-container">
-                            <h4>Partners</h4>
-                            <ul class="list-unstyled li-space-lg">
-                                <li>
-                                    <a class="white" href="#your-link">unicorns.com</a>
-                                </li>
-                                <li>
-                                    <a class="white" href="#your-link">staffmanager.com</a>
-                                </li>
-                                <li>
-                                    <a class="white" href="#your-link">association.gov</a>
-                                </li>
-                            </ul>
+                            </ul> --}}
                         </div> <!-- end of text-container -->
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
@@ -111,7 +103,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <p class="p-small">Copyright © Todos los derechos reservados <a href="https://inovatik.com">Marco
+                    <p class="p-small">Copyright © Todos los derechos NO estan reservados | <a href="https://inovatik.com">Marco
                             González</a></p>
                 </div> <!-- end of col -->
             </div> <!-- enf of row -->

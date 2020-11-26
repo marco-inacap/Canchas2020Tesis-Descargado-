@@ -791,7 +791,7 @@ input[type='checkbox'] {
 /*    04. Header     */
 /*********************/
 .header {
-	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('../images/img-header.jpg') center center no-repeat;
+	background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../images/img-header.jpg') center center no-repeat;
 	background-size: cover;
 }
 .header2 {
@@ -1809,8 +1809,8 @@ input[type='checkbox'] {
 a.back-to-top {
 	position: fixed;
 	z-index: 999;
-	right: 0.75rem;
-	bottom: 0.75rem;
+	right: 1.75rem;
+	bottom: 12.75rem;
 	display: none;
 	width: 2.625rem;
 	height: 2.625rem;

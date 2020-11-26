@@ -116,9 +116,9 @@
             <div id="fecha_1" class="tab-pane fade in active">
                 <form class="form-inline float-right">
                     <b>Fecha Desde:</b>
-                    <input class="form-control mr-sm-2" type="date" id="fecha_inicio" name="fecha_inicio" required>
+                    <input class="form-control mr-sm-2" type="date" id="fecha_inicio" name="fecha_inicio" value="{{old('fecha_inicio',$request->fecha_inicio)}}" required>
                     <b>Hasta:</b>
-                    <input class="form-control mr-sm-2" type="date" id="fecha_final" name="fecha_final" required>
+                    <input class="form-control mr-sm-2" type="date" id="fecha_final" name="fecha_final" value="{{old('fecha_final',$request->fecha_final)}}" required>
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="buscar">Buscar</button>
                 </form>
             </div>
@@ -148,7 +148,13 @@
                 <td>{{ $reserva->cancha->nombre}}</td>
                 <td>{{ $reserva->user->name}}</td>
                 <td>{{Carbon\Carbon::parse($reserva->created_at)->isoFormat('D - MMMM - YYYY')}}</td>
-                <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
+                @if ($reserva->status === 13)
+                <td><span class="label label-success">{{\App\reserva::STATUS_DESC[$reserva->status]}}</span></td>
+                @elseif($reserva->status <= 12)
+                <td><span class="label label-warning">{{\App\reserva::STATUS_DESC[$reserva->status]}}</span></td>
+                @elseif($reserva->status >= 14)
+                <td><span class="label label-danger">{{\App\reserva::STATUS_DESC[$reserva->status]}}</span></td>
+                @endif
                 <td>${{ number_format($reserva->total, 0, ',', '.' )}}</td>
                 <td>
                   <a data-toggle="modal" data-target="#ModalShow{{$reserva->id}}" href="">Ver</a>
@@ -234,7 +240,7 @@
             <tfoot class="">
               <tr>
                 <th colspan="7" style="font-weight: bold; font-size: 20px">Monto total</th>
-                <td colspan="0" style="font-weight: bold; font-size: 18px; color: green">$
+                <td colspan="0" style="font-weight: bold; font-size: 18px; color: #2aa65a;">$
                   {{number_format($totalReservas, 0, ',', '.' )}} </td>
               </tr>
             </tfoot>
@@ -353,7 +359,7 @@
             <tfoot class="">
               <tr>
                 <th colspan="5" style="font-weight: bold; font-size: 20px">Monto total</th>
-                <td colspan="0" style="font-weight: bold; font-size: 18px; color: green">$
+                <td colspan="0" style="font-weight: bold; font-size: 18px; color: #2aa65a;">$
                   {{number_format($totalReservasDia, 0, ',', '.' )}} </td>
               </tr>
             </tfoot>

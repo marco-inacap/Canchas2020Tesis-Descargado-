@@ -16,7 +16,7 @@ class ComplejoController extends Controller
         $this->authorize('view', new Complejo);
 
         $user = Auth()->user();
-
+        
         if ($user->hasRole('Admin')) {
             $complejos = Complejo::all();
         } else {

@@ -26,9 +26,9 @@
                     <div class="form-group {{$errors->has('ubicacion') ? 'has-error':''}}">
                         <label for="ubicacion">Ubicación:</label>
                         <div class="input-group">
-                        <input type="text" name="ubicacion" class="form-control" value="{{old('ubicacion')}}">
+                        <input type="text" id="ubicacion" name="ubicacion" class="form-control" placeholder="Peldehue 1847, Osorno" value="{{old('ubicacion')}}">
                         <span class="input-group-btn">
-                            <a type="submit" id="buscar" class="btn btn-flat"><i class="fa fa-search"></i></a>
+                            <a type="submit" id="buscar" onclick="copy_address()" class="btn btn-flat"><i class="fa fa-search"></i></a>
                         </span>
                         </div>
                         {!!$errors->first('ubicacion','<span class="help-block">:message</span>')!!}
@@ -96,8 +96,9 @@
 @push('scripts')
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 <script src="/adminlte/js/Control.OSMGeocoder.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
+    
         var map = L.map('mapid').setView([15.413083, -66.2136067], 3);
         var marker_actual; 
         var browserLat;
@@ -175,6 +176,13 @@
 $("#imagen").change(function(){
     readURL(this);
 });
+
+function copy_address() {
+    
+    document.getElementById('buscador').value = document.getElementById('ubicacion').value;
+
+    document.getElementById("ir").click();
+}
 
 </script>
 @endpush

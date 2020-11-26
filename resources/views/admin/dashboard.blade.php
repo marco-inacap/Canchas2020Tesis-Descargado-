@@ -88,8 +88,8 @@
 
 <script>
         var canchas=[];
-        var precio=[];
-        var cantidad_reservas=[];
+        var total=[];
+        var fecha=[];
 
         
         $(document).ready(function(){
@@ -110,9 +110,9 @@
                 
                 for(var x=0;x<arreglo.length;x++){
                     
-                var nreservas =  cantidad_reservas.push(arreglo[x].reservas);
-                    canchas.push(arreglo[x].nombre);
-                    precio.push(arreglo[x].precio * nreservas);    
+                    canchas.push(arreglo[x].cancha_id);
+                    total.push(arreglo[x].total);   
+                    fecha.push(arreglo[x].fecha);   
                 }
                 generarGrafica();
 
@@ -123,13 +123,26 @@
     function generarGrafica(){
         
         var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
+        
+         let chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        datasets: [{
+            label: 'CLP',
+            data: total,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        }],
+        labels: fecha,    
+    },
+    
+}); 
+    /* var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: canchas,
+        labels: fecha,
         datasets: [{
             label: 'Ganancia de mis canchas.',
-            data: precio,
+            data: total,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -158,7 +171,7 @@
             }]
         }
     }
-});
+}); */
     }    
     
 </script>

@@ -19,7 +19,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ReservaEmail' => [
             'App\Listeners\NotifacionReserva',
         ],
-        
+        'App\Events\LlamanosEmail' => [
+            'App\Listeners\DatosContacto',
+        ],
+         
     ];
 
     /**

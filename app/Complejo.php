@@ -52,10 +52,15 @@ class Complejo extends Model
     public function delete()
     {
         // Borra todos los comentarios 
-        foreach($this->cancha as $canchas)
+        if (is_array($this->cancha) || is_object($this->cancha))
+        {
+            foreach($this->cancha as $canchas)
         {
             $canchas->delete();
         }
+        }
+
+        
 
         // Borramos el Post
         return parent::delete();

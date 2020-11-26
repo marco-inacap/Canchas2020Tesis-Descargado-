@@ -68,11 +68,11 @@
   <label>Filtrar por fechas de reserva a jugar.</label>
   <form class="form-inline float-right">
     <b>Fecha Desde:</b>
-    <input class="form-control mr-sm-2" type="date" id="fecha_inicio" name="fecha_inicio" required>
+    <input class="form-control mr-sm-2" type="date" id="fecha_inicio" name="fecha_inicio" value="{{old('fecha_inicio',$request->fecha_inicio)}}" required>
     <b>Hasta:</b>
-    <input class="form-control mr-sm-2" type="date" id="fecha_final" name="fecha_final" required>
+    <input class="form-control mr-sm-2" type="date" id="fecha_final" name="fecha_final" value="{{old('fecha_final',$request->fecha_final)}}" required>
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="buscar">Buscar</button>
-</form>
+  </form>
 
   <table id="cancha-table" class="table table-bordered table-striped">
     <thead>
@@ -94,85 +94,93 @@
         <td>{{  Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm ') }} -
           {{  Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm a') }}</td>
         <td>{{ $reserva->user->name}}</td>
-        <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
-        <td>$ {{ number_format($reserva->total, 0, ',', '.' )}}</td>
-        <td>
-          <a data-toggle="modal" data-target="#ModalShow{{$reserva->id}}" href="">Ver</a>
+        @if ($reserva->status === 13)
+        <td><span class="label label-success">{{\App\reserva::STATUS_DESC[$reserva->status]}}</span></td>
+        @elseif($reserva->status <= 12) <td><span
+            class="label label-warning">{{\App\reserva::STATUS_DESC[$reserva->status]}}</span></td>
+          @elseif($reserva->status >= 14)
+          <td><span class="label label-danger">{{\App\reserva::STATUS_DESC[$reserva->status]}}</span></td>
+          @endif
+          <td>$ {{ number_format($reserva->total, 0, ',', '.' )}}</td>
+          <td>
+            <a data-toggle="modal" data-target="#ModalShow{{$reserva->id}}" href="">Ver</a>
 
-          <div class="modal fade" id="ModalShow{{$reserva->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <h5 class="modal-title" id="exampleModalLabel">Detalle reserva</h5>
-                </div>
-                <div class="modal-body">
-                  <table class="table">
-                    <tbody>
-                      <h6 style="font-size: 10px;"><b>Id reserva: {{$reserva->id}}</b></h6>
+            <div class="modal fade" id="ModalShow{{$reserva->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Detalle reserva</h5>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table">
+                      <tbody>
+                        <h6 style="font-size: 10px;"><b>Id reserva: {{$reserva->id}}</b></h6>
                         <tr>
-                            <th scope="row">Nombre de usuario:</th>
-                            <td>{{$reserva->user->name}}</td>
+                          <th scope="row">Nombre de usuario:</th>
+                          <td>{{$reserva->user->name}}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Email:</th>
-                            <td>{{$reserva->user->email}}</td>
+                          <th scope="row">Email:</th>
+                          <td>{{$reserva->user->email}}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Estado de Transacción:</th>
-                            <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
+                          <th scope="row">Estado de Transacción:</th>
+                          <td>{{\App\reserva::STATUS_DESC[$reserva->status]}}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Fecha de reserva</th>
-                            <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MM - YY')}}</td>
+                          <th scope="row">Fecha de reserva</th>
+                          <td>{{Carbon\Carbon::parse($reserva->fecha)->isoFormat('D - MM - YY')}}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Hora de reserva</th>
-                            <td>{{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}
-                            </td>
+                          <th scope="row">Hora de reserva</th>
+                          <td>
+                            {{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}
+                          </td>
                         </tr>
                         <tr>
-                            <th scope="row">Nombre de complejo</th>
-                            <td>{{ $reserva->cancha->complejo->nombre}}</td>
+                          <th scope="row">Nombre de complejo</th>
+                          <td>{{ $reserva->cancha->complejo->nombre}}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Nombre de cancha</th>
-                            <td>{{ $reserva->cancha->nombre}}</td>
+                          <th scope="row">Nombre de cancha</th>
+                          <td>{{ $reserva->cancha->nombre}}</td>
                         </tr>
                         <tr>
                           <th scope="row">Fecha de pago</th>
                           <td>{{Carbon\Carbon::parse($reserva->created_at)->isoFormat('D - MM - YY / HH:mm')}}</td>
-                      </tr>
-                        <tr>
-                            <th scope="row">Monto:</th>
-                            <td colspan="2"></td>
-                            <td>${{ number_format($reserva->total, 0, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Total:</th>
-                            <td colspan="2"></td>
-                            <td><b>${{ number_format($reserva->total, 0, ',', '.') }}</b></td>
+                          <th scope="row">Monto:</th>
+                          <td colspan="2"></td>
+                          <td>${{ number_format($reserva->total, 0, ',', '.') }}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Total:</th>
+                          <td colspan="2"></td>
+                          <td><b>${{ number_format($reserva->total, 0, ',', '.') }}</b></td>
                         </tr>
                         <tr>
                           {!!QrCode::size(50)->generate($reserva->id) !!}
                         </tr>
-                    </tbody>
-                </table>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}">PDF</a>
-        </td>
+            <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}">PDF</a>
+          </td>
       </tr>
       @endforeach
     </tbody>
     <tfoot class="">
       <tr>
         <th colspan="5" style="font-weight: bold; font-size: 20px">Monto total</th>
-        <td colspan="0" style="font-weight: bold; font-size: 18px; color: green">$
+        <td colspan="0" style="font-weight: bold; font-size: 18px; color: #2aa65a;">$
           {{number_format($totalReservas, 0, ',', '.' )}} </td>
       </tr>
     </tfoot>

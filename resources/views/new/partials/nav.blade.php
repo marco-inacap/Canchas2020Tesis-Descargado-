@@ -31,21 +31,6 @@
             <li class="nav-item">
                 <a class="nav-link page-scroll" href="#callMe">LLAMANOS</a>
             </li>
-            <!-- Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle page-scroll" href="#about" id="navbarDropdown" role="button"
-                    aria-haspopup="true" aria-expanded="false">ACERCA DE</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">Terminos y
-                            Condiciones</span></a>
-                    <div class="dropdown-items-divide-hr"></div>
-                    <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">Politicas de
-                            Privacidad</span></a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link page-scroll" href="#contact">CONTACTO</a>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle page-scroll" id="navbarDropdown" role="button" aria-haspopup="true"
                     aria-expanded="false"><i class="fas fa-user fa-stack-1xs"></i></a>
@@ -75,25 +60,12 @@
             </li>
             <!-- end of dropdown menu -->
         </ul>
-        <span class="nav-item social-icons">
-            <span class="fa-stack">
-                <a target="_blank" href="https://www.facebook.com">
-                    <span class="hexagon"></span>
-                    <i class="fab fa-facebook-f fa-stack-1x"></i>
-                </a>
-            </span>
-            <span class="fa-stack">
-                <a target="_blank" href="https://www.instagram.com">
-                    <span class="hexagon"></span>
-                    <i class="fab fa-instagram fa-stack-1x"></i>
-                </a>
-            </span>
-            <span class="fa-stack">
+            {{-- <span class="fa-stack">
                 <a id="app-whatsapp" target="_blanck"
                         href="https://api.whatsapp.com/send?phone=+56963732409&amp;text=Hola!&nbsp;me&nbsp;pueden&nbsp;apoyar?">
                         <i class="fab fa-whatsapp"></i>
                     </a>
-            </span>
+            </span> --}}
         </span>
     </div>
 </nav> <!-- end of navbar -->

@@ -12,7 +12,7 @@
           <div class="chart">
             <!-- Sales Chart Canvas -->
           {{--  <canvas id="salesChart" style="height: 180px;"></canvas> --}}
-            <canvas id="myChart" width="1000" height="400"></canvas>
+            <canvas id="myChart" class="img-responsive" width="1000" height="400"></canvas>
           </div>
           <!-- /.chart-responsive -->
         </div>

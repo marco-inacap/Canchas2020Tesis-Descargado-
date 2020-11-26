@@ -15,6 +15,7 @@ use Transbank\Webpay\Configuration;
 use Transbank\Webpay\Webpay;
 use Transbank\Webpay\WebPayNormal;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Events\LlamanosEmail;
 
 class PagesController extends Controller
 {
@@ -46,12 +47,6 @@ class PagesController extends Controller
         return view('new.home', compact('canchas', 'complejos'));
         /* return view('pages.home', compact('canchas')); */
     }
-
-
-
-
-
-
 
     public function canchas_all(Request $request)
     {
@@ -140,7 +135,7 @@ class PagesController extends Controller
                 ->orderby('created_at', 'DESC')->simplePaginate(5);
             /* return redirect()->route('pages.misreservas')->with('flash','La cancha ha sido guardada con éxito'); */
         }
-            return view('pages.reservas', compact('reservas'));
+            return view('pages.reservas', compact('reservas','request'));
         
         
     }
@@ -174,5 +169,18 @@ class PagesController extends Controller
 
 
         return view('new.home.pages.search', compact('complejos'));
+    }
+
+    public function llamanos(Request $request)
+    {
+        $nombre = $request->nombre;
+        $n_telefono = $request->n_telefono;
+        $email = $request->email;
+        $interes = $request->select;
+
+        LlamanosEmail::dispatch($nombre,$n_telefono,$email,$interes);
+
+        return redirect()->route('pages.home');
+
     }
 }

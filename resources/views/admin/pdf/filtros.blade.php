@@ -25,7 +25,7 @@
                 <div class="box-body">
                     <div class="form-group {{$errors->has('complejo_id') ? 'has-error':''}}">
                         <label>Complejo</label>
-                        <select multiple="multiple" name="complejo_id[]" class="form-control select2" required >
+                        <select multiple="multiple" name="complejo_id[]" class="form-control select2" required>
                             <option value="">
                                 Seleeciona un Complejo </option>
                             @foreach ($complejos as $complejo)
@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-success btn-block">Generar PDF</button>
+            <button class="btn btn-success btn-solid-lg center-block">Generar PDF</button>
         </div>
     </form>
 </div>
@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-danger btn-block">Generar PDF</button>
+            <button class="btn btn-danger btn-solid-lg  center-block">Generar PDF</button>
         </div>
     </form>
 </div>

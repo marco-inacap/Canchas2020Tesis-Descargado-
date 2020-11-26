@@ -5,8 +5,10 @@
             <div class="col-lg-6">
                 <div class="text-container">
                     <div class="section-title">LLAMANOS</div>
-                    <h2 class="white">QUIERES PUBLICAR TU CANCHA? <br> <br> Haga que nos comuniquemos con usted rellenando y enviando el formulario</h2>
-                    <p class="white">Simplemente complete el formulario y envíenoslo y le responderemos con una llamada para explicarle en que consiste nuestro servicio.</p>
+                    <h2 class="white">QUIERES PUBLICAR TU CANCHA? <br> <br> Haga que nos comuniquemos con usted
+                        rellenando y enviando el formulario</h2>
+                    <p class="white">Simplemente complete el formulario y envíenoslo y le responderemos con una llamada
+                        para explicarle en que consiste nuestro servicio.</p>
                     <ul class="list-unstyled li-space-lg white">
                         <li class="media">
                             <i class="fas fa-square"></i>
@@ -23,43 +25,43 @@
                     </ul>
                 </div>
             </div> <!-- end of col -->
-            
+
             <div class="col-lg-6">
-                <!-- Call Me Form -->
-                <form id="callMeForm" data-toggle="validator" data-focus="false">
+                <!-- id="callMeForm" formulario-->
+                <form method="POST" action="{{route('llamanos.email')}}">
+                    {{ csrf_field() }}
                     <div class="form-group">
-                        <input type="text" class="form-control-input" id="lname" name="lname" required>
-                        <label class="label-control" for="lname">Name</label>
+                        <input type="text" class="form-control-input" id="lname" name="nombre" required>
+                        <label class="label-control" for="lname">Nombre y Apellido</label>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control-input" id="lphone" name="lphone" required>
-                        <label class="label-control" for="lphone">Phone</label>
+                        <input type="text" class="form-control-input" id="lphone" name="n_telefono" required>
+                        <label class="label-control" for="lphone">Nº de teléfono</label>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control-input" id="lemail" name="lemail" required>
+                        <input type="email" class="form-control-input" id="lemail" name="email" required>
                         <label class="label-control" for="lemail">Email</label>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <select class="form-control-select" id="lselect" required>
-                            <option class="select-option" value="" disabled selected>Interested in...</option>
-                            <option class="select-option" value="Off The Ground">Off The Ground</option>
-                            <option class="select-option" value="Accelerated Growth">Accelerated Growth</option>
-                            <option class="select-option" value="Market Domination">Market Domination</option>
+                        <select class="form-control-select" name="select" id="lselect" required>
+                            <option class="select-option" value="" selected>Seleccione una opción</option>
+                            <option class="select-option" value="Reunion">Conocer más detalles de nosotros</option>
+                            <option class="select-option" value="Administrar Complejos">Administrar mis complejos
+                            </option>
                         </select>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group checkbox white">
-                        <input type="checkbox" id="lterms" value="Agreed-to-Terms" name="lterms" required>I agree with Aria's stated <a class="white" href="privacy-policy.html">Privacy Policy</a> and <a class="white" href="terms-conditions.html">Terms & Conditions</a>
+                        <input type="checkbox" id="lterms" value="Agreed-to-Terms" name="lterms" required>Acepto las <a
+                            class="white" href="privacy-policy.html">Políticas de privacidad</a> y <a class="white"
+                            href="terms-conditions.html">Terminos y condiciones</a>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="form-control-submit-button">ENVIAR</button>
-                    </div>
-                    <div class="form-message">
-                        <div id="lmsgSubmit" class="h3 text-center hidden"></div>
+                        <button type="submit" id="btnEnviar" class="form-control-submit-button">Enviar</button>
                     </div>
                 </form>
                 <!-- end of call me form -->
@@ -68,3 +70,16 @@
     </div> <!-- end of container -->
 </div> <!-- end of form-1 -->
 <!-- end of call me -->
+
+@push('scripts')
+
+<script>
+    $('#btnEnviar').click(function(){
+        this.form.submit();
+        this.disabled=true;
+        this.innerHTML='<i class="fa fa-spinner fa-spin"></i> Enviando...';
+    });
+    
+</script>
+
+@endpush

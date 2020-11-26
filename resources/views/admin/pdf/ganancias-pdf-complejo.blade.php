@@ -17,7 +17,7 @@
 
     <h4>Reporte de reservas en mis complejos.</h4>
     <hr style="height: 2px; color: blue;">
-    <h5 class="card-title">Fecha de <b>{{Carbon\Carbon::parse($fecha_inicio)->isoFormat('D / MMMM / YYYY')}}</b> hasta <b>{{Carbon\Carbon::parse($fecha_fin)->isoFormat('D / MMMM / YYYY')}}</b></h5>
+    <h5 class="card-title">Fecha de <b style="color: #CD5C5C;">{{Carbon\Carbon::parse($fecha_inicio)->isoFormat('D-MMMM-YYYY')}}</b> hasta <b style="color: #CD5C5C;">{{Carbon\Carbon::parse($fecha_fin)->isoFormat('D-MMMM-YYYY')}}</b></h5>
     <table class="table">
         <thead>
             <tr>

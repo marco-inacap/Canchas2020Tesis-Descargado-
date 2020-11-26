@@ -11,9 +11,6 @@
     @include('new.home.lista-complejos')
 
     @include('new.home.llamanos')
-    
-    @include('new.home.contacto')
-    
-    
+
 
 @endsection

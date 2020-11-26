@@ -13,6 +13,12 @@ L.Control.OSMGeocoder = L.Control.extend({
 		email: null, // String
 		callback: function (results) {
 			if (results.length == 0) {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Ouch! :(',
+					text: 'No existe esta ubicación',
+					footer: 'Escriba la dirección ordenada por favor'
+				  })
 				console.log("ERROR: didn't find a result");
 				return;
 			}
@@ -41,10 +47,12 @@ L.Control.OSMGeocoder = L.Control.extend({
 		var form = this._form = L.DomUtil.create('form', className + '-form');
 
 		var input = this._input = document.createElement('input');
-		input.type = "text";
+		input.id = "buscador";
+		input.type = "hidden";
 		input.placeholder = this.options.placeholder || '';
 
 		var submit = document.createElement('input');
+		submit.id = "ir";
 		submit.type = "submit";
 		submit.value = this.options.text;
 

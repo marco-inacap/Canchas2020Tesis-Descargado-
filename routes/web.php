@@ -20,6 +20,7 @@ if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
                 return new App\Mail\PlantillaEmailReserva(App\Reserva::first(),App\Reserva::first());
         });    */
 
+
 /* Route::get('final',function(){
 
                 $response = App\Respuesta::first();
@@ -33,6 +34,9 @@ if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 
                 return view('webpay.index',compact('reserva'));
         }); */
+
+
+        
 
 //Rutas Google
 
@@ -61,7 +65,7 @@ Route::group(
 
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-
+Route::post('/contactanos-email', 'PagesController@llamanos')->name('llamanos.email');
 
 Route::get('login/user', 'Auth\LoginUserController@showLoginFormUser')->name('loginuser');
 

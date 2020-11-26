@@ -23,14 +23,14 @@ class Reserva extends Model
 
     public const STATUS_DESC = [
         self::STATUS_PENDING_PAYMENT => 'Pendiente de pago',
-        self::STATUS_WP_NORMAL_INIT_SUCCESS => 'Pago con Webpay Normal iniciado',
-        self::STATUS_WP_NORMAL_INIT_ERROR => 'Error al inciar pago con Webpay Normal',
-        self::STATUS_WP_NORMAL_FINISH_SUCCESS => 'Pago con Webpay Normal finalizado',
-        self::STATUS_WP_NORMAL_FINISH_INVALID => 'Error de validación al finalizar pago con Webpay Normal',
-        self::STATUS_WP_NORMAL_FINISH_ERROR => 'Error al finalizar pago con Webpay Normal',
-        self::STATUS_WP_NORMAL_FINISH_ABORT => 'Pago con Webpay Normal abortado',
-        self::STATUS_WP_NORMAL_FINISH_TIMEOUT => 'Pago con Webpay Normal cancelado por timeout',
-        self::STATUS_WP_NORMAL_FINISH_FORM_FAULT => 'Pago con Webpay Normal con error en formulario de pago',
+        self::STATUS_WP_NORMAL_INIT_SUCCESS => 'Pago iniciado',
+        self::STATUS_WP_NORMAL_INIT_ERROR => 'Error al inciar pago',
+        self::STATUS_WP_NORMAL_FINISH_SUCCESS => 'Pago OK',
+        self::STATUS_WP_NORMAL_FINISH_INVALID => 'Error de validación al finalizar pago',
+        self::STATUS_WP_NORMAL_FINISH_ERROR => 'Error al finalizar pago',
+        self::STATUS_WP_NORMAL_FINISH_ABORT => 'Pago abortado',
+        self::STATUS_WP_NORMAL_FINISH_TIMEOUT => 'Pago cancelado por timeout',
+        self::STATUS_WP_NORMAL_FINISH_FORM_FAULT => 'Pago con error en formulario de pago',
     ];
 
 
