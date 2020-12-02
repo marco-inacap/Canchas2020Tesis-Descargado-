@@ -25,12 +25,12 @@
                         <ul class="list-unstyled li-space-lg">
                             <li class="media">
                                 <i class="fas fa-square"></i>
-                                <div class="media-body">Nº Reservas: {{count($cancha->reservas->where('status','=',13))}}</div>
+                                <div class="media-body"><b>{{count($cancha->reservas->where('status','=',13))}}</b> reservas</div>
                             </li>
                             <li class="media">
                                 <i class="fas fa-square"></i>
-                                <a href="{{route('complejos.show', $cancha->complejo)}}">
-                                    <div class="media-body">{{$cancha->complejo->nombre}}</div>
+                                <a style="text-decoration: none; color: #DC3545;" href="{{route('complejos.show', $cancha->complejo)}}">
+                                    <div class="media-body"><b>{{$cancha->complejo->nombre}}</b></div>
                                 </a>
                             </li>
                             <li class="media">

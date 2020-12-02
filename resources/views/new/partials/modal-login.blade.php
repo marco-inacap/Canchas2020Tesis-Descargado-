@@ -79,7 +79,6 @@
         this.disabled=true;
         this.innerHTML='<i class="fa fa-spinner fa-spin"></i> Ingresar';
     });
-    
 </script>
 
 @endpush

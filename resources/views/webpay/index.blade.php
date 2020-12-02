@@ -190,7 +190,7 @@
           <form action="{{$response->url}}" method="post">
             @csrf
             <input type="hidden" name="token_ws" value="{{$response->token}}">
-            <button style="width:24rem; margin:0 auto; " target="_blank" class="btn-solid-reg" type="submit" id="btnPagar">PAGAR</button>
+            <button style="width:24rem; margin:0 auto;" target="_blank" class="btn-solid-reg" type="submit" id="btnPagar">PAGAR</button>
           </form>
         </div>
       </div>

@@ -45,8 +45,8 @@
                     <ul class="list-unstyled li-space-lg">
                         <li class="media">
                             <i class="fas fa-square"></i>
-                            <a href="{{route('complejos.show', $cancha->complejo)}}">
-                                <div class="media-body">{{$cancha->complejo->nombre}}</div>
+                            <a style="text-decoration: none; color: #DC3545;" href="{{route('complejos.show', $cancha->complejo)}}">
+                                <div class="media-body"><b>{{$cancha->complejo->nombre}}</b></div>
                             </a>
                         </li>
                         <li class="media">
@@ -106,7 +106,7 @@
 
                     </div>
 
-                    <div  id='calendar'></div>
+                    <div id='calendar' class="calendar"></div>
 
                 </div> <!-- end of text-container -->
             </div> <!-- end of col -->
@@ -114,41 +114,31 @@
     </div> <!-- end of container -->
 </div> <!-- end of counter -->
 
-<div class="modal fade bd-example-modal-sm" id="infoModal" tabindex="-1" role="dialog"
-    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-sm" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <ul class="list-group">
-                <li class="list-group-item font-weight-bold active">
-                    <input type="text" id="ModalComplejo" name="ModalComplejo" class="form-control" disabled>
-                </li>
-
-                <li class="list-group-item font-weight-bold">Usuario:
-                    <input type="text" id="ModalUsuario" name="ModalUsuario" class="form-control" disabled>
-                </li>
-                <li class="list-group-item font-weight-bold">Hora Inicio:
-                    <input type="time" id="ModalFechaInicio" name="ModalFechaInicio" class="form-control" disabled>
-                </li>
-                <li class="list-group-item font-weight-bold">Hora Fin:
-                    <input type="time" id="ModalFechaFin" name="ModalFechaFin" class="form-control" disabled>
-                </li>
-                <li class="list-group-item font-weight-bold">Fecha:
-                    <input type="date" id="ModalFecha" name="ModalFecha" class="form-control" disabled>
-                </li>
-                {{--  <li class="list-group-item font-weight-bold">Complejo: 
-                    <input type="text" id="ModalComplejo" name="ModalComplejo" class="form-control"  disabled>
-                </li>    --}}
-            </ul>
-            @if (Auth::user()->hasRole('Admin'))
-            <div class="modal-footer">
-                <a id="delete" data-href="{{ url('reservas') }}" data-id="" data-token="{{ csrf_token() }}"
-                    class="btn btn-danger float-lg-left">Eliminar</a>
+            <div class="card" style="width: 20rem;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item font-weight-bold">Complejo
+                        <input type="text" id="ModalComplejo" name="ModalComplejo" class="form-control" disabled>
+                    </li>
+                    <li class="list-group-item font-weight-bold">Usuario
+                        <input type="text" id="ModalUsuario" name="ModalUsuario" class="form-control" disabled>
+                    </li>
+                    <li class="list-group-item font-weight-bold">Hora Inicio
+                        <input type="time" id="ModalFechaInicio" name="ModalFechaInicio" class="form-control" disabled>
+                    </li>
+                    <li class="list-group-item font-weight-bold">Hora Fin
+                        <input type="time" id="ModalFechaFin" name="ModalFechaFin" class="form-control" disabled>
+                    </li>
+                    <li class="list-group-item font-weight-bold">Fecha
+                        <input type="date" id="ModalFecha" name="ModalFecha" class="form-control" disabled>
+                    </li>
+                </ul>
             </div>
-            @endif
         </div>
     </div>
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -156,8 +146,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Reservar {{$cancha->nombre}} de
-                    {{optional($cancha->complejo)->nombre}}</h5>
+                <h5 class="" id="exampleModalLabel">Seleccionaste {{$cancha->nombre}} de {{optional($cancha->complejo)->nombre}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -185,12 +174,17 @@
                         <label>A nombre de: </label>
                         <input type="text" class="form-control" value="{{auth()->user()->name}}" disabled>
                     </div>
+
+                    <div class="form-group text-center">
+                        <label>Precio:</label>
+                        <h5>${{number_format($cancha->precio,0, ',', '.')}}</h5>
+                    </div>
                 </form>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer text-center">
                 {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-                <button onclick="reservar()" type="button" class="btn-solid-reg page-scroll"
+                <button style="width:24rem; margin:0 auto;" onclick="reservar()" type="button" class="btn-solid-reg page-scroll"
                     id="btnReservar">Reservar</button>
             </div>
         </div>
@@ -207,6 +201,15 @@
 <link href='/fullcalendar/list/main.css' rel='stylesheet' />
 <link href='/fullcalendar/timegrid/main.css' rel='stylesheet' />
 <script src="https://kit.fontawesome.com/42afc6e0a5.js" crossorigin="anonymous"></script>
+
+<style>
+    .fc-event{
+        cursor: grabbing;
+    }
+.fc-view {
+    cursor: pointer;
+}
+</style>
 
 @endpush
 
@@ -242,7 +245,7 @@
             header:{
                 left:'prev,next today',
                 center:'title',
-                right:'dayGridMonth,timeGridWeek,timeGridDay,listMonth',
+                right:'timeGridWeek,listMonth',
             },
             navLinks: true,
             selectable: true,
@@ -317,7 +320,7 @@
             //funcion para visualizar reservas en el calendario
             eventClick:function(info){
                 /* console.log(info.event.start); */             
-
+                
                 let complejo = (info.event.classNames);
                 let usuario = (info.event.title);
                 let hora_inicial = moment(info.event.start).format("HH:mm");

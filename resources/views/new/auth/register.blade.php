@@ -1,4 +1,4 @@
-@extends('new.layout')
+@extends('new.layout2')
 
 @section('content')
 
@@ -37,19 +37,13 @@
                     <h3 style="color: white;">Siguenos en nuetras Redes Sociales</h3>
 
                     <span class="fa-stack">
-                        <a href="#your-link">
+                        <a target="_blank" href="https://www.facebook.com/Marco.Ignacio.9693/">
                             <span class="hexagon"></span>
                             <i style="color: white;" class="fab fa-facebook-f fa-stack-1x"></i>
                         </a>
                     </span>
                     <span class="fa-stack">
-                        <a href="#your-link">
-                            <span class="hexagon"></span>
-                            <i style="color: white;"class="fab fa-twitter fa-stack-1x"></i>
-                        </a>
-                    </span>
-                    <span class="fa-stack">
-                        <a href="#your-link">
+                        <a target="_blank" href="https://www.instagram.com/marco.gonzalez.i/?hl=es-la">
                             <span class="hexagon"></span>
                             <i style="color: white;"class="fab fa-instagram fa-stack-1x"></i>
                         </a>
@@ -94,7 +88,15 @@
                         <input id="password-confirm" type="password" class="form-control-input" name="password_confirmation" required>
                         <label class="label-control" for="lname">Confirma tu contraseña</label>
                     </div>
+                    <div class="form-group checkbox">
+                        <input  type="checkbox" id="cterms" value="Agreed-to-Terms" required>Acepto la <a href="privacy-policy.html">Política de Privacidad</a> y <a href="terms-conditions.html">Terminos y Condiciones</a> 
+                        <div class="help-block with-errors"></div>
+                    </div>
                     <div class="form-group">
+                        <button type="submit" class="form-control-submit-button">REGISTRARME</button>
+                    </div>
+                    <h6 style="color: white;" class="text-center">Registrate con</h6>
+                    <div class="form-group text-center">
                         <span class="fa-stack">
                             <a href="">
                                 <span class="hexagon"></span>
@@ -107,13 +109,6 @@
                                 <i style="color: rgba(49,191,152);" class="fab fa-google fa-stack-1x"></i>
                             </a>
                         </span>
-                    </div>
-                    <div class="form-group checkbox">
-                        <input  type="checkbox" id="cterms" value="Agreed-to-Terms" required>Acepto la <a href="privacy-policy.html">Política de Privacidad</a> y <a href="terms-conditions.html">Terminos y Condiciones</a> 
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="form-control-submit-button">REGISTRARME</button>
                     </div>
                 </form>
             </div>

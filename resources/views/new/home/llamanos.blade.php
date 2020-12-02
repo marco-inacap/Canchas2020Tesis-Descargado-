@@ -28,7 +28,7 @@
 
             <div class="col-lg-6">
                 <!-- id="callMeForm" formulario-->
-                <form method="POST" action="{{route('llamanos.email')}}">
+                <form method="POST" action="{{route('llamanos.email')}}" data-toggle="validator"> 
                     {{ csrf_field() }}
                     <div class="form-group">
                         <input type="text" class="form-control-input" id="lname" name="nombre" required>
@@ -48,8 +48,8 @@
                     <div class="form-group">
                         <select class="form-control-select" name="select" id="lselect" required>
                             <option class="select-option" value="" selected>Seleccione una opción</option>
-                            <option class="select-option" value="Reunion">Conocer más detalles de nosotros</option>
-                            <option class="select-option" value="Administrar Complejos">Administrar mis complejos
+                            <option class="select-option" value="Reunion">Quiero conocer más detalles de ustedes</option>
+                            <option class="select-option" value="Administrar Complejos">Quiero administrar mis complejos
                             </option>
                         </select>
                         <div class="help-block with-errors"></div>

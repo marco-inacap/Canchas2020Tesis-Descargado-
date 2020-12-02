@@ -15,7 +15,7 @@
         <ul class="list-unstyled li-space-lg">
             <li class="media">
                 <i class="fas fa-square"></i>
-                <div class="media-body"><b>{{count($cancha->reservas->where('status','=',13))}}</b> Reservas</div>
+                <div class="media-body"><b>{{count($cancha->reservas->where('status','=',13))}}</b> reservas</div>
             </li>
             <li class="media">
                 <i class="fas fa-square"></i>

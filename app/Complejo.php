@@ -95,6 +95,7 @@ class Complejo extends Model
     public function getMapPopupContentAttribute()
     {
         $mapPopupContent = '';
+        $mapPopupContent .= '<img class"profile-user-img img-responsive" style="width:290px; height:290px;" src=" '.url($this->url_imagen).' " alt="">';
         $mapPopupContent .= '<div class="my-2">'.$this->name_link.'</div>';
         $mapPopupContent .= '<div class="my-2"><strong>'.__($this->telefono).'</strong><br>'.'</div>';
 

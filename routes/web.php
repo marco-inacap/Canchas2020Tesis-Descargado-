@@ -85,15 +85,15 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 //NUEVO DISEÑO PAGINA
 Route::get('/', 'PagesController@home')->name('pages.home');
-Route::get('/su-cancha-canchas', 'PagesController@canchas_all')->name('pages.todaslascanchas');
+
 Route::get('/su-cancha-complejos', 'PagesController@complejos_all')->name('pages.todosloscomplejos');
 
-Route::get('/su-cancha-canchas/buscaste', 'PagesController@buscador_canchas')->name('pages.buscador');
+
 
 
 //buscador
 /* Route::post('canchas-search/{complejo}', 'PagesController@search_canchas')->name('search.canchas'); */
-Route::get('/canchitas/buscador', 'PagesController@buscador');
+
 
 //borrar
 Route::get('/complejos_check', 'ComplejoMapaController@index')->name('complejos_map.index');
@@ -107,6 +107,10 @@ Route::get('contacto', 'PagesController@contacto')->name('pages.contacto');
 
 
 Route::group(['middleware' => 'auth'], function () {
+        Route::get('/su-cancha-canchas', 'PagesController@canchas_all')->name('pages.todaslascanchas');
+        Route::get('/su-cancha-canchas/buscaste', 'PagesController@buscador_canchas')->name('pages.buscador');
+        Route::get('/canchitas/buscador', 'PagesController@buscador');
+
         Route::get('/inicio/{cancha}', 'CanchaController@show')->name('canchas.show');
         Route::get('/complejos/{complejo}', 'ComplejoController@show')->name('complejos.show');
         Route::get('/complejos/inicio/{cancha}', 'CanchaController@show')->name('canchas.show');

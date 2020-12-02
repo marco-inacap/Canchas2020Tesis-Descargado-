@@ -62,6 +62,7 @@
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
 {{-- <script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script> --}}
 <script>
@@ -112,12 +113,10 @@
                     
                     canchas.push(arreglo[x].cancha_id);
                     total.push(arreglo[x].total);   
-                    fecha.push(arreglo[x].fecha);   
+                    fecha.push(moment(arreglo[x].created_at).format("DD-MM-YYYY"));   
                 }
                 generarGrafica();
-
             })
-
         });
     
     function generarGrafica(){
