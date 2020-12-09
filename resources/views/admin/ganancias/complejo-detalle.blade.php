@@ -165,10 +165,10 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Detalle reserva</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
+                          <h5 class="modal-title text-center" id="exampleModalLabel"><b>Detalle reserva</b></h5>
                         </div>
                         <div class="modal-body">
                           <table class="table">
@@ -212,6 +212,11 @@
                                 </td>
                               </tr>
                               <tr>
+                                <th scope="row">Código QR</th>
+                                <td>{!!QrCode::size(50)->generate(url('detalle/'.$reserva->id.'/download')) !!}
+                                </td>
+                              </tr>
+                              <tr>
                                 <th scope="row">Monto:</th>
                                 <td colspan="2"></td>
                                 <td>${{ number_format($reserva->total, 0, ',', '.') }}</td>
@@ -221,9 +226,6 @@
                                 <td colspan="2"></td>
                                 <td><b>${{ number_format($reserva->total, 0, ',', '.') }}</b>
                                 </td>
-                              </tr>
-                              <tr>
-                                {!!QrCode::size(50)->generate($reserva->id) !!}
                               </tr>
                             </tbody>
                           </table>
