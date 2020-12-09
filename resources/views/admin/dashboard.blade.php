@@ -65,6 +65,7 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
 {{-- <script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script> --}}
+<script src="/charts/charts.js"></script>
 <script>
   $(function () {
 
@@ -86,93 +87,5 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
-
-<script>
-        var canchas=[];
-        var total=[];
-        var fecha=[];
-
-        
-        $(document).ready(function(){
-
-            $.ajaxSetup({
-                headers:{
-                    'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: 'admin/ganancias/all',
-                method: 'POST',
-                data:{
-                    id:1
-                }
-            }).done(function(res){
-                var arreglo = JSON.parse(res);
-                
-                for(var x=0;x<arreglo.length;x++){
-                    
-                    canchas.push(arreglo[x].cancha_id);
-                    total.push(arreglo[x].total);   
-                    fecha.push(moment(arreglo[x].created_at).format("DD-MM-YYYY"));   
-                }
-                generarGrafica();
-            })
-        });
-    
-    function generarGrafica(){
-        
-        var ctx = document.getElementById('myChart').getContext('2d');
-        
-         let chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        datasets: [{
-            label: 'CLP',
-            data: total,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        }],
-        labels: fecha,    
-    },
-    
-}); 
-    /* var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: fecha,
-        datasets: [{
-            label: 'Ganancia de mis canchas.',
-            data: total,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 0.5
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-}); */
-    }    
-    
-</script>
 
 @endpush

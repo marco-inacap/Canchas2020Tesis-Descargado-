@@ -141,4 +141,8 @@
             class="fa fa-download"></i>Filtros</a></li>
     </ul>
   </li>
+  <li class="treeview {{request()->is('reporte-graficos*') ? 'active' : ''}}">
+    <a href="{{route('admin.charts')}}"><i class="fa fa-bar-chart"></i> <span>Gráficos</span>
+    </a>
+  </li>
 </ul>

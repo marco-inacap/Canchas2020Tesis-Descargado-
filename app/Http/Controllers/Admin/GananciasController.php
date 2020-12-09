@@ -151,7 +151,7 @@ class GananciasController extends Controller
         return view('admin.ganancias.listareservas', compact('reservas', 'cancha', 'totalReservas','totalReservasDia'));
     } */
 
-    public function all(Request $request)
+    public function all()
     {
         $usuarioauth = Auth()->user()->id;
 
