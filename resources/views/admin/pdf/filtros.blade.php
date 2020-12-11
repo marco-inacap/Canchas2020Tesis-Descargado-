@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-success btn-solid-lg center-block">Generar PDF</button>
+            <button class="btn btn-success btn-flat btn-solid-lg center-block">Generar PDF</button>
         </div>
     </form>
 </div>
@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-danger btn-solid-lg  center-block">Generar PDF</button>
+            <button class="btn btn-danger btn-flat btn-solid-lg  center-block">Generar PDF</button>
         </div>
     </form>
 </div>

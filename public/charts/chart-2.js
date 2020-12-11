@@ -22,7 +22,7 @@ const config = {
             fontSize: 20,
             fontFamily: 'sans-serif',
             fontColor: '#222d32',
-            text: 'Gráfico comparativo de complejos'
+            text: 'Gráfico comparativo de canchas'
         },
         elements: {
             line: {
@@ -33,7 +33,7 @@ const config = {
             position: 'bottom',
             align: 'center',
             onClick: function (evt, item) {
-                const select = document.getElementById("complejos");
+                const select = document.getElementById("canchas");
                 const buscar = item.text.split(":");
                 for(var i=1;i<select.length;i++)
                 {
@@ -89,7 +89,7 @@ const config = {
 
 
 $( "#btnAddChart" ).click(function() {
-    const id = $("#complejos").val();
+    const id = $("#canchas").val();
     if($.inArray(id, arrayID) == -1){
         arrayID.push(id);
         enviarDatos_5(id);
@@ -110,7 +110,7 @@ function dataSet(data1,title,total,color)
 		window.grafica5.update();
     }
     
-    function enviarDatos_5(complejo_id)
+    function enviarDatos_5(cancha_id)
 	{
         $.ajaxSetup({
             headers: {
@@ -119,16 +119,16 @@ function dataSet(data1,title,total,color)
         });
 
 		$.ajax({
-			url: '/admin/reporte-graficos/chart-1',
+			url: '/admin/reporte-graficos/chart-2',
 			type:"POST",
 			datatype:"json", 
 			data:{
-                complejo_id: complejo_id,
+                cancha_id: cancha_id,
                 _token: $('input[name=csrf-token]').val()
 			},
 			success: function(response){	
 				const data1 = [];
-				const title = response[1].Complejo;
+				const title = response[1].Cancha;
 				const total = response[1].Total;
 				const color = response[1].ColorBG;
 				for (var i in response[0]) {

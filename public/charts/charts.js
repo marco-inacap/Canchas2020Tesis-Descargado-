@@ -1,4 +1,4 @@
-/* var canchas = [];
+/*  var canchas = [];
 var total = [];
 var fecha = [];
 
@@ -44,4 +44,5 @@ function generarGrafica() {
             labels: fecha,
         },
     });
-} */
+}
+ */

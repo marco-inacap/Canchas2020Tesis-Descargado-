@@ -215,8 +215,13 @@ Route::group(
                 //ajax
                 Route::post('/ganancias/all', 'GananciasController@all');
 
-                Route::get('reporte-graficos','ChartsController@index')->name('admin.charts');
+                Route::get('reporte-graficos/complejos','ChartsController@index')->name('admin.charts.complejos');
                 Route::post('/reporte-graficos/chart-1','ChartsController@chart_1');
+                Route::post('/reporte-graficos/chart-3','ChartsController@chart_3')->name('chart-3');
+
+                Route::get('reporte-graficos/canchas','ChartsController@index_2')->name('admin.charts.canchas');
+                Route::post('/reporte-graficos/chart-2','ChartsController@chart_2');
+                
 
         }
 );

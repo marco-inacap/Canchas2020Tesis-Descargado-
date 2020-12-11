@@ -8,17 +8,31 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Reserva | PDF</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+        integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
+        integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous">
+    </script>
 </head>
 
 <body>
     <img class="center" src="{{ public_path('new/images/logo.png') }}" style="width:50px; height:50px;">
     {{-- <td rowspan="6"><img src="../public/new/images/logo.png"></td> --}}
-
-    <h4>Reporte de reservas en <b>{{$complejo->nombre}}, cancha "{{$cancha->nombre}}".</b></h4>
+    <div class="card">
+        <div class="card-body text-center">
+            <b>Reporte de reservas | <b>{{$complejo->nombre}} | {{$cancha->nombre}}</b></b>
+        </div>
+    </div>
     <hr style="height: 2px; color: blue;">
-    <h5 class="card-title">Fecha de <b style="color: #CD5C5C;">{{Carbon\Carbon::parse($fecha_inicio)->isoFormat('D-MMMM-YYYY')}}</b> hasta <b style="color: #CD5C5C;">{{Carbon\Carbon::parse($fecha_fin)->isoFormat('D-MMMM-YYYY')}}</b></h5>
+    <div class="card">
+        <div class="card-body text-center">
+            De {{Carbon\Carbon::parse($fecha_inicio)->isoFormat('D - MMMM - YYYY')}} a
+            {{Carbon\Carbon::parse($fecha_fin)->isoFormat('D - MMMM - YYYY')}}
+        </div>
+    </div>
     <table class="table">
-        <thead>
+        <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">FECHA PAGO</th>
