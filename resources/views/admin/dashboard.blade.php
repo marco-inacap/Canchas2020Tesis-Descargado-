@@ -50,7 +50,6 @@
             </tr>
         </tfoot> 
     </table>   
-    @include('admin.ganancias.grafico') 
 </div>
 @endsection
 

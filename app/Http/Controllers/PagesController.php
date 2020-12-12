@@ -183,4 +183,11 @@ class PagesController extends Controller
         return redirect()->route('pages.home');
 
     }
+
+    public function terminos_condiciones()
+    {
+
+        return view('new.home.politicas&privacidad');
+
+    }
 }

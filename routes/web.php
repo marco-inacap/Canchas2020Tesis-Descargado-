@@ -62,7 +62,7 @@ Route::group(
 
 
 
-
+Route::get('terminos-y-condiciones','PagesController@terminos_condiciones')->name('terminos_condiciones');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/contactanos-email', 'PagesController@llamanos')->name('llamanos.email');

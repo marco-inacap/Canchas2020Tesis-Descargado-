@@ -5,7 +5,7 @@
                 <div class="col-lg-12">
                     <div class="text-container">
                         <h1>ENCONTRARAS <span id="js-rotating">CANCHAS, COMPLEJOS, HORARIOS</span></h1>
-                        <p class="p-heading p-large">Reserva tu hora al toque!</p>
+                        <p class="p-heading p-large">Reserva tu hora!</p>
                         <a class="btn-solid-lg page-scroll" href="#intro">NAVEGAR</a>
                     </div>
                 </div> <!-- end of col -->

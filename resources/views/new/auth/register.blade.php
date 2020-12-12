@@ -88,8 +88,8 @@
                         <input id="password-confirm" type="password" class="form-control-input" name="password_confirmation" required>
                         <label class="label-control" for="lname">Confirma tu contraseña</label>
                     </div>
-                    <div class="form-group checkbox">
-                        <input  type="checkbox" id="cterms" value="Agreed-to-Terms" required>Acepto la <a href="privacy-policy.html">Política de Privacidad</a> y <a href="terms-conditions.html">Terminos y Condiciones</a> 
+                    <div style="color: white;" class="form-group checkbox">
+                        <input  type="checkbox" id="cterms" value="Agreed-to-Terms" required>Acepto los <a style="color: white;" href="{{route('terminos_condiciones')}}">Terminos y Condiciones</a> 
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
@@ -104,7 +104,7 @@
                             </a>
                         </span>
                         <span class="fa-stack">
-                            <a class="btn-google" href="{{ url('/auth/redirect/google') }}" target="_blank" onclick="window.open(this.href, this.target, 'width=300,height=400'); return false;">
+                            <a class="btn-google" href="{{ url('/auth/redirect/google') }}" {{-- target="_blank"  --}}{{-- onclick="window.open(this.href, this.target, 'width=300,height=400'); --}} return false;">
                                 <span class="hexagon"></span>
                                 <i style="color: rgba(49,191,152);" class="fab fa-google fa-stack-1x"></i>
                             </a>

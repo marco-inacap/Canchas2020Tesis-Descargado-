@@ -65,36 +65,31 @@
     <div class="row">
       <div class="col-sm-2 col-xs-3">
         <div class="description-block border-righ">
-          <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
-          <h5 class="description-header">$ {{ number_format($totalReservasDia, 0, ',', '.') }}</h5>
+          <h5 class="description-header">${{ number_format($totalReservasDia, 0, ',', '.') }}</h5>
           <span class="description-text">TOTAL DÍA</span>
         </div>
       </div>
       <div class="col-sm-2 col-xs-3">
         <div class="description-block border-right">
-          <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
-          <h5 class="description-header">$ {{number_format($totalReservasSemana,0, ',', '.')}}</h5>
+          <h5 class="description-header">${{number_format($totalReservasSemana,0, ',', '.')}}</h5>
           <span class="description-text">TOTAL SEMANA</span>
         </div>
       </div>
       <div class="col-sm-2 col-xs-3">
         <div class="description-block border-right">
-          <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-          <h5 class="description-header">$ {{number_format($totalReservasMes,0, ',', '.')}}</h5>
+          <h5 class="description-header">${{number_format($totalReservasMes,0, ',', '.')}}</h5>
           <span class="description-text">TOTAL MES</span>
         </div>
       </div>
       <div class="col-sm-3 col-xs-3">
         <div class="description-block border-right">
-          <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-          <h5 class="description-header">$ {{number_format($totalReservasMesPasado,0, ',', '.')}}</h5>
+          <h5 class="description-header">${{number_format($totalReservasMesPasado,0, ',', '.')}}</h5>
           <span class="description-text">TOTAL MES PASADO</span>
         </div>
       </div>
       <div class="col-sm-3 col-xs-6">
         <div class="description-block border-right">
-          <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
-          <h5 class="description-header">$ {{number_format($totalReservas,0, ',', '.')}}</h5>
+          <h5 class="description-header">${{number_format($totalReservas,0, ',', '.')}}</h5>
           <span class="description-text">TOTAL</span>
         </div>
       </div>
@@ -114,6 +109,7 @@
         <div class="tab-pane active" id="tab_general">
           <div class="form-group text-center">
             <div id="fecha_1" class="tab-pane fade in active">
+              <label>Filtrar por Fecha a jugar</label>
                 <form class="form-inline float-right">
                     <b>Fecha Desde:</b>
                     <input class="form-control mr-sm-2" type="date" id="fecha_inicio" name="fecha_inicio" value="{{old('fecha_inicio',$request->fecha_inicio)}}" required>
@@ -134,7 +130,7 @@
                 <th>Usuario</th>
                 <th>Fecha de pago</th>
                 <th>Estado de pago</th>
-                <th>Valor</th>
+                <th>Total</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -156,8 +152,8 @@
                 <td><span class="label label-danger">{{\App\reserva::STATUS_DESC[$reserva->status]}}</span></td>
                 @endif
                 <td>${{ number_format($reserva->total, 0, ',', '.' )}}</td>
-                <td>
-                  <a data-toggle="modal" data-target="#ModalShow{{$reserva->id}}" href="">Ver</a>
+                <td class="text-center">
+                  <a data-toggle="modal" data-target="#ModalShow{{$reserva->id}}" href=""><i class="fa fa-eye"></i></a>
 
                   <!-- MODAL VER -->
                   <div class="modal fade" id="ModalShow{{$reserva->id}}" tabindex="-1"
@@ -234,7 +230,7 @@
                     </div>
                   </div>
                   <!-- TERMINA MODAL -->
-                  <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}">PDF</a>
+                  <a target="_blank" href="{{route('detalle.reserva.download', $reserva)}}"><i style="color: #dd4b39;" class="fa fa-file-pdf-o fa-lg"></i></a>
                 </td>
               </tr>
               @endforeach
