@@ -49,6 +49,7 @@
                         <b>Fecha transacción:
                         </b>{{Carbon\Carbon::parse($response->transaction_date)->isoFormat('D-MM-YY')}}
                         {{Carbon\Carbon::parse($response->transaction_date)->isoFormat('HH:mm:ss')}}<br>
+                        <b>Tipo de pago:</b> {{\App\respuesta::STATUS_DESC[$response->payment_type_code]}} <br>
                         <b>Nº Tarjeta:</b> ************{{ $response->card_number }} <br>
                         <b>Estado de Transacción: </b>{{\App\reserva::STATUS_DESC[$reserva->status]}}<br>
                         <b>Cuotas:</b> {{ $response->shares_number }} <br>

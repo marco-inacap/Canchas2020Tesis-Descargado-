@@ -48,6 +48,12 @@
                     </ul>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item media">
+                            <strong>Tipo de pago: </strong> 
+                            &nbsp;{{\App\respuesta::STATUS_DESC[$response->payment_type_code]}}
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item media">
                             <strong>Nº de cuotas:</strong> &nbsp;{{ $response->shares_number }}
                         </li>
                     </ul>

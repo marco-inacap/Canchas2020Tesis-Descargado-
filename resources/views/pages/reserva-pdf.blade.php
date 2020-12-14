@@ -58,6 +58,11 @@
                 <th scope="row">Nº Cuotas:</th>
                 <td>{{ $response->shares_number }}</td>
             </tr>
+            <tr>
+                <th scope="row">Tipo de pago:</th>
+                <td>{{\App\respuesta::STATUS_DESC[$response->payment_type_code]}} </td>
+            </tr>
+            
             @endforeach
             <tr>
                 <th scope="row">Estado de Transacción:</th>
