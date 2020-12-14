@@ -16,7 +16,7 @@
 @section('content')
 <div class="box-body">
     @foreach ($complejos as $complejo)
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="box box-primary">
             <div class="box-header with-border"></div>
             {{-- <form id="eliminar-complejo" method="POST" action="{{route('admin.complejo.destroy',$complejo)}}">

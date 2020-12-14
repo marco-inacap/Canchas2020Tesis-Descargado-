@@ -12,6 +12,7 @@ use App\Http\Requests\StoreUserRequest;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Events\UserWasCreated;
+use Illuminate\Support\Str;
 
 
 class UsersController extends Controller
@@ -24,8 +25,6 @@ class UsersController extends Controller
     public function index()
     { 
         $users = User::allowed()->get();
-        
-
 
         return view ('admin.users.index',compact('users'));
     }
@@ -65,7 +64,7 @@ class UsersController extends Controller
             'complejos' => 'required',
         ]);
 
-        $data['password'] = str_random(8);
+        $data['password'] = Str::random(8);
 
         $user = User::create($data);
 
@@ -91,7 +90,15 @@ class UsersController extends Controller
     {
         $this->authorize('view',$user);
 
-        return view('admin.users.show',compact('user'));
+        $complejos = $user->complejo()->get();
+
+        /* foreach ($complejos as $complejo ) {
+            foreach ($complejo->canchas as $cancha ) {
+                
+            }
+        } */
+
+        return view('admin.users.show',compact('user','complejos'));
     }
 
     /**

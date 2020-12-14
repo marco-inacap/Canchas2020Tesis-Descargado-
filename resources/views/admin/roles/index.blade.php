@@ -39,7 +39,7 @@
                 <td>{{$role->id}}</td>
                 <td>{{$role->name}}</td>
                 <td>{{$role->display_name}}</td>
-                <td>{{$role->permissions->pluck('name')->implode(' - ')}}</td>
+                <td>{{$role->permissions->pluck('display_name')->implode(' - ')}}</td>
                 <td> 
                   @can('Update Roles', $role)
                     <a href="{{route('admin.roles.edit', $role)}}" class="btn-xs btn-info"><i class="fa fa-pencil"></i></a>

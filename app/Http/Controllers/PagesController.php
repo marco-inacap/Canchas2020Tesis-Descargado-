@@ -173,6 +173,7 @@ class PagesController extends Controller
 
     public function llamanos(Request $request)
     {
+
         $nombre = $request->nombre;
         $n_telefono = $request->n_telefono;
         $email = $request->email;

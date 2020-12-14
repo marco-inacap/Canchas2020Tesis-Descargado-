@@ -11,7 +11,7 @@ class ComplejoController extends Controller
     {
         $complejosQuery = Complejo::query();
         $complejosQuery->where('nombre', 'like', '%' . request('q') . '%');
-        $complejos = $complejosQuery->paginate(25);
+        $complejos = $complejosQuery->simplePaginate(25);
 
 
         return view('new.home.pages.complejos', compact('complejos'));
@@ -24,7 +24,7 @@ class ComplejoController extends Controller
 
         return view('new.home.pages.canchas', [
             'complejo' => $complejo,
-            'canchas' => $complejo->canchas()->paginate(2),
+            'canchas' => $complejo->canchas()->simplePaginate(2),
             'complejos' => $complejos,
             'complejo_req' => $complejo_req
         ]);

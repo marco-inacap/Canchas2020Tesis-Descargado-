@@ -34,8 +34,9 @@
                         <div class="counter-info">Total<br>Visitas</div>
                     </div>
                     <div class="cell">
-                        <div class="counter-value number-count" data-count="{{count($cancha->complejo->reservas)}}">
-                            {{count($cancha->complejo->reservas)}}</div>
+                        <div class="counter-value number-count"
+                            data-count="{{count($cancha->reservas->where('status','=',13))}}">
+                            {{count($cancha->reservas->where('status','=',13))}}</div>
                         <div class="counter-info">Nº<br>Reservas</div>
                     </div>
                 </div>
@@ -45,7 +46,8 @@
                     <ul class="list-unstyled li-space-lg">
                         <li class="media">
                             <i class="fas fa-square"></i>
-                            <a style="text-decoration: none; color: #DC3545;" href="{{route('complejos.show', $cancha->complejo)}}">
+                            <a style="text-decoration: none; color: #DC3545;"
+                                href="{{route('complejos.show', $cancha->complejo)}}">
                                 <div class="media-body"><b>{{$cancha->complejo->nombre}}</b></div>
                             </a>
                         </li>
@@ -87,6 +89,8 @@
                     @endif
                 </div>
             </div>
+            @if (Auth::user())
+            @if (Auth::user()->hasRole(['Admin','Dueño','Cliente']))
             <div class="col-lg-6 col-xl-8">
                 <div class="alert alert-success" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -103,18 +107,28 @@
                 <div class="text-container">
                     <div class="section-title">RESERVA</div>
                     <div class="card wizard-card" data-color="orange" id="wizardProfile">
-
                     </div>
-
                     <div id='calendar' class="calendar"></div>
-
                 </div> <!-- end of text-container -->
             </div> <!-- end of col -->
+            @else
+            <div class="col-lg-6 col-xl-8">
+                <div class="alert alert-heading" role="alert">
+                    <h4 class="alert-heading">Lo sentimos!</h4>
+                    <p>Actualmemte estas restringido para visualizar calendario de reservas y reserva de canchas por violar nuestros terminos de uso del sitio web.</p>
+                    <hr>
+                    <p class="mb-0">Si crees que estamos equivocador por favor envianos un email a <b>reservaunacancha@soporte.com</b>
+                    </p>
+                </div>
+            </div>
+            @endif
+            @endif
         </div> <!-- end of row -->
     </div> <!-- end of container -->
 </div> <!-- end of counter -->
 
-<div class="modal fade bd-example-modal-sm" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-sm" id="infoModal" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="card" style="width: 20rem;">
@@ -146,7 +160,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="" id="exampleModalLabel">Seleccionaste {{$cancha->nombre}} de {{optional($cancha->complejo)->nombre}}</h5>
+                <h5 class="" id="exampleModalLabel">Seleccionaste {{$cancha->nombre}} de
+                    {{optional($cancha->complejo)->nombre}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -184,8 +199,8 @@
 
             <div class="modal-footer text-center">
                 {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-                <button style="width:24rem; margin:0 auto;" onclick="reservar()" type="button" class="btn-solid-reg page-scroll"
-                    id="btnReservar">Reservar</button>
+                <button style="width:24rem; margin:0 auto;" onclick="reservar()" type="button"
+                    class="btn-solid-reg page-scroll" id="btnReservar">Reservar</button>
             </div>
         </div>
     </div>
@@ -203,12 +218,13 @@
 <script src="https://kit.fontawesome.com/42afc6e0a5.js" crossorigin="anonymous"></script>
 
 <style>
-    .fc-event{
+    .fc-event {
         cursor: grabbing;
     }
-.fc-view {
-    cursor: pointer;
-}
+
+    .fc-view {
+        cursor: pointer;
+    }
 </style>
 
 @endpush

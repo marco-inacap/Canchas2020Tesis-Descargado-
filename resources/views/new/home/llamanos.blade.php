@@ -54,12 +54,6 @@
                         </select>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <div class="form-group checkbox white">
-                        <input type="checkbox" id="lterms" value="Agreed-to-Terms" name="lterms" required>Acepto las <a
-                            class="white" href="privacy-policy.html">Políticas de privacidad</a> y <a class="white"
-                            href="terms-conditions.html">Terminos y condiciones</a>
-                        <div class="help-block with-errors"></div>
-                    </div>
                     <div class="form-group">
                         <button type="submit" id="btnEnviar" class="form-control-submit-button">Enviar</button>
                     </div>

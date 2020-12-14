@@ -32,7 +32,6 @@
           <th>Nombre</th>
           <th>Precio</th>
           <th>Complejo</th>
-          <th>Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -41,9 +40,8 @@
           <tr>
             <td>{{ $cancha->id}}</td>
             <td>{{$cancha->nombre}}</td>
-            <td>$ {{number_format($cancha->precio)}}</td>
+            <td>${{number_format($cancha->precio, 0, ',', '.' )}}</td>
             <td>{{ optional($cancha->complejo)->nombre }}</td>
-            <td class="badge badge-primary">{{optional($cancha->estado)->nombre }}</td>
             <td>
               <a href="{{route('canchas.show', $cancha)}}" class="btn-xs btn-lg" target="_blank"><i
                   class="fa fa-eye"></i></a>
