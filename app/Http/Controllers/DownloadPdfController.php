@@ -27,6 +27,7 @@ class DownloadPdfController extends Controller
 
         foreach ($transaction as $valor) {
             $responses = Respuesta::where('transaction_id', $valor->id)->get();
+            
         }
 
         $pdf = \PDF::loadView(

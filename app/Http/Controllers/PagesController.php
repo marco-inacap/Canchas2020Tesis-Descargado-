@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cancha;
+use App\User;
 use App\Complejo;
 use Illuminate\Support\Facades\DB;
 use App\Reserva;
@@ -16,6 +17,7 @@ use Transbank\Webpay\Webpay;
 use Transbank\Webpay\WebPayNormal;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Events\LlamanosEmail;
+use App\Http\Requests\StoreUserRequest;
 
 class PagesController extends Controller
 {
@@ -128,11 +130,11 @@ class PagesController extends Controller
                 ->where('user_id', auth()->id())
                 ->where('status', '=', 13)
                 ->orderby('created_at', 'DESC')
-                ->simplePaginate(5);
+                ->simplePaginate(6);
         } else {
             $reservas = Reserva::where('user_id', auth()->id())
                 ->where('status', '=', 13)
-                ->orderby('created_at', 'DESC')->simplePaginate(5);
+                ->orderby('created_at', 'DESC')->simplePaginate(6);
             /* return redirect()->route('pages.misreservas')->with('flash','La cancha ha sido guardada con éxito'); */
         }
             return view('pages.reservas', compact('reservas','request'));
@@ -190,5 +192,36 @@ class PagesController extends Controller
 
         return view('new.home.politicas&privacidad');
 
+    }
+
+    public function mi_perfil(Request $request,User $user)
+    {
+
+        $n_reservas = Reserva::where('user_id',$user->id)->count();
+
+        return view('new.auth.mi-perfil',compact('user','n_reservas'));
+    }
+
+    public function mi_perfil_editar(Request $request,User $user)
+    {
+        return view('new.auth.user-edit',compact('user'));
+    }
+
+    public function mi_perfil_update(Request $request, User $user)
+    {
+        $rules = [
+            'name' => 'required'
+        ];
+
+        if ($request->filled('password')) 
+        {
+            $rules['password'] = ['confirmed','min:6'];
+        }
+
+        $data = $request->validate($rules);
+
+        $user->update($data);
+        
+        return redirect()->route('pages.mi_perfil', $user);
     }
 }

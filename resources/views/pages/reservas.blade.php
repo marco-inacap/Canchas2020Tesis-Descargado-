@@ -2,6 +2,19 @@
 
 <title>Reservas</title>
 @section('content')
+<header id="header" class="header2">
+    <div class="header-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-container">
+                        <h1>RESERVAS</h1>
+                    </div>
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of header-content -->
+</header> <!-- end of header -->
 
 <div id="contact" class="form-2">
     <div class="container">

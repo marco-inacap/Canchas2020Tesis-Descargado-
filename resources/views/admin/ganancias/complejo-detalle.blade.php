@@ -152,7 +152,7 @@
                 <td><span class="label label-danger">{{\App\reserva::STATUS_DESC[$reserva->status]}}</span></td>
                 @endif
                 <td>${{ number_format($reserva->total, 0, ',', '.' )}}</td>
-                <td class="text-center">
+                <td class="">
                   <a data-toggle="modal" data-target="#ModalShow{{$reserva->id}}" href=""><i class="fa fa-eye"></i></a>
 
                   <!-- MODAL VER -->
@@ -191,7 +191,7 @@
                               <tr>
                                 <th scope="row">Hora de reserva</th>
                                 <td>
-                                  {{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}
+                                  {{Carbon\Carbon::parse($reserva->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm a')}}
                                 </td>
                               </tr>
                               <tr>
@@ -276,17 +276,18 @@
                 <td>{{Carbon\Carbon::parse($hoy->created_at)->isoFormat('D - MMMM - YYYY')}}</td>
                 <td>${{ number_format($hoy->total, 0, ',', '.' )}}</td>
                 <td>
-                  <a data-toggle="modal" data-target="#ModalHoy{{$hoy->id}}" href="">Ver</a>
+                  <a data-toggle="modal" data-target="#ModalHoy{{$hoy->id}}" href=""><i class="fa fa-eye"></i></a>
+                  
                   <!-- MODAL RESERVA HOY -->
                   <div class="modal fade" id="ModalHoy{{$hoy->id}}" tabindex="-1"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Detalle reserva</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
+                          <h5 class="modal-title text-center" id="exampleModalLabel"><b>Detalle reserva</b></h5>
                         </div>
                         <div class="modal-body">
                           <table class="table">
@@ -313,7 +314,7 @@
                               <tr>
                                 <th scope="row">Hora de reserva</th>
                                 <td>
-                                  {{Carbon\Carbon::parse($hoy->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($reserva->hora_fin)->isoFormat('HH:mm')}}
+                                  {{Carbon\Carbon::parse($hoy->hora_inicio)->isoFormat('HH:mm')}}/{{Carbon\Carbon::parse($hoy->hora_fin)->isoFormat('HH:mm a')}}
                                 </td>
                               </tr>
                               <tr>
@@ -330,6 +331,11 @@
                                 </td>
                               </tr>
                               <tr>
+                                <th scope="row">Código QR</th>
+                                <td>{!!QrCode::size(50)->generate(url('detalle/'.$reserva->id.'/download')) !!}
+                                </td>
+                              </tr>
+                              <tr>
                                 <th scope="row">Monto:</th>
                                 <td colspan="2"></td>
                                 <td>${{ number_format($hoy->total, 0, ',', '.') }}</td>
@@ -340,15 +346,13 @@
                                 <td><b>${{ number_format($hoy->total, 0, ',', '.') }}</b>
                                 </td>
                               </tr>
-                              <tr>
-                                {!!QrCode::size(50)->generate($hoy->id) !!}
-                              </tr>
                             </tbody>
                           </table>
                         </div>
                       </div>
                     </div>
                   </div>
+                  <a target="_blank" href="{{route('detalle.reserva.download', $hoy)}}"><i style="color: #dd4b39;" class="fa fa-file-pdf-o fa-lg"></i></a>
                   <!-- FIN MODAL HOY -->
                 </td>
               </tr>
@@ -356,7 +360,7 @@
             </tbody>
             <tfoot class="">
               <tr>
-                <th colspan="5" style="font-weight: bold; font-size: 20px">Monto total</th>
+                <th colspan="6" style="font-weight: bold; font-size: 20px">Monto total</th>
                 <td colspan="0" style="font-weight: bold; font-size: 18px; color: #2aa65a;">$
                   {{number_format($totalReservasDia, 0, ',', '.' )}} </td>
               </tr>

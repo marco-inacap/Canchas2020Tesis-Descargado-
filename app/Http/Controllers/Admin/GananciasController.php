@@ -32,7 +32,6 @@ class GananciasController extends Controller
 
             $reservas = Reserva::where('complejo_id', $complejo->id)->get();
         }
-
         return view('admin.ganancias.index', compact('complejos', 'reservas'));
     }
 

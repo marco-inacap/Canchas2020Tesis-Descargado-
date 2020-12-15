@@ -44,7 +44,7 @@
                     @else
                 </div>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a href="" class="dropdown-item"><span class="item-text">{{ Auth::user()->name }} </span></a>
+                    <a href="{{route('pages.mi_perfil',Auth::user()->id )}}" class="dropdown-item"><span class="item-text">{{ Auth::user()->name }} </span></a>
                     <div class="dropdown-items-divide-hr"></div>
                     <a href="{{route('pages.misreservas')}}" class="dropdown-item"><span class="item-text">Mis
                             reservas</span></a>

@@ -108,7 +108,7 @@
                 <td><span class="label label-danger">{{\App\reserva::STATUS_DESC[$reserva->status]}}</span></td>
                 @endif
                 <td>$ {{ number_format($reserva->total, 0, ',', '.' )}}</td>
-                <td class="text-center">
+                <td class="">
                   <a data-toggle="modal" data-target="#ModalShow{{$reserva->id}}" href=""><i class="fa fa-eye"></i></a>
                   <div class="modal fade" id="ModalShow{{$reserva->id}}" tabindex="-1"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -190,7 +190,7 @@
           </tbody>
           <tfoot class="">
             <tr>
-              <th colspan="5" style="font-weight: bold; font-size: 20px">Monto total</th>
+              <th colspan="6" style="font-weight: bold; font-size: 20px">Monto total</th>
               <td colspan="0" style="font-weight: bold; font-size: 18px; color: #2aa65a;">$
                 {{number_format($totalReservas, 0, ',', '.' )}} </td>
             </tr>

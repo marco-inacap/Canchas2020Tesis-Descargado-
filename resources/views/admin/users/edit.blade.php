@@ -34,10 +34,8 @@
                     </div>
                     @if ($user->hasRole('Dueño'))
                     <div class="form-group {{$errors->has('complejo_id') ? 'has-error':''}}">
-                        <label>Sus Complejos</label>
-                        <select multiple="multiple" name="complejos[]" class="form-control select2">   
-                            <option >
-                            Seleeciona el nombre de tu complejo </option>                    
+                        <label>Asignar complejos</label>
+                        <select multiple="multiple" name="complejos[]" class="form-control select2">                      
                             @foreach ($complejos as $complejo)
                             <option {{ collect(old('complejos',$user->complejo->pluck('id')))->contains($complejo->id) ? 'selected' : '' }} value="{{$complejo->id}}"
                                 >{{$complejo->nombre}}</option>

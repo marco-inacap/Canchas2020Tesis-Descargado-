@@ -142,6 +142,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         //nuevo metodo de reserva
         Route::get('/reservar-cancha/{cancha}', 'NuevoMetodoReserva@init')->name('newReserva.init');
+        Route::get('/mi-perfil/{user}','PagesController@mi_perfil')->name('pages.mi_perfil');
+        Route::get('/mi-perfil/editar/{user}','PagesController@mi_perfil_editar')->name('pages.mi_perfil.editar');
+        Route::put('/mi-perfil/editar/{user}','PagesController@mi_perfil_update')->name('pages.mi_perfil.update');
 });
 
 

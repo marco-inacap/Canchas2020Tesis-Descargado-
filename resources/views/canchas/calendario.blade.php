@@ -429,8 +429,8 @@
                     calendar.refetchEvents();
                         
                         Swal.fire({
-                        title: 'Agendando Reserva',
-                        html: 'Espere<b></b> segundos.',
+                        title: 'Agendando reserva...',
+                        html: 'Espere unos segundos',
                         closeOnClickOutside: false,
                         closeOnEsc: false,
                         allowOutsideClick: false,

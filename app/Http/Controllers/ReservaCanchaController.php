@@ -140,13 +140,13 @@ class ReservaCanchaController extends Controller
         $reserva_inicial = Reserva::where('fecha', $fecha)
             ->where('cancha_id', $cancha)
             ->where('status', 13)
-            ->where('hora_inicio', '<=', $horaInicial)
-            ->where('hora_fin', '>=', $horaFinal)
+            ->where('hora_inicio', '=', $horaInicial)
+            ->where('hora_fin', '=', $horaFinal)
             ->count();
         if ($reserva_inicial > 0) {
             $reserva = true;
         }
-
+/* 
         $reserva_final = Reserva::where('fecha', $fecha)
             ->where('cancha_id', $cancha)
             ->where('status', 13)
@@ -164,7 +164,7 @@ class ReservaCanchaController extends Controller
             ->count();
         if ($reserva_inicial_final > 0) {
             $reserva = true;
-        }
+        } */
 
         return $reserva;
 
