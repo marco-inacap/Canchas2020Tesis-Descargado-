@@ -119,6 +119,7 @@
   </li>
   @endcan
 
+  @can('View Complejo')
   <li class="treeview {{request()->is('admin/ganancias*') ? 'active' : ''}}">
     <a href="#"><i class="fa fa-line-chart"></i> <span>Ganancias</span>
       <span class="pull-right-container">
@@ -130,6 +131,9 @@
             class="fa fa-bar-chart-o"></i>Lista</a></li>
     </ul>
   </li>
+  @endcan
+
+  @can('View Complejo')  
   <li class="treeview {{request()->is('admin/filros/reservas/download-pdf*') ? 'active' : ''}}">
     <a href="#"><i class="fa fa-file-pdf-o"></i> <span>PDF</span>
       <span class="pull-right-container">
@@ -141,6 +145,9 @@
             class="fa fa-download"></i>Filtros</a></li>
     </ul>
   </li>
+  @endcan
+
+  @can('View Complejo')
   <li class="treeview {{request()->is('admin/reporte-graficos/complejos*') ? 'active' : ''}}">
     <a href="#"><i class="fa fa-pie-chart"></i> <span>Gráficos</span>
       <span class="pull-right-container">
@@ -155,4 +162,5 @@
       </li>
     </ul>
   </li>
+  @endcan
 </ul>
