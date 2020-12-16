@@ -27,7 +27,7 @@
     <link href="/new/css/fontawesome-all.css" rel="stylesheet">
     <link href="/new/css/swiper.css" rel="stylesheet">
     <link href="/new/css/magnific-popup.css" rel="stylesheet">
-    <link href="/new/css/styles.css" rel="stylesheet">
+    <link href="/new/css/styles-2.css" rel="stylesheet">
     <script>
         window.callbellSettings = {
           token: "4yWWhp6vbrcgSWrH7Zpb4bCa"
