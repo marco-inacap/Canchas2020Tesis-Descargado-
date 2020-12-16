@@ -21,12 +21,15 @@ class CanchaController extends Controller
         $user = Auth()->user();
 
         if ($user->hasRole('Admin')) {
-            
             $canchas = Cancha::all();
-        }else{
-            $canchas = Cancha::where('user_id', auth()->id())->orderBy('id', 'desc')->get();
+        } else {
+            $complejos = $user->complejo()->get();
+            $ids = $complejos->pluck('id');
+            $canchas = Cancha::whereIn('complejo_id', $ids)->get();
+            
+            /* $canchas = Cancha::where('user_id', auth()->id())->orderBy('id', 'desc')->get(); */
             /* $canchas = auth()->user()->canchas; */
-    
+
             /* $canchas = Cancha::allowed()->get();  */
         }
 
