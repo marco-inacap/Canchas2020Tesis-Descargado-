@@ -41,7 +41,7 @@ class ComplejoController extends Controller
             'nombre' => 'required|string|max:30|unique:complejos',
             'imagen' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
             'ubicacion' => 'required|string|max:255',
-            'telefono' => 'required|min:8|max:13|unique:complejos',
+            'telefono' => 'required|min:9|max:9|unique:complejos',
             'latitude' => 'nullable',
             'longitude' => 'nullable',
         ]);
