@@ -26,7 +26,7 @@
                 </div>
             </div> <!-- end of col -->
 
-            <div class="col-lg-6">
+            {{-- <div class="col-lg-6">
                 <!-- id="callMeForm" formulario-->
                 <form method="POST" action="{{route('llamanos.email')}}" data-toggle="validator"> 
                     {{ csrf_field() }}
@@ -59,21 +59,49 @@
                     </div>
                 </form>
                 <!-- end of call me form -->
-            </div> <!-- end of col -->
+            </div> <!-- end of col --> --}}
+
+            <div class="col-md-6">
+                <form method="POST" action="{{route('llamanos.email')}}" data-toggle="validator" data-focus="false">
+                    @csrf
+                    <div class="form-group">
+                        <input type="text" class="form-control-input" id="lname" name="nombre" required>
+                        <label class="label-control" for="lname">Nombre completo</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control-input" id="lphone" name="n_telefono" required>
+                        <label class="label-control" for="lphone">Nº de contacto</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control-input" id="lemail" name="email" required>
+                        <label class="label-control" for="lemail">Correo electronico</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control-select" name="select" id="lselect" required>
+                            <option class="select-option" value="" selected>Seleccione una opción</option>
+                            <option class="select-option" value="Reunion">Quiero conocer más detalles de ustedes</option>
+                            <option class="select-option" value="Administrar Complejos">Quiero administrar mis complejos
+                            </option>
+                        </select>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <button   class="form-control-submit-button">ENVIAR</button>
+                    </div>
+                    <div class="form-message">
+                        <div id="lmsgSubmit" class="h3 text-center hidden"></div>
+                    </div>
+                </form>
+            </div>
+
+
+
+
         </div> <!-- end of row -->
     </div> <!-- end of container -->
 </div> <!-- end of form-1 -->
 <!-- end of call me -->
 
-@push('scripts')
-
-<script>
-    $('#btnEnviar').click(function(){
-        this.form.submit();
-        this.disabled=true;
-        this.innerHTML='<i class="fa fa-spinner fa-spin"></i> Enviando...';
-    });
-    
-</script>
-
-@endpush
