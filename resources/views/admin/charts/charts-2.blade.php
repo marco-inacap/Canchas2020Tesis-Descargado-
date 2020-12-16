@@ -4,7 +4,6 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#grafico-1" data-toggle="tab">Gráfico 1</a></li>
-                    <li><a href="#grafico-2" data-toggle="tab">Gráfico 2</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="grafico-1">
@@ -28,9 +27,6 @@
                         </div>
                         <canvas id="myChart" class="chartjs" width="1000" height="385"
                             style="display: block; width: 770px; height: 385px;"></canvas>
-                    </div>
-                    
-                    <div class="tab-pane" id="grafico-2">
                     </div>
                 </div>
             </div>
