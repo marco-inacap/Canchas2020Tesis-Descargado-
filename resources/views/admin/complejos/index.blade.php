@@ -35,7 +35,7 @@
                         <b>Ubicación</b> <a class="pull-right">{{$complejo->ubicacion}}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>Nº Contacto</b> <a class="pull-right">{{$complejo->telefono}}</a>
+                        <b>Nº Contacto</b> <a class="pull-right">+56 {{$complejo->telefono}}</a>
                     </li>
                     <li class="list-group-item">
                         <b>Nº de canchas </b> <a class="pull-right">{{count($complejo->canchas)}}</a>

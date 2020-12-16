@@ -20,24 +20,39 @@
                     </div>
                     <div class="form-group {{$errors->has('imagen') ? 'has-error':''}}">
                         <label for="imagen">Seleecione una imágen:</label>
-                        <input type="file" name="imagen" class="form-control" value="{{old('imagen',$complejo->url_imagen)}}">
+                        <input type="file" name="imagen" class="form-control"
+                            value="{{old('imagen',$complejo->url_imagen)}}">
                         {!!$errors->first('imagen','<span class="help-block">:message</span>')!!}
                     </div>
                     <div class="form-group {{$errors->has('ubicacion') ? 'has-error':''}}">
                         <label for="ubicacion">Ubicación:</label>
                         <div class="input-group">
-                        <input type="text" id="ubicacion" name="ubicacion" placeholder="Peldehue 1847, Osorno" class="form-control" value="{{old('ubicacion',$complejo->ubicacion)}}">
+                            <input type="text" id="ubicacion" name="ubicacion" placeholder="Peldehue 1847, Osorno"
+                                class="form-control" value="{{old('ubicacion',$complejo->ubicacion)}}">
                             <span class="input-group-btn">
-                                <a type="submit" id="buscar" onclick="copy_address()" class="btn btn-flat"><i class="fa fa-search"></i></a>
+                                <a type="submit" id="buscar" onclick="copy_address()" class="btn btn-flat"><i
+                                        class="fa fa-search"></i></a>
                             </span>
                         </div>
                         {!!$errors->first('ubicacion','<span class="help-block">:message</span>')!!}
                     </div>
+                    {{-- <div class="form-group {{$errors->has('telefono') ? 'has-error':''}}">
+                        <label for="telefono">Nº de contacto:</label>
+                        <input type="number" name="telefono" class="form-control" value="{{old('telefono',$complejo->telefono)}}">
+                        {!!$errors->first('telefono','<span class="help-block">:message</span>')!!}
+                    </div> --}}
                     <div class="form-group {{$errors->has('telefono') ? 'has-error':''}}">
                         <label for="telefono">Nº de contacto:</label>
-                        <input type="text" name="telefono" class="form-control"
-                            value="{{old('telefono',$complejo->telefono)}}">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                +56
+                            </div>
+                            {{-- <input type="number" name="telefono" class="form-control" placeholder="963732409"  value="{{old('telefono',$complejo->telefono)}}"  maxlength="9" > --}}
+                            <input type="number" maxlength="9" name="telefono" class="form-control" placeholder="963732409" value="{{old('telefono',$complejo->telefono)}}" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                        </div>
+                        <i>(Máximo 9 dígitos)</i>
                         {!!$errors->first('telefono','<span class="help-block">:message</span>')!!}
+                        <!-- /.input group -->
                     </div>
                     <button class="btn btn-primary btn-block">Actualizar</button>
             </div>
@@ -64,7 +79,7 @@
                             {!!$errors->first('longitude','<span class="help-block">:message</span>')!!}
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
         </div>
         <div class="box box-warning">
@@ -76,7 +91,7 @@
             </div>
         </div>
     </div>
-</form>
+    </form>
 </div>
 @endsection
 
@@ -94,14 +109,14 @@
 @endpush
 
 @push('scripts')
-<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
 <script src="/adminlte/js/Control.OSMGeocoder.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-    <script>
-
-        
-        var mapCenter = [{{ $complejo->latitude }}, {{ $complejo->longitude }}];
+<script>
+    var mapCenter = [{{ $complejo->latitude }}, {{ $complejo->longitude }}];
         var mapid = L.map('mapid').setView(mapCenter, 15);
 
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -116,7 +131,7 @@
 
         var marker = L.marker(mapCenter).addTo(mapid);
 
-        marker.bindPopup("<b>{{$complejo->nombre}}</b><br>{{$complejo->telefono}}.").openPopup();
+        marker.bindPopup("<b>{{$complejo->nombre}}</b><br>+56 {{$complejo->telefono}}.").openPopup();
 
 
         function updateMarker(lat, lng) {
@@ -151,6 +166,6 @@
     document.getElementById("ir").click();
 }
 
-    </script>
+</script>
 
 @endpush

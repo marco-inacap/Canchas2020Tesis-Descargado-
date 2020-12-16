@@ -14,7 +14,6 @@ use Auth;
 class CanchaController extends Controller
 {
 
-
     public function index()
     {
         $this->authorize('view', new Cancha);

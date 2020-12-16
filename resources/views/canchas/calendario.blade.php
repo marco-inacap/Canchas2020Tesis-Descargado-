@@ -171,7 +171,7 @@
                     @csrf
                     <div class="form-group">
                         <label>Fecha.</label>
-                        <input id="txtFecha" name="txtFecha" type="date" class="form-control" value="">
+                        <input id="txtFecha" name="txtFecha" type="date" class="form-control" value="" >
                     </div>
 
                     <div class="form-group">
@@ -459,6 +459,7 @@
                             console.log('I was closed by the timer')
                         }
                         })  
+                        alert("reserva ok");
                         pagar(); 
                 }else{
                         Swal.fire({
@@ -468,6 +469,7 @@
                             footer: '<a href>Selecciona otra fecha u hora</a>',
                             closeOnEsc: true,            
                             })
+                            alert("se encuentra reservada");
                 }       
             })
         }

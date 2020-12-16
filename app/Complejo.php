@@ -95,9 +95,9 @@ class Complejo extends Model
     public function getMapPopupContentAttribute()
     {
         $mapPopupContent = '';
-        $mapPopupContent .= '<img class"profile-user-img img-responsive" style="width:290px; height:290px;" src=" '.url($this->url_imagen).' " alt="">';
-        $mapPopupContent .= '<div class="my-2">'.$this->name_link.'</div>';
-        $mapPopupContent .= '<div class="my-2"><strong>'.__($this->telefono).'</strong><br>'.'</div>';
+        $mapPopupContent .= '<img class"profile-user-img img-responsive" style="width:250px; height:250px;" src=" '.url($this->url_imagen).' " alt="">';
+        $mapPopupContent .= '<div class="my-2 text-center">'.$this->name_link.'</div>';
+        $mapPopupContent .= '<div class="my-2 text-center"><strong>'.'+56 '.__($this->telefono).'</strong><br>'.'</div>';
 
         return $mapPopupContent;
     }

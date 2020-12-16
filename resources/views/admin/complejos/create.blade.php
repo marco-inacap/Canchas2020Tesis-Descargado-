@@ -33,10 +33,25 @@
                         </div>
                         {!!$errors->first('ubicacion','<span class="help-block">:message</span>')!!}
                     </div>
-                    <div class="form-group {{$errors->has('telefono') ? 'has-error':''}}">
+{{--                     <div class="form-group {{$errors->has('telefono') ? 'has-error':''}}">
                         <label for="telefono">Nº de contacto:</label>
                         <input type="text" name="telefono" class="form-control" value="{{old('telefono')}}" placeholder="+569 63732409">
                         {!!$errors->first('telefono','<span class="help-block">:message</span>')!!}
+                    </div> --}}
+
+
+                    <div class="form-group {{$errors->has('telefono') ? 'has-error':''}}">
+                        <label for="telefono">Nº de contacto:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                +56
+                            </div>
+                            {{-- <input type="number" name="telefono" class="form-control" placeholder="963732409"  value="{{old('telefono',$complejo->telefono)}}"  maxlength="9" > --}}
+                            <input type="number" maxlength="9" name="telefono" class="form-control" placeholder="963732409" value="{{old('telefono')}}" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                        </div>
+                        <i>(Máximo 9 dígitos)</i>
+                        {!!$errors->first('telefono','<span class="help-block">:message</span>')!!}
+                        <!-- /.input group -->
                     </div>
                     <button class="btn btn-primary btn-block">Crear complejo</button>
             </div>

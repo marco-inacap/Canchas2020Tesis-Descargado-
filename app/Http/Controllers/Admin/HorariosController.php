@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Cancha;
 use App\Complejo;
 use App\Horario;
+use App\Reserva;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
@@ -83,10 +84,19 @@ class HorariosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function validarHorario(Request $request)
+    {
+        
+        
+    }
+
+
     public function store(Request $request)
     {
         $this->authorize('create', new Horario);
 
+        
         $this->validate($request, [
             'complejo_id' => 'required',
             'cancha_id' => 'required',
@@ -95,9 +105,19 @@ class HorariosController extends Controller
             'hora_apertura' => 'required',
         ]);
 
-        $horario = Horario::create($request->all());
+        $reserva = Reserva::where('cancha_id', $request->cancha_id)
+        ->where('fecha',$request->fecha)
+        ->where('hora_inicio','>=' ,$request->hora_cierre)
+        ->where('hora_fin','<=',$request->hora_apertura)
+        ->where('status', 13)
+        ->count();
 
-        return redirect()->route('admin.horarios.create')->with('flash', 'El horario se ha agregado');
+        if ($reserva > 0) {
+            return redirect()->route('admin.horarios.create')->with('alert', 'No fue posible agregar el horario ya que existen reservas en el rango de fecha y hora seleccinado');   
+        }else{
+            $horario = Horario::create($request->all());
+            return redirect()->route('admin.horarios.create')->with('flash', 'El horario se ha agregado');
+        }
     }
 
     /**

@@ -37,6 +37,7 @@
                                     <div class="card-body">
                                         <div class="testimonial-text">{{$complejo->ubicacion}}</div>
                                         <div class="testimonial-author">{{$complejo->nombre}}</div>
+                                        <div class="testimonial-text">+56 {{$complejo->telefono}}</div>
                                     </div>
                                 </div>        
                             </div>  

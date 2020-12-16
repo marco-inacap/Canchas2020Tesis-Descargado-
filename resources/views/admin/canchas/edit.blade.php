@@ -55,79 +55,89 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="form-group {{$errors->has('precio') ? 'has-error':''}}">
-                        <label>Precio de la Cancha </label>
+                    {{-- <div class="form-group {{$errors->has('precio') ? 'has-error':''}}">
+                    <label>Precio de la Cancha </label>
+                    <input name="precio" type="number" class="form-control"
+                        placeholder="Ingresa aquí el precio de la Cancha" value="{{old('precio',$cancha->precio)}}">
+                    {!!$errors->first('precio','<span class="help-block">:message</span>')!!}
+                </div> --}}
+
+                <div class="form-group {{$errors->has('precio') ? 'has-error':''}}">
+                    <label>Precio de la Cancha (Sin punto)</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
                         <input name="precio" type="number" class="form-control"
                             placeholder="Ingresa aquí el precio de la Cancha" value="{{old('precio',$cancha->precio)}}">
-                        {!!$errors->first('precio','<span class="help-block">:message</span>')!!}
                     </div>
+                    {!!$errors->first('precio','<span class="help-block">:message</span>')!!}
                 </div>
-                <div class="box-body">
-                    <div class="form-group">
-                        <label>Descripción de la Cancha </label>
-                        <textarea id="editor" name="descripcion" class="form-control"
-                            placeholder="Ingresa aquí alguna descripción de la Cancha">{{old('descripcion',$cancha->descripcion)}}</textarea>
-                    </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label>Descripción de la Cancha </label>
+                    <textarea id="editor" name="descripcion" class="form-control"
+                        placeholder="Ingresa aquí alguna descripción de la Cancha">{{old('descripcion',$cancha->descripcion)}}</textarea>
                 </div>
-                <div class="box-body">
-                    <div class="form-group {{$errors->has('iframe') ? 'has-error':''}}">
-                        <label>Ingresa un link de Youtube</label>
-                        <input name="iframe" type="text" class="form-control" placeholder='width="500%" height="400"'
-                            value="{{old('iframe', $cancha->iframe)}}">
-                        {!!$errors->first('iframe','<span class="help-block">:message</span>')!!}
-                    </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group {{$errors->has('iframe') ? 'has-error':''}}">
+                    <label>Ingresa un link de Youtube</label>
+                    <input name="iframe" type="text" class="form-control" placeholder='width="500%" height="400"'
+                        value="{{old('iframe', $cancha->iframe)}}">
+                    {!!$errors->first('iframe','<span class="help-block">:message</span>')!!}
                 </div>
             </div>
         </div>
-        <!-- segunda -->
-        <div class="col-md-6">
-            <div class="box box-primary">
-                <div class="box-body">
-                    <div class="form-group {{$errors->has('complejo_id') ? 'has-error':''}}">
-                        <label>Complejo</label>
-                        <select name="complejo_id" class="form-control select2">
-                            <option value="">
-                                Seleeciona un Complejo </option>
-                            @foreach ($complejos as $complejo)
-                            <option value="{{$complejo->id}}"
-                                {{old('complejo_id',$cancha->complejo_id) == $complejo->id ? 'selected' : ''}}>
-                                {{$complejo->nombre}}</option>
-                            @endforeach
-                        </select>
-                        {!!$errors->first('complejo_id','<span class="help-block">:message</span>')!!}
-                    </div>
-                    <div class="form-group {{$errors->has('estado_id') ? 'has-error':''}}">
-                        <label>Estado</label>
-                        <select name="estado_id" class="form-control select2">
-                            <option value="">
-                                Seleeciona un Estado </option>
-                            @foreach ($estados as $estado)
-                            <option value="{{$estado->id}}"
-                                {{old('estado_id',$cancha->estado_id) == $estado->id ? 'selected' : ''}}>
-                                {{$estado->nombre}}</option>
-                            @endforeach
-                        </select>
-                        {!!$errors->first('estado_id','<span class="help-block">:message</span>')!!}
-                    </div>
+</div>
+<!-- segunda -->
+<div class="col-md-6">
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="form-group {{$errors->has('complejo_id') ? 'has-error':''}}">
+                <label>Complejo</label>
+                <select name="complejo_id" class="form-control select2">
+                    <option value="">
+                        Seleeciona un Complejo </option>
+                    @foreach ($complejos as $complejo)
+                    <option value="{{$complejo->id}}"
+                        {{old('complejo_id',$cancha->complejo_id) == $complejo->id ? 'selected' : ''}}>
+                        {{$complejo->nombre}}</option>
+                    @endforeach
+                </select>
+                {!!$errors->first('complejo_id','<span class="help-block">:message</span>')!!}
+            </div>
+            <div class="form-group {{$errors->has('estado_id') ? 'has-error':''}}">
+                <label>Estado</label>
+                <select name="estado_id" class="form-control select2">
+                    <option value="">
+                        Seleeciona un Estado </option>
+                    @foreach ($estados as $estado)
+                    <option value="{{$estado->id}}"
+                        {{old('estado_id',$cancha->estado_id) == $estado->id ? 'selected' : ''}}>
+                        {{$estado->nombre}}</option>
+                    @endforeach
+                </select>
+                {!!$errors->first('estado_id','<span class="help-block">:message</span>')!!}
+            </div>
 
-                    <div class="form-group">
-                        <p>Por favor selecciona un color, para que se identifique en el calendario de reservas.</p>
-                        <i>(No colores tan fuertes)</i>
+            <div class="form-group">
+                <p>Por favor selecciona un color, para que se identifique en el calendario de reservas.</p>
+                <i>(No colores tan fuertes)</i>
 
-                        <input type="color" name="color" class="center-block" value="{{old('color',$cancha->color)}}">
-                    </div>
+                <input type="color" name="color" class="center-block" value="{{old('color',$cancha->color)}}">
+            </div>
 
-                    <div class="dropzone">
-                    </div>
+            <div class="dropzone">
+            </div>
 
 
-                    <div class="form-group">
-                        <button id="guardar" name="guardar" class="btn btn-primary btn-block">Guardar Cancha</button>
-                    </div>
-                </div>
+            <div class="form-group">
+                <button id="guardar" name="guardar" class="btn btn-primary btn-block">Guardar Cancha</button>
             </div>
         </div>
-    </form>
+    </div>
+</div>
+</form>
 
 </div>
 @push('styles')

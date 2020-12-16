@@ -24,7 +24,7 @@
             src="{{ url($complejo->url_imagen) }}" onerror="this.src='/img/logo.png';">
         </div>
         <h3 class="widget-user-username">{{$complejo->nombre}}</h3>
-        <h5 class="widget-user-desc">Contacto: {{$complejo->telefono}}</h5>
+        <h5 class="widget-user-desc">Contacto: +56 {{$complejo->telefono}}</h5>
       </div>
       <div class="box-footer no-padding">
         <ul class="nav nav-stacked">

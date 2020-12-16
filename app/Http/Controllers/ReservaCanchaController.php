@@ -146,6 +146,7 @@ class ReservaCanchaController extends Controller
         if ($reserva_inicial > 0) {
             $reserva = true;
         }
+        return $reserva;
 /* 
         $reserva_final = Reserva::where('fecha', $fecha)
             ->where('cancha_id', $cancha)
@@ -164,7 +165,7 @@ class ReservaCanchaController extends Controller
             ->count();
         if ($reserva_inicial_final > 0) {
             $reserva = true;
-        } */
+        } 
 
         return $reserva;
 
