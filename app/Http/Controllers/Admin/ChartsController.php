@@ -52,6 +52,8 @@ class ChartsController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('view', new Complejo);
+
         $user = Auth()->user();
 
         if ($user->hasRole('Admin')) {
@@ -100,6 +102,8 @@ class ChartsController extends Controller
 
     public function index_2(Request $request)
     {
+        $this->authorize('view', new Complejo);
+        
         $user = Auth()->user();
 
         if ($user->hasRole('Admin')) {

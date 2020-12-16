@@ -17,9 +17,10 @@ class GananciasController extends Controller
 {
 
     public function index()
-    {
-        $user = Auth()->user();
+    {   
+        $this->authorize('view', new Complejo);
 
+        $user = Auth()->user();
         if ($user->hasRole('Admin')) {
             $complejos = Complejo::all();
         } else {
@@ -28,26 +29,27 @@ class GananciasController extends Controller
         }
         /* $id = $complejos->pluck('id'); */
 
-        foreach ($complejos as $complejo) {
 
-            $reservas = Reserva::where('complejo_id', $complejo->id)->get();
-        }
-        return view('admin.ganancias.index', compact('complejos', 'reservas'));
+        return view('admin.ganancias.index', compact('complejos'));
     }
 
     public function ganancias_canchas(Complejo $complejo)
     {
+        $this->authorize('view', new Complejo);
+
         if ($complejo->canchas->count() > 0) {
             $canchas = $complejo->canchas()->get();
         } else {
             return redirect()->route('admin.ganancias.index')->with('alert', 'El complejo aún no tiene canchas');
         }
-
         return view('admin.ganancias.canchas', compact('canchas', 'complejo'));
+
     }
 
     public function lista_reservas(Cancha $cancha, Request $request)
     {
+
+        $this->authorize('view', new Complejo);
         /* $reservas = Reserva::where('cancha_id', $cancha->id)->get();   */
 
         //procedimiento almacenado
@@ -174,6 +176,7 @@ class GananciasController extends Controller
 
     public function detalle_complejo(Complejo $complejo, Request $request)
     {
+        $this->authorize('view', new Complejo);
         /* if ($complejo->canchas->count() > 0) {
 
             $reservas = Reserva::where('complejo_id', $complejo->id)->orderby('created_at', 'DESC')->get();

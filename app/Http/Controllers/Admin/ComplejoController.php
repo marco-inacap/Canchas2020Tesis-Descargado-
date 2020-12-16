@@ -16,7 +16,7 @@ class ComplejoController extends Controller
         $this->authorize('view', new Complejo);
 
         $user = Auth()->user();
-        
+
         if ($user->hasRole('Admin')) {
             $complejos = Complejo::all();
         } else {
@@ -31,7 +31,7 @@ class ComplejoController extends Controller
     {
         $this->authorize('create', $complejo = new Complejo);
 
-        return view('admin.complejos.create',compact('complejo'));
+        return view('admin.complejos.create', compact('complejo'));
     }
     public function store(Request $request)
     {
@@ -62,37 +62,52 @@ class ComplejoController extends Controller
     public function edit(Complejo $complejo)
     {
         $this->authorize('update', $complejo);
-
         return view('admin.complejos.edit', compact('complejo'));
+        /* $user = Auth()->user();
+        $complejos = $user->complejo()->get();
+        $ids = $complejos->pluck('id');
+
+        if ($user->hasRole('Admin')) {
+            return view('admin.complejos.edit', compact('complejo'));
+        }
+
+        foreach ($ids as $id) {
+            if ($complejo->id === $id) {
+                return view('admin.complejos.edit', compact('complejo'));
+            } else {
+                abort(403);
+            }
+        } */
+
     }
     public function update(StoreComplejoRequest $request, Complejo $complejo)
     {
-        $this->authorize('update', $complejo); 
+        $this->authorize('update', $complejo);
 
 
         if ($request->hasFile('imagen')) {
-            
+
             $img = $request->file('imagen');
 
             $oldFileName = $complejo->url_imagen;
-            Storage::delete($oldFileName); 
+            Storage::delete($oldFileName);
 
-            $oldFileName = str_replace('storage/' , '' , $oldFileName);
+            $oldFileName = str_replace('storage/', '', $oldFileName);
             Storage::disk('public')->delete($oldFileName);
-            
-            $complejo->update([$request->validated(),
-            'url_imagen' => 'storage/'.$img->store('complejos','public')
-        ]);
 
+            $complejo->update([
+                $request->validated(),
+                'url_imagen' => 'storage/' . $img->store('complejos', 'public')
+            ]);
         }
         $complejo->update($request->validated());
-        
+
 
         return redirect()->route('admin.complejo.edit', $complejo)->with('flash', 'El Complejo ha sido actualizado');
     }
     public function destroy(Complejo $complejo)
     {
-        $this->authorize('delete', $complejo); 
+        $this->authorize('delete', $complejo);
 
         $complejo->delete();
 

@@ -14,7 +14,7 @@ class PDFReservasController extends Controller
 
     public function vista_Filtros()
     {
-
+        $this->authorize('view', new Complejo);
         $user = Auth()->user();
 
         if ($user->hasRole('Admin')) {
@@ -29,6 +29,8 @@ class PDFReservasController extends Controller
 
     public function export_pdf(Request $request)
     {
+        $this->authorize('view', new Complejo);
+
         $complejo_req = $request->complejo_id;
         $cancha_req = $request->cancha_id;
         $fecha_inicio = $request->fecha_inicio;
@@ -70,6 +72,8 @@ class PDFReservasController extends Controller
 
     public function export_pdf_complejo(Request $request)
     {
+        $this->authorize('view', new Complejo);
+
         $complejo_req = $request->complejo_id;
         $fecha_inicio = $request->fecha_inicio;
         $fecha_fin = $request->fecha_fin;
