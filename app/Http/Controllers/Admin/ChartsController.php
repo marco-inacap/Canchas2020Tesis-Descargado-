@@ -162,12 +162,13 @@ class ChartsController extends Controller
         $meses = $this->arrayMeses();
         $ingresoTotal = 0;
         $gananciaTotal = 0;
+        $ids = $complejos->pluck('id');
         
         foreach ($meses as $key => $value) {
-            foreach ($complejos as $complejo) {
+            
             $reservas = Reserva::whereYear('created_at', '=', $request->year)
                 ->whereMonth('created_at', '=', $key)
-                ->where('complejo_id', $complejo->id)
+                ->whereIn('complejo_id', $ids)
                 ->where('status', '=', 13)
                 ->get();
                 $ingreso = 0;
@@ -177,11 +178,11 @@ class ChartsController extends Controller
                     $ingresoTotal += $reserva->total;
                     $gananciaTotal += $reserva->total;
                 }
-            }
+            
                 $mes = array(
                     'Mes' => $value,
                     'Ingresos' => $ingreso,
-                    'Complejo' => $complejo->nombre,
+                    'Complejo' => $complejos->pluck('nombre'),
                 );
                 array_push($datos, $mes);
         }
