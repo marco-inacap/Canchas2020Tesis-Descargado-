@@ -18,4 +18,7 @@
  ```
  Chart.js para la visualización de graficos interactivos/parametros
  ```
+  ```
+  Leaflet para la geolocalización en mapas
+  ```
  
